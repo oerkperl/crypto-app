@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { ProgressBar } from "@/app/utilities/components";
+import { Wrapper, Item } from "./styled";
 
 const marketDataExample = {
   active_coins: 7888,
@@ -19,23 +19,6 @@ const {
   market_cap_change_percentage,
   market_cap_percentage,
 } = marketDataExample;
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #888;
-  border-bottom: 1px solid #888;
-  padding: 0.5rem 0;
-  color: #777;
-`;
-
-const Item = styled.div`
-  display: flex;
-  //justify-content: space-between;
-  align-items: center;
-  gap: 0.25rem;
-`;
 
 export const MarketData = () => {
   return (

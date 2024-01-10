@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Section } from "../../globalStyled/styled";
-import { ChartCard } from "../../charts/Graphs";
+import { ChartCard } from "../../../utilities/charts/Graphs";
 import { TChartLables } from "@/app/utilities/types";
 import { Row, Col } from "../../globalStyled/styled";
 import { Coins } from "./Coins";

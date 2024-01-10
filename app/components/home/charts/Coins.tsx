@@ -12,7 +12,6 @@ const conisExample = [
   "Wrapper Bitcoin (WBTC)",
   "Litcoin (LTC)",
 ];
-
 const Ul = styled.ul`
   display: flex;
   flex-direction: column;
@@ -34,13 +33,7 @@ export const Coins = () => {
     <Ul>
       {conisExample.map((coin) => (
         <button>
-          <Li
-            className="hover:bg-indigo-600 hover:text-white
-          
-          "
-          >
-            {coin}
-          </Li>
+          <Li className="hover:bg-indigo-600 hover:text-white">{coin}</Li>
         </button>
       ))}
     </Ul>

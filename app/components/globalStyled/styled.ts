@@ -6,7 +6,7 @@ margin:0 auto;
 padding:0 .5rem;
 
 `
-export const Section = styled.section<{$margin:string}>`
+export const Section = styled.section<{$margin?:string|null}>`
 width:100%;
 margin:${props => props.$margin};
 padding:0 .5rem;
@@ -16,7 +16,7 @@ export const Row = styled.div`
  display:flex
 `
 
-export const Col = styled.div<{$width:string}>`
+export const Col = styled.div<{$width?:string}>`
   box-sizing: border-box;
   min-height: 20px;
   width: ${(props) => props.$width};
