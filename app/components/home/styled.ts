@@ -20,9 +20,6 @@ export const NavFrom = styled.div`
   display: flex; 
   gap: 0.5rem;
   margin-left: auto;
-  @media (max-width:1024px){
-    margin:1rem 0 0 0;
-  }
 `;
 
 export const NavBtn = styled.span`
@@ -44,29 +41,17 @@ export const CurrencyIcon = styled.span`
   padding: 0.2rem;
 `;
 
-export const SwitchButton = styled.button`
-  width: 150px;
-  height: 30px;
-  border-radius: 5px;
-  &:hover {
-    color: orange;
-  }
-`;
-
 export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #888;
-  border-bottom: 1px solid #888;
   padding: 0.5rem 0;
-  color: #777;
-  
+  color: #999;
 `;
 
 export const Item = styled.div`
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  
+  font-size:14px;  
 `;

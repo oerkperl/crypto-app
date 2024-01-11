@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Section } from "../../globalStyled/styled";
-import { ChartCard } from "../../../utilities/charts/Graphs";
+import { ChartCard } from "./ChartCard";
 import { TChartLables } from "@/app/utilities/types";
 import { Row, Col } from "../../globalStyled/styled";
-import { Coins } from "./Coins";
+import { ChartCoins } from "./ChartCoins";
 
 type DataEntry = [number, number];
 const priceLabels: TChartLables = {
@@ -33,7 +33,7 @@ const TimePeriodButtons = () => {
             period === selectedPeriod
               ? "bg-indigo-600 text-white"
               : "text-gray-500"
-          } py-1 px-4 rounded hover:text-yellow-600`}
+          } py-1 px-4 rounded hover:text-white`}
         >
           {period}
         </button>
@@ -76,7 +76,7 @@ export const Charts: React.FC = () => {
         </div>
         <Row>
           <Col $width="30%" className=" mr-4">
-            <Coins />
+            <ChartCoins />
           </Col>
           <Col $width="70%" className="">
             <div className="">

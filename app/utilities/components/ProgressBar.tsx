@@ -1,7 +1,7 @@
 import styled from "styled-components";
 const Container = styled.div<{ width: string | null }>`
   width: ${(props) => props.width}px;
-  background-color: #f0f0f0;
+  background-color: #fff;
   border-radius: 4px;
   overflow: hidden;
 `;

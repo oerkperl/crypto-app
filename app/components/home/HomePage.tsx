@@ -1,14 +1,21 @@
 "use client";
-import { Navabr } from "./navigation/Navabr";
+import { Navabr } from "./Navbar";
 import { Charts } from "./charts/Charts";
-import { Coins } from "./charts/Coins";
-import { Main, Row, Col, Section } from "../globalStyled/styled";
+import { Main } from "../globalStyled/styled";
+import { CoinsList } from "./coins/CoinsList";
+import { MarketData } from "./MarketData";
+import { Section } from "../globalStyled/styled";
+
 export const HomePage = () => {
   return (
     <>
       <Main>
+        <Section>
+          <MarketData />
+        </Section>
         <Navabr />
         <Charts />
+        <CoinsList />
       </Main>
     </>
   );

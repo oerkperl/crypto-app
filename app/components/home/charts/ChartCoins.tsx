@@ -28,11 +28,11 @@ const Li = styled.li`
   line-height: 40px;
 `;
 
-export const Coins = () => {
+export const ChartCoins = () => {
   return (
     <Ul>
-      {conisExample.map((coin) => (
-        <button>
+      {conisExample.map((coin, index) => (
+        <button key={index}>
           <Li className="hover:bg-indigo-600 hover:text-white">{coin}</Li>
         </button>
       ))}

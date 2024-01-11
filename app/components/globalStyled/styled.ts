@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Main = styled.main`
-max-width:1000px;
+max-width:1100px;
 margin:0 auto;
 padding:0 .5rem;
 
@@ -22,3 +22,7 @@ export const Col = styled.div<{$width?:string}>`
   width: ${(props) => props.$width};
   float: left;
 `;
+
+export const HorizontalLine = styled.hr`
+color:#888
+`
