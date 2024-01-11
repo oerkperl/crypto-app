@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Section } from "../../globalStyled/styled";
 import { Wrapper, Item } from "../styled";
 

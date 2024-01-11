@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Section, Row } from "../globalStyled/styled";
-import { MarketData } from "./MarketData";
 import { Logo, NavBtn, NavFrom, Input } from "./styled";
 
 export const Navabr = () => {
