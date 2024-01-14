@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Section, Row } from "../globalStyled/styled";
-import { Logo, NavBtn, NavFrom, Input } from "./styled";
+import { Section, Row } from "../../styled";
+import { Logo, NavBtn, NavFrom, Input } from "../styled";
 
 export const Navabr = () => {
   const options = ["Coins", "Portfolio"];
@@ -20,8 +20,8 @@ export const Navabr = () => {
                   className={`${
                     option === selectedOption
                       ? "bg-indigo-600 text-white"
-                      : "text-gray-500"
-                  } py-1 px-6 rounded hover:text-white`}
+                      : "text-gray-400"
+                  } py-1 px-8 rounded hover:text-white`}
                 >
                   {option}
                 </button>

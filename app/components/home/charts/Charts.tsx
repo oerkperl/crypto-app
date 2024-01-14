@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Section } from "../../globalStyled/styled";
+import { Section } from "../../styled";
 import { ChartCard } from "./ChartCard";
-import { TChartLables } from "@/app/utilities/types";
-import { Row, Col } from "../../globalStyled/styled";
+import { TChartLables } from "@/app/lib/types";
+import { Row, Col } from "../../styled";
 import { ChartCoins } from "./ChartCoins";
 
 type DataEntry = [number, number];
@@ -24,7 +24,7 @@ const timePeriods = ["1D", "7D", "14D", "1M", "1Y", "5Y"];
 const TimePeriodButtons = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("1D");
   return (
-    <div className="border border-solid border-gray-700 inline-flex p-1 mt-4 rounded-lg">
+    <div className="border border-solid border-gray-700 inline-flex p-0.5 mt-4 rounded-lg">
       {timePeriods.map((period, index) => (
         <button
           key={index}
@@ -32,7 +32,7 @@ const TimePeriodButtons = () => {
           className={`${
             period === selectedPeriod
               ? "bg-indigo-600 text-white"
-              : "text-gray-500"
+              : "text-gray-400"
           } py-1 px-4 rounded hover:text-white`}
         >
           {period}
@@ -59,6 +59,7 @@ export const Charts: React.FC = () => {
           `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?${params}`
         );
         setPriceData(data.prices);
+        console.log(data.prices);
         setVolumesData(data.total_volumes);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -84,19 +85,15 @@ export const Charts: React.FC = () => {
                 data={priceData}
                 labels={priceLabels}
                 type={"line"}
-                width={400}
                 height={100}
-                borderColor="#0CF864"
+                borderColor="#0CF264"
                 backgroundColor={[0, 0, 0, 350]}
               ></ChartCard>
               <ChartCard
                 labels={volumeLabels}
                 data={volumeData}
                 type={"bar"}
-                width={600}
                 height={100}
-                borderColor=""
-                backgroundColor={[]}
               ></ChartCard>
               <TimePeriodButtons />
             </div>

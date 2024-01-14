@@ -42,16 +42,17 @@ export const CurrencyIcon = styled.span`
 `;
 
 export const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0.5rem 0;
   color: #999;
 `;
 
 export const Item = styled.div`
-  display: flex;
-  align-items: center;
   gap: 0.25rem;
-  font-size:14px;  
+  font-size:12px;  
+  width:200px;
+  
 `;
+export const CoinItem = styled(Item)<{$width?:string}>`
+width: ${props=> props.$width ? props.$width : "100px"};
+`

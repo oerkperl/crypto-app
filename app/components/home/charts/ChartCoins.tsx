@@ -30,12 +30,14 @@ const Li = styled.li`
 
 export const ChartCoins = () => {
   return (
-    <Ul>
-      {conisExample.map((coin, index) => (
-        <button key={index}>
-          <Li className="hover:bg-indigo-600 hover:text-white">{coin}</Li>
-        </button>
-      ))}
-    </Ul>
+    <>
+      <Ul>
+        {conisExample.map((coin, index) => (
+          <button key={index}>
+            <Li className="hover:bg-indigo-600 hover:text-white">{coin}</Li>
+          </button>
+        ))}
+      </Ul>
+    </>
   );
 };

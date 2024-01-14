@@ -1,6 +1,6 @@
 import React from "react";
-import { ProgressBar } from "@/app/utilities/components/ProgressBar";
-import { Wrapper, Item } from "./styled";
+import { ProgressBar } from "@/app/lib/utils/components/ProgressBar";
+import { Wrapper, Item } from "../styled";
 
 const marketDataExample = {
   active_coins: 7888,
@@ -23,21 +23,21 @@ const {
 export const MarketData = () => {
   return (
     <>
-      <Wrapper className=" ">
+      <Wrapper className="flex justify-between text-center">
         <Item>Coins {active_coins}</Item>
         <Item>Exchange {exchange}</Item>
         <Item>{total_market_cap}</Item>
-        <Item>
+        <Item className="flex items-center">
           {tota_volume}
           <ProgressBar progress="100" width="50" />
         </Item>
-        <Item>
+        <Item className="flex items-center">
           {market_cap_change_percentage}
-          <ProgressBar progress="44%" width="50" />
+          <ProgressBar progress="44" width="50" />
         </Item>
-        <Item>
+        <Item className="flex items-center">
           {market_cap_percentage}
-          <ProgressBar progress="21%" width="50" />
+          <ProgressBar progress="21" width="50" />
         </Item>
       </Wrapper>
       <hr />

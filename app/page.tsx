@@ -1,6 +1,4 @@
-import Image from "next/image";
-import { Navabr } from "./components/home/Navbar";
-import { HomePage } from "./components/home/HomePage";
+import { HomePage } from "./pages/HomePage";
 
 export default function Home() {
   return (

@@ -1,14 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { TChartLables } from "@/app/utilities/types";
 
 type TData = {
   data: any[];
-  type: any;
-  width: number;
-  height: number;
-  backgroundColor: [number, number, number, number] | [];
-  borderColor: string;
+  type?: any;
+  width?: number;
+  height?: number;
+  backgroundColor?: [number, number, number, number] | [];
+  borderColor?: string;
 };
 
 export const Graph: React.FC<{ data: TData }> = ({ data }) => {
@@ -25,7 +24,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
   let gradientParams: any;
 
   useEffect(() => {
-    if (backgroundColor.length !== 0) {
+    if (backgroundColor && backgroundColor.length !== 0) {
       gradientParams = backgroundColor;
     }
     const canvas = chartContainerRef.current;
@@ -46,7 +45,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               label: "",
               data: chartData.map((entry) => entry[1]),
               fill: true,
-              tension: 0.5,
+              tension: 0.2,
               pointRadius: 0,
               borderColor: borderColor || "blue",
 
@@ -58,7 +57,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
                     gradientParams[2],
                     gradientParams[3]
                   );
-                  gradient.addColorStop(0, "rgba(169, 169, 169, 0.5)"); // Dark grey
+                  gradient.addColorStop(0, "rgba(169, 169, 169, 0.5)");
                   gradient.addColorStop(1, "rgba(, 0, 0, 0)");
                   return gradient;
                 } else {
@@ -106,43 +105,9 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
       <canvas
         ref={chartContainerRef}
         id="acquisitions"
-        width={width}
-        height={height}
+        width={width || 500}
+        height={height || 200}
       ></canvas>
     </div>
   );
 };
-
-// export const ChartCard: React.FC<{
-//   labels: TChartLables;
-//   data: any[];
-//   type: any;
-//   width: number;
-//   height: number;
-//   backgroundColor: [number, number, number, number] | [];
-//   borderColor: string;
-// }> = ({ labels, data, type, width, height, backgroundColor, borderColor }) => {
-//   return (
-//     <>
-//       <div className=" text-gray-400">
-//         <div>
-//           <span className="text-md">{labels.title}: </span>{" "}
-//           <span className="text-xl">{labels.price}</span>
-//         </div>
-//         <div>{labels.date}</div>
-//         <div>
-//           <Graph
-//             data={{
-//               data: data,
-//               type: type,
-//               width: width,
-//               height: height,
-//               backgroundColor: backgroundColor,
-//               borderColor: borderColor,
-//             }}
-//           ></Graph>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
