@@ -8,15 +8,13 @@ import { Section } from "../components/styled";
 
 export const HomePage = () => {
   return (
-    <>
-      <Main>
-        <Section>
-          <MarketData />
-        </Section>
-        <Navabr />
-        <Charts />
-        <CoinsList />
-      </Main>
-    </>
+    <Main>
+      <Section>
+        <MarketData />
+      </Section>
+      <Navabr />
+      <Charts />
+      <CoinsList />
+    </Main>
   );
 };

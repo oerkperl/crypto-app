@@ -34,10 +34,10 @@ export const LoadingGradient = styled.div<LoadingGradientProps>`
 export const BlinkingGradientLoader: React.FC<{
   width?: string;
   height?: string;
-}> = (props) => {
+}> = ({ width, height }) => {
   return (
     <LoadingContainer>
-      <LoadingGradient height={props.height} width={props.width} />
+      <LoadingGradient height={height} width={width} />
     </LoadingContainer>
   );
 };

@@ -17,7 +17,7 @@ export const Input = styled.input`
 `;
 
 export const NavFrom = styled.div`
-  display: flex; 
+  display: flex;
   gap: 0.5rem;
   margin-left: auto;
 `;
@@ -49,10 +49,17 @@ export const Wrapper = styled.div`
 
 export const Item = styled.div`
   gap: 0.25rem;
-  font-size:12px;  
-  width:200px;
-  
+  font-size: 12px;
+  width: 200px;
+  max-hiegth: 200px;
 `;
-export const CoinItem = styled(Item)<{$width?:string}>`
-width: ${props=> props.$width ? props.$width : "100px"};
-`
+export const CoinItem = styled(Item)<{ $width?: string }>`
+  width: ${(props) => (props.$width ? props.$width : "100px")};
+`;
+export const Dropdown = styled.select<{ $width?: string }>`
+  padding: 0.5rem;
+  border-radius: 500px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border: none;
+  width: ${(props) => props.$width};
+`;
