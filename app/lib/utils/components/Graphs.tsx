@@ -1,14 +1,35 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { TChartLables } from "@/app/utilities/types";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from "chart.js";
+import { Line, Bar } from "react-chartjs-2";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 type TData = {
   data: any[];
-  type: any;
-  width: number;
-  height: number;
-  backgroundColor: [number, number, number, number] | [];
-  borderColor: string;
+  type?: any;
+  width?: number;
+  height?: number;
+  backgroundColor?: [number, number, number, number] | [];
+  borderColor?: string;
 };
 
 export const Graph: React.FC<{ data: TData }> = ({ data }) => {
@@ -25,7 +46,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
   let gradientParams: any;
 
   useEffect(() => {
-    if (backgroundColor.length !== 0) {
+    if (backgroundColor && backgroundColor.length !== 0) {
       gradientParams = backgroundColor;
     }
     const canvas = chartContainerRef.current;
@@ -58,7 +79,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
                     gradientParams[2],
                     gradientParams[3]
                   );
-                  gradient.addColorStop(0, "rgba(169, 169, 169, 0.5)"); // Dark grey
+                  gradient.addColorStop(0, "rgba(169, 169, 169, 0.5)");
                   gradient.addColorStop(1, "rgba(, 0, 0, 0)");
                   return gradient;
                 } else {
@@ -106,43 +127,69 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
       <canvas
         ref={chartContainerRef}
         id="acquisitions"
-        width={width}
-        height={height}
+        width={width || 500}
+        height={height || 200}
       ></canvas>
     </div>
   );
 };
 
-// export const ChartCard: React.FC<{
-//   labels: TChartLables;
-//   data: any[];
-//   type: any;
-//   width: number;
-//   height: number;
-//   backgroundColor: [number, number, number, number] | [];
-//   borderColor: string;
-// }> = ({ labels, data, type, width, height, backgroundColor, borderColor }) => {
-//   return (
-//     <>
-//       <div className=" text-gray-400">
-//         <div>
-//           <span className="text-md">{labels.title}: </span>{" "}
-//           <span className="text-xl">{labels.price}</span>
-//         </div>
-//         <div>{labels.date}</div>
-//         <div>
-//           <Graph
-//             data={{
-//               data: data,
-//               type: type,
-//               width: width,
-//               height: height,
-//               backgroundColor: backgroundColor,
-//               borderColor: borderColor,
-//             }}
-//           ></Graph>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
+const options = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false,
+    },
+    title: {
+      display: false,
+      text: "Chart.js Line Chart",
+    },
+  },
+  scales: {
+    y: {
+      display: false,
+      grid: {
+        display: false,
+        drawBorder: false,
+      },
+    },
+    x: {
+      display: false,
+      grid: {
+        display: false,
+        drawBorder: false,
+      },
+    },
+  },
+  tension: 0.5,
+};
+
+const setChartdata = (charData: any): any => {
+  const data = {
+    labels: "labled",
+    datasets: [
+      {
+        label: "First dataset",
+        data: charData,
+        borderColor: "#0CF864",
+        backgroundColor: (context: any) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 350);
+          gradient.addColorStop(0, "rgba(0, 255, 95, .5)");
+          gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
+          return gradient;
+        },
+        pointRadius: 0,
+        borderWidth: 1,
+        fill: false,
+      },
+    ],
+  };
+  return data;
+};
+
+export const CoinsListChart: React.FC<{ Chartdata: any }> = ({ Chartdata }) => {
+  const passedData = setChartdata(Chartdata);
+  return <Line options={options} data={passedData} height={200} />;
+};

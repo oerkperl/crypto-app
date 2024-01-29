@@ -1,6 +1,8 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import StoreProvider from "./store/provider";
+import { CryptoContextProvider } from "./context/context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,13 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {children}
-        <script
-          src="https://kit.fontawesome.com/f6ce849716.js"
-          crossOrigin={"anonymous"}
-        ></script>
-      </body>
+      <CryptoContextProvider>
+        <body className={inter.className}>
+          <StoreProvider>{children}</StoreProvider>
+        </body>
+      </CryptoContextProvider>
     </html>
   );
 }
