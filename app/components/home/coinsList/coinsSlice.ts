@@ -1,4 +1,9 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  PayloadAction,
+  createAction,
+} from "@reduxjs/toolkit";
 import { RootState } from "@/app/store/store";
 
 interface CryptoData {
@@ -10,6 +15,7 @@ interface CryptoState {
   data: any[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+  page: number;
 }
 
 export const fetchCryptoData = createAsyncThunk<CryptoData[], string>(
@@ -28,13 +34,16 @@ export const fetchCryptoData = createAsyncThunk<CryptoData[], string>(
   }
 );
 
+const initialState: CryptoState = {
+  data: [],
+  status: "idle",
+  error: null,
+  page: 0,
+};
+export const reset = createAction("coins/reset");
 const coinsSlice = createSlice({
   name: "coins",
-  initialState: {
-    data: [],
-    status: "idle",
-    error: null,
-  } as CryptoState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -45,12 +54,22 @@ const coinsSlice = createSlice({
         fetchCryptoData.fulfilled,
         (state, action: PayloadAction<CryptoData[]>) => {
           state.status = "succeeded";
-          state.data = action.payload;
+          if (state.page === 1) {
+            state.data = action.payload;
+          } else {
+            state.data = [...state.data, ...action.payload];
+          }
+
+          state.page = state.page += 1;
+          state.status = "idle";
         }
       )
       .addCase(fetchCryptoData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
+      })
+      .addCase(reset, () => {
+        return initialState;
       });
   },
 });
@@ -62,3 +81,4 @@ export const getCoinById = (state: RootState, id: string) =>
 export const getStatus = (
   state: RootState
 ): "idle" | "loading" | "succeeded" | "failed" => state.coins?.status;
+export const getPage = (state: RootState) => state?.coins.page;

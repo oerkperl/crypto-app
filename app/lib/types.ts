@@ -10,8 +10,12 @@ type TCurrency = {
 };
 export type CryptoContextValue = {
   setSelectedPeriod: Dispatch<SetStateAction<string>>;
+  setSelectedOption: Dispatch<SetStateAction<string>>;
+  setCurrentChart: Dispatch<SetStateAction<any>>;
   setSelectedCurrency: Dispatch<SetStateAction<TCurrency>>;
   selectedPeriod: string;
+  selectedOption: string;
+  currentChart: any;
   selectedCurrency: TCurrency;
   currencies: TCurrency[];
 };

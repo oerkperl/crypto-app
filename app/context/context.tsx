@@ -1,6 +1,8 @@
 "use client";
 import React, { createContext, useState, ReactNode, useContext } from "react";
 import { CryptoContextValue } from "@/app/lib/types";
+import { GlobalStyle } from "../components/styled";
+import { ThemeProvider } from "next-themes";
 
 export const CryptoContext = createContext<CryptoContextValue | undefined>(
   undefined
@@ -30,18 +32,29 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
   ];
 
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1M");
+  const [currentChart, setCurrentChart] = useState<any>({});
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
+  const [selectedOption, setSelectedOption] = useState("Coins");
 
   const val: CryptoContextValue = {
     setSelectedPeriod,
     setSelectedCurrency,
+    setCurrentChart,
+    setSelectedOption,
+    currentChart,
     selectedPeriod,
     selectedCurrency,
     currencies,
+    selectedOption,
   };
 
   return (
-    <CryptoContext.Provider value={val}>{children}</CryptoContext.Provider>
+    <CryptoContext.Provider value={val}>
+      <ThemeProvider attribute="class">
+        <GlobalStyle />
+        {children}
+      </ThemeProvider>
+    </CryptoContext.Provider>
   );
 };
 

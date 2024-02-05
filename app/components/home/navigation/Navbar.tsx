@@ -1,40 +1,38 @@
-import { useState } from "react";
-import { Section, Row } from "../../styled";
-import { Logo, NavBtn, NavFrom, Input } from "../styled";
+import ThemeSwitcher from "./ThemeSwitcher";
 import { useCryptoContext } from "@/app/context/context";
+import { Section, Row } from "../../styled";
+import { NavBtn, NavFrom } from "../styled";
+import { Search } from "./Search";
+import { PageSwitcher } from "./PageSwitcher";
+import { CurrencyDropdown } from "./CurrencyDropdown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
+import { faLayerGroup } from "@fortawesome/free-solid-svg-icons/faLayerGroup";
 
 export const Navabr = () => {
-  const options = ["Coins", "Portfolio"];
-  const [selectedOption, setSelectedOption] = useState("Coins");
-  const { selectedCurrency, setSelectedCurrency, currencies } =
-    useCryptoContext();
-
-  const handleCurrencyChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const selectedCurrencyObject = currencies.find(
-      (currency) => currency.name === event.target.value
-    );
-    if (selectedCurrencyObject) {
-      setSelectedCurrency(selectedCurrencyObject);
-    }
-  };
+  const homeIcon = <FontAwesomeIcon icon={faHouse} />;
+  const portfolio = <FontAwesomeIcon icon={faLayerGroup} />;
+  const options = ["Coins", "Converter"];
+  const { selectedOption, setSelectedOption } = useCryptoContext();
 
   return (
     <Section $margin="1rem 0 0 0">
       <Row className="">
         <div className="flex">
-          <Logo>Logoipsm</Logo>
-          <div className="border border-solid border-gray-700 inline-flex p-0.5 rounded-lg">
+          <div className="flex">
+            <PageSwitcher name="Home" icon={homeIcon} />
+            <PageSwitcher name="Portfolio" icon={portfolio} />
+          </div>
+          <div className="border border-gray-700 inline-flex p-0.5 rounded-lg ">
             {options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedOption(option)}
                 className={`${
                   option === selectedOption
-                    ? "bg-indigo-600 text-white"
-                    : "text-gray-400"
-                } py-1 px-8 rounded hover:text-white`}
+                    ? "bg-indigo-600 text-white hover:text-white"
+                    : ""
+                }  px-7 text-sm rounded hover:text-indigo-500 `}
               >
                 {option}
               </button>
@@ -44,25 +42,10 @@ export const Navabr = () => {
 
         <NavFrom>
           <NavBtn>
-            <Input placeholder="Search..." />
+            <Search />
           </NavBtn>
-
-          <select
-            id="currency"
-            value={selectedCurrency.name}
-            onChange={handleCurrencyChange}
-            className="bg-indigo-500 rounded  focus:outline-none focus:border-blue-500 h-9"
-          >
-            {currencies.map((currency) => (
-              <option key={currency.name} value={currency.name}>
-                {currency.name.toUpperCase()} - {currency.sym}
-              </option>
-            ))}
-          </select>
-
-          <NavBtn>
-            <button>Themes</button>
-          </NavBtn>
+          <CurrencyDropdown />
+          <ThemeSwitcher />
         </NavFrom>
       </Row>
     </Section>

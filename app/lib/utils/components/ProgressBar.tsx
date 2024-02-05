@@ -1,25 +1,47 @@
 import styled from "styled-components";
-const Container = styled.div<{ width?: string | null }>`
-  width: ${(props) => props.width}px;
-  background-color: #fff;
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+
+const Container = styled.div.attrs<{
+  $width?: string;
+}>((props) => ({
+  style: {
+    width: props.$width,
+  },
+}))`
   border-radius: 4px;
   overflow: hidden;
+  background: #777;
 `;
 
-const Bar = styled.div<{ progress: string | null }>`
-  width: ${(props) => props.progress || "0%"}%;
+const Bar = styled.div.attrs<{ $progress: string; $foregroundColor: string }>(
+  (props) => ({
+    style: {
+      width: props.$progress + "%" || "50%",
+      backgroundColor: props.$foregroundColor,
+    },
+  })
+)`
   height: 5px;
-  background-color: #4caf50;
   transition: width 0.3s ease-in-out;
 `;
 
-export const ProgressBar: React.FC<{ progress: string; width?: string }> = ({
-  progress,
-  width,
-}) => {
+export const ProgressBar: React.FC<{
+  progress: string;
+  width?: string;
+  downTrend?: boolean;
+}> = ({ progress, width, downTrend }) => {
+  const { theme } = useTheme();
+  const [fg, setFg] = useState<string>("");
+
+  useEffect(() => {
+    const fg = theme === "dark" ? "#5EFF5A" : "#01F1E3";
+    downTrend ? setFg("#E323FF") : setFg(fg);
+  }, [theme]);
+
   return (
-    <Container width={width}>
-      <Bar progress={progress} />
+    <Container $width={width}>
+      <Bar $progress={progress} $foregroundColor={fg} />
     </Container>
   );
 };
