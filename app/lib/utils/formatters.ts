@@ -50,3 +50,19 @@ export function getCurrentDate(): string {
   ).format(currentDate);
   return formattedDate;
 }
+
+export function extractKeys<T>(array: T[], key: keyof T): Array<T[keyof T]> {
+  return array.map((item) => item[key]);
+}
+
+export function removeDuplicates<T>(array: T[], key: keyof T): T[] {
+  const seen = new Set();
+  return array.filter((item) => {
+    const itemKey = item[key];
+    if (!seen.has(itemKey)) {
+      seen.add(itemKey);
+      return true;
+    }
+    return false;
+  });
+}

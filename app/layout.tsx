@@ -17,12 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <CryptoContextProvider>
-        <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning={true}>
+      <head></head>
+      <body className={inter.className}>
+        <CryptoContextProvider>
           <StoreProvider>{children}</StoreProvider>
-        </body>
-      </CryptoContextProvider>
+        </CryptoContextProvider>
+      </body>
     </html>
   );
 }

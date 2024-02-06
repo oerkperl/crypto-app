@@ -9,10 +9,11 @@ import { useCryptoContext } from "@/app/context/context";
 import { getNumberOfDays, getCurrentDate } from "@/app/lib/utils/formatters";
 import { TimePeriodButtons } from "./TimePeriods";
 import { useSelector } from "react-redux";
-import { getCoinById } from "../coins/coinsSlice";
+import { getCoinById, getCoins } from "../coinsList/coinsSlice";
 import { RootState } from "@/app/store/store";
 import { formatMoney } from "@/app/lib/utils/formatters";
-import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
+import { LoadingChart } from "./LoadingChart";
+import { removeDuplicates } from "@/app/lib/utils/formatters";
 
 type DataEntry = [number, number];
 
@@ -20,72 +21,110 @@ export const Charts: React.FC = () => {
   const [priceData, setPriceData] = useState<DataEntry[]>([]);
   const [volumeData, setVolumesData] = useState<DataEntry[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { selectedPeriod, selectedCurrency } = useCryptoContext();
+  const { selectedPeriod, selectedCurrency, currentChart, setCurrentChart } =
+    useCryptoContext();
   const days = getNumberOfDays(selectedPeriod).toString();
   const bitcoinData = useSelector((state: RootState) =>
     getCoinById(state, "bitcoin")
   );
+
+  const allCoins = removeDuplicates(useSelector(getCoins), "id");
+  const apiUrl = `https://api.coingecko.com/api/v3/coins/${
+    currentChart?.id || "bitcoin"
+  }/market_chart?`;
+
   const todayDateString: string = getCurrentDate();
 
   const priceLabels: TChartLables = {
     title: "Price",
-    amount: formatMoney(bitcoinData?.current_price),
+    amount: formatMoney(
+      currentChart?.current_price || bitcoinData?.current_price
+    ),
     date: todayDateString,
   };
 
   const volumeLabels: TChartLables = {
     title: "Volume 24h",
-    amount: formatMoney(bitcoinData?.total_volume),
+    amount: formatMoney(
+      currentChart?.total_volume || bitcoinData?.total_volume
+    ),
     date: todayDateString,
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const params = new URLSearchParams({
-          vs_currency: selectedCurrency.name,
-          days: days,
-          interval: "daily",
-        });
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const params = new URLSearchParams({
+        vs_currency: selectedCurrency.name,
+        days: days,
+        interval: "daily",
+      });
 
-        const { data } = await axios(
-          `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?${params}`
-        );
-        setPriceData(data.prices);
-        setVolumesData(data.total_volumes);
-        if (data) {
-          setIsLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      const { data } = await axios(`${apiUrl}${params}`);
+      setPriceData(data.prices);
+      setVolumesData(data.total_volumes);
+      if (data) {
+        setIsLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-  }, [selectedPeriod, selectedCurrency]);
+  }, [selectedPeriod, selectedCurrency, currentChart]);
 
   return (
     <>
-      <Section $margin="1rem 0 0 0">
-        <div className="mb-4">
-          <h2>Chart</h2>
+      <Section className="mt-2">
+        <div className="mb-2 flex justify-between mt-2">
+          <div className="flex">
+            <h2 className=" text-xl">
+              {(currentChart && currentChart?.name) || "Bitcoin"}
+              {`(${
+                currentChart?.symbol !== undefined
+                  ? currentChart?.symbol.toUpperCase()
+                  : "BTC"
+              })`}
+            </h2>
+          </div>
+          <div className="flex">
+            {currentChart && (
+              <img
+                className="mr-1"
+                src={currentChart?.image || bitcoinData?.image}
+                width={25}
+                height={25}
+              />
+            )}
+            <h2 className="">Chart</h2>
+          </div>
         </div>
-        <Row>
-          <Col $width="30%" className=" mr-4">
-            <ChartCoins />
+        <Row style={{ height: "525px" }}>
+          <Col $width="30%" className=" mr-2">
+            <div className=" max-h-full overflow-y-scroll pr-2">
+              <ChartCoins coins={allCoins} />
+            </div>
           </Col>
-          <Col $width="70%" className="">
+          <Col $width="70%">
             <div className="">
               {isLoading && (
                 <div>
-                  <BlinkingGradientLoader height="175px" />
-                  <hr />
-                  <BlinkingGradientLoader height="175px" />
+                  <LoadingChart />
+                  <button
+                    className="border border-gray-500 p-2 mt-2 hover:bg-indigo-600 hover:text-white"
+                    onClick={() => {
+                      console.log("clicked");
+                      fetchData();
+                    }}
+                  >
+                    Reload
+                  </button>
                 </div>
               )}
               {!isLoading && (
-                <div>
+                <div className="max-h-full">
                   <ChartCard
                     data={priceData}
                     labels={priceLabels}
@@ -94,17 +133,15 @@ export const Charts: React.FC = () => {
                     borderColor="#0CF264"
                     backgroundColor={[0, 0, 0, 350]}
                   ></ChartCard>
-
                   <ChartCard
                     labels={volumeLabels}
                     data={volumeData}
                     type={"bar"}
                     height={100}
                   ></ChartCard>
+                  <TimePeriodButtons />
                 </div>
               )}
-
-              <TimePeriodButtons />
             </div>
           </Col>
         </Row>

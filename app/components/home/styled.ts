@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Logo = styled.h3`
-  color: #fff;
+  //color: #fff;
   font-size: 22px;
   margin-right: 0.5rem;
 `;
@@ -37,14 +37,12 @@ export const CurrencyIcon = styled.span`
   fonst-size: 6px;
   margin-right: 0.5rem;
   border-radius: 50%;
-  color: black;
   padding: 0.2rem;
 `;
 
 export const Wrapper = styled.div`
   align-items: center;
   padding: 0.5rem 0;
-  color: #999;
 `;
 
 export const Item = styled.div`

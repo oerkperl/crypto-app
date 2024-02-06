@@ -13,9 +13,9 @@ export const TimePeriodButtons = () => {
           onClick={() => setSelectedPeriod(period)}
           className={`${
             period === selectedPeriod
-              ? "bg-indigo-600 text-white"
-              : "text-gray-400"
-          } py-1 px-4 rounded hover:text-white`}
+              ? "bg-indigo-600 text-white hover:text-white"
+              : ""
+          } py-1 px-4 rounded hover:text-indigo-700`}
         >
           {period}
         </button>
