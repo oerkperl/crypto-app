@@ -80,7 +80,7 @@ export const CoinsList = () => {
 
         {coinsStatus === "failed" && (
           <div className="mt-4">
-            <h3>"Error: Unable fetch data"</h3>
+            <h3>"Error: Unable to fetch data"</h3>
             <p>Wait a moment please and refresh</p>
             <button
               className="border border-solid border-gray-500 p-2 mt-2 mb-2 hover:bg-indigo-600 hover:text-white"
