@@ -27,17 +27,16 @@ const Bar = styled.div.attrs<{ $progress: string; $foregroundColor: string }>(
 `;
 
 export const ProgressBar: React.FC<{
-  progress: string;
+ progress: string;
   width?: string;
   downTrend?: boolean;
 }> = ({ progress, width, downTrend }) => {
   const { theme } = useTheme();
-  const [fg, setFg] = useState<string>("");
-
-  useEffect(() => {
-    const fg = theme === "dark" ? "#5EFF5A" : "#01F1E3";
-    downTrend ? setFg("#E323FF") : setFg(fg);
-  }, [theme]);
+  const color = downTrend
+    ? "#E323FF"
+    : theme === "dark"
+    ? "#5EFF5A"
+    : "#01F1E3";
 
   return (
     <Container $width={width}>
