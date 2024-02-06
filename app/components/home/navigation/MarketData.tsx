@@ -32,7 +32,7 @@ export const MarketData = () => {
       const { data } = await axios("https://api.coingecko.com/api/v3/global");
 
       setMarketData(data);
-      console.log(data);
+    
       if (data) {
         setIsLoading(false);
       }
