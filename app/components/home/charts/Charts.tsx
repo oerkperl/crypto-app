@@ -115,7 +115,6 @@ export const Charts: React.FC = () => {
                   <button
                     className="border border-gray-500 p-2 mt-2 hover:bg-indigo-600 hover:text-white"
                     onClick={() => {
-                      console.log("clicked");
                       fetchData();
                     }}
                   >
