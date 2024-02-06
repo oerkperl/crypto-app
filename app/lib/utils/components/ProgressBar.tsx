@@ -40,7 +40,7 @@ export const ProgressBar: React.FC<{
 
   return (
     <Container $width={width}>
-      <Bar $progress={progress} $foregroundColor={fg} />
+      <Bar $progress={progress} $foregroundColor={color} />
     </Container>
   );
 };
