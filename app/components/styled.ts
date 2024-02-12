@@ -31,7 +31,6 @@ export const Main = styled.main`
 export const Section = styled.section<{ $margin?: string | null }>`
   width: 100%;
   margin: ${(props) => props.$margin};
-  padding: 0 0.5rem;
 `;
 export const Row = styled.div`
   display: flex;

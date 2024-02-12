@@ -8,6 +8,7 @@ import { CurrencyDropdown } from "./CurrencyDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons/faLayerGroup";
+import Link from "next/link";
 
 export const Navabr = () => {
   const homeIcon = <FontAwesomeIcon icon={faHouse} />;
@@ -20,8 +21,12 @@ export const Navabr = () => {
       <Row className="">
         <div className="flex">
           <div className="flex">
-            <PageSwitcher name="Home" icon={homeIcon} />
-            <PageSwitcher name="Portfolio" icon={portfolio} />
+            <Link href={"/"}>
+              <PageSwitcher name="Home" icon={homeIcon} />
+            </Link>
+            <Link href={"/portfolio"}>
+              <PageSwitcher name="Portfolio" icon={portfolio} />
+            </Link>
           </div>
           <div className="border border-gray-700 inline-flex p-0.5 rounded-lg ">
             {options.map((option, index) => (

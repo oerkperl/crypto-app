@@ -17,7 +17,7 @@ export const ChartCard: React.FC<{
   const { theme } = useTheme();
   return (
     <div
-      className={` mb-1 p-2 rounded-md ${
+      className={` mb-2 p-2 rounded-md ${
         theme === "dark"
           ? "bg-gray-800 bg-opacity-40 text-white"
           : "bg-gray-200 bg-opacity-80 "

@@ -11,6 +11,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
+import { useTheme } from "next-themes";
 
 ChartJS.register(
   CategoryScale,
@@ -43,12 +44,9 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
   } = data;
   const chartContainerRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
-  let gradientParams: any;
+  const { theme } = useTheme();
 
   useEffect(() => {
-    if (backgroundColor && backgroundColor.length !== 0) {
-      gradientParams = backgroundColor;
-    }
     const canvas = chartContainerRef.current;
     const ctx = canvas?.getContext("2d");
     if (chartInstanceRef.current) {
@@ -69,23 +67,18 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               fill: true,
               tension: 0.5,
               pointRadius: 0,
-              borderColor: borderColor || "blue",
+              borderColor: theme === "dark" ? "#0CF864" : "indigo",
 
               backgroundColor: () => {
-                if (gradientParams) {
-                  const gradient = ctx.createLinearGradient(
-                    gradientParams[0],
-                    gradientParams[1],
-                    gradientParams[2],
-                    gradientParams[3]
-                  );
-
+                const gradient = ctx.createLinearGradient(0, 0, 0, 350);
+                if (theme === "dark") {
                   gradient.addColorStop(0, "rgba(0, 255, 95, .5)");
                   gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
-                  return gradient;
                 } else {
-                  return "skyblue";
+                  gradient.addColorStop(0, "rgba(47, 7, 137, 1.0)");
+                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
                 }
+                return gradient;
               },
             },
           ],
@@ -121,7 +114,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
         chartInstanceRef.current.destroy();
       }
     };
-  }, [chartData, type]);
+  }, [chartData, type, theme]);
 
   return (
     <div>
