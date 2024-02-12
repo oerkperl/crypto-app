@@ -33,16 +33,18 @@ export const ChartCard: React.FC<{
       </div>
       <div>{labels.date}</div>
       <div>
-        <Graph
-          data={{
-            data: data,
-            type: type,
-            width: width,
-            height: height,
-            backgroundColor: backgroundColor,
-            borderColor: borderColor,
-          }}
-        ></Graph>
+        {data && (
+          <Graph
+            data={{
+              data: data,
+              type: type,
+              width: width,
+              height: height,
+              backgroundColor: backgroundColor,
+              borderColor: borderColor,
+            }}
+          />
+        )}
       </div>
     </div>
   );
