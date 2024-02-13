@@ -32,7 +32,7 @@ export const MarketData = () => {
       const { data } = await axios("https://api.coingecko.com/api/v3/global");
 
       setMarketData(data);
-    
+
       if (data) {
         setIsLoading(false);
       }
@@ -56,7 +56,7 @@ export const MarketData = () => {
       )}
 
       {!isLoading && (
-        <div>
+        <div className="border-b border-gray-500">
           <Wrapper className="flex justify-between text-center">
             <Item>
               <p className="text-xl">Logo</p>
@@ -99,7 +99,6 @@ export const MarketData = () => {
               />
             </Item>
           </Wrapper>
-          <hr />
         </div>
       )}
     </>

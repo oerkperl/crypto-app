@@ -1,13 +1,10 @@
 import { useCryptoContext } from "@/app/context/context";
-import { useTheme } from "next-themes";
-import { switchBg } from "@/app/lib/utils/formatters";
 export const CoinSwitcher = () => {
   const options = ["Coins", "Converter"];
   const { selectedOption, setSelectedOption } = useCryptoContext();
-  const { theme } = useTheme();
-  const bg = switchBg(theme);
+
   return (
-    <div className={`${bg} inline-flex p-0.5 rounded-lg `}>
+    <div className={`bg-white dark:bg-gray-800 inline-flex p-0.5 rounded-lg `}>
       {options.map((option, index) => (
         <button
           key={index}

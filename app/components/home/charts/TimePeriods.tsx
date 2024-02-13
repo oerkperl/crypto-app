@@ -1,16 +1,12 @@
 import React from "react";
 import { useCryptoContext } from "@/app/context/context";
-import { useTheme } from "next-themes";
-import { switchBg } from "@/app/lib/utils/formatters";
 
 const timePeriods = ["1D", "7D", "14D", "1M", "3M", "6M", "1Y"];
 
 export const TimePeriodButtons = () => {
   const { selectedPeriod, setSelectedPeriod } = useCryptoContext();
-  const { theme } = useTheme();
-  const bg = switchBg(theme);
   return (
-    <div className={`inline-flex p-0.5 rounded-lg ${bg}`}>
+    <div className={`inline-flex p-0.5 rounded-lg bg-white dark:bg-gray-800`}>
       {timePeriods.map((period) => (
         <button
           key={period}

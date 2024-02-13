@@ -5,12 +5,10 @@ import { useCryptoContext } from "@/app/context/context";
 import { Sparkline } from "./Sparkline";
 import { Trends } from "./Trends";
 import { useTheme } from "next-themes";
-import { switchBg } from "@/app/lib/utils/formatters";
 
 export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
   const { selectedCurrency } = useCryptoContext();
   const { theme } = useTheme();
-  const bg = switchBg(theme);
 
   const setTrend = (coin: any): boolean => {
     const trend = coin.price_change_percentage_1h_in_currency < 0;
@@ -22,9 +20,9 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
       {coins.map((coin, index) => (
         <Link key={coin?.id} href={`/coin?=${coin.id}`}>
           <Wrapper
-            className={`flex mb-1 px-2 ${bg} hover:bg-indigo-900 hover:text-white`}
+            className={`flex mb-1 bg-white dark:bg-gray-800 hover:bg-indigo-900 hover:text-white`}
           >
-            <Item className="flex">
+            <Item className="flex px-1">
               {index + 1 || "#"}
               <img src={coin.image || ""} width={25} height={25} /> {coin.name}
             </Item>

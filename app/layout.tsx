@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <head></head>
-      <body className={inter.className}>
+      <body className={`bg-gray-200 dark:bg-gray-900 ${inter.className}`}>
         <CryptoContextProvider>
           <StoreProvider>
             <TopSection />
