@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import StoreProvider from "./store/provider";
 import { CryptoContextProvider } from "./context/context";
+import { TopSection } from "./ui/TopSections";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,10 @@ export default function RootLayout({
       <head></head>
       <body className={inter.className}>
         <CryptoContextProvider>
-          <StoreProvider>{children}</StoreProvider>
+          <StoreProvider>
+            <TopSection />
+            {children}
+          </StoreProvider>
         </CryptoContextProvider>
       </body>
     </html>

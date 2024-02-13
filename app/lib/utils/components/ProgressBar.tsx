@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
 const Container = styled.div.attrs<{
@@ -27,7 +26,7 @@ const Bar = styled.div.attrs<{ $progress: string; $foregroundColor: string }>(
 `;
 
 export const ProgressBar: React.FC<{
- progress: string;
+  progress: string;
   width?: string;
   downTrend?: boolean;
 }> = ({ progress, width, downTrend }) => {

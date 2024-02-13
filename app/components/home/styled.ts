@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Logo = styled.h3`
-  //color: #fff;
   font-size: 22px;
   margin-right: 0.5rem;
 `;
@@ -24,11 +23,11 @@ export const NavFrom = styled.div`
 
 export const NavBtn = styled.span`
   background: transparent;
-  border: 1px solid #555;
   height: 35px;
   line-height: 35px;
   border-radius: 5px;
   padding: 0 0.5rem;
+  border: 1px solid #555;
 `;
 export const CurrencyIcon = styled.span`
   width: 20px;

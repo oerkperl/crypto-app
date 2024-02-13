@@ -54,12 +54,7 @@ const coinsSlice = createSlice({
         fetchCryptoData.fulfilled,
         (state, action: PayloadAction<CryptoData[]>) => {
           state.status = "succeeded";
-          if (state.page === 1) {
-            state.data = action.payload;
-          } else {
-            state.data = [...state.data, ...action.payload];
-          }
-
+          state.data = [...state.data, ...action.payload];
           state.page = state.page += 1;
           state.status = "idle";
         }
