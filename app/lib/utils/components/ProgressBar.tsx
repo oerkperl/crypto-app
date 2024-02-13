@@ -3,14 +3,15 @@ import { useTheme } from "next-themes";
 
 const Container = styled.div.attrs<{
   $width?: string;
+  $bg: string;
 }>((props) => ({
   style: {
     width: props.$width,
+    background: props.$bg,
   },
 }))`
   border-radius: 4px;
   overflow: hidden;
-  background: #777;
 `;
 
 const Bar = styled.div.attrs<{ $progress: string; $foregroundColor: string }>(
@@ -35,10 +36,11 @@ export const ProgressBar: React.FC<{
     ? "#E323FF"
     : theme === "dark"
     ? "#5EFF5A"
-    : "#01F1E3";
+    : "#00B1A7";
+  const bg = downTrend ? "#F39DFF" : theme === "dark" ? "#777" : "#8AF0EB";
 
   return (
-    <Container $width={width}>
+    <Container $width={width} $bg={bg}>
       <Bar $progress={progress} $foregroundColor={color} />
     </Container>
   );

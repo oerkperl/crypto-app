@@ -66,3 +66,9 @@ export function removeDuplicates<T>(array: T[], key: keyof T): T[] {
     return false;
   });
 }
+
+export const switchBg = (theme: any): string => {
+  return theme === "dark"
+    ? "bg-gray-800 bg-opacity-40 text-white"
+    : "bg-gray-200 bg-opacity-90 ";
+};

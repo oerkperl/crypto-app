@@ -3,8 +3,12 @@ import { Input } from "../styled";
 import { getCoins } from "../coinsList/coinsSlice";
 import { useSelector } from "react-redux";
 import { extractKeys } from "@/app/lib/utils/formatters";
+import { useTheme } from "next-themes";
+import { switchBg } from "@/app/lib/utils/formatters";
 
 export const Search = () => {
+  const { theme } = useTheme();
+  const bg = switchBg(theme);
   const [inputValue, setInputValue] = useState<string>("");
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const suggestions = useSelector(getCoins);
@@ -32,7 +36,7 @@ export const Search = () => {
 
   return (
     <div className="relative">
-      <div className="flex">
+      <div className={`flex px-2 rounded-md ${bg}`}>
         <Input
           type="text"
           value={inputValue}

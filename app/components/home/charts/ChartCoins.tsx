@@ -22,6 +22,7 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
   const { setCurrentChart } = useCryptoContext();
   const [searchValue, setSearchValue] = useState("");
   const { theme } = useTheme();
+
   const handleChartChange = (obj: any) => {
     const { name, symbol, id, current_price, total_volume, image } = obj;
     setCurrentChart({ name, symbol, id, current_price, total_volume, image });
@@ -30,9 +31,9 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
 
   return (
     <div className="relative">
-      <div className="w-full sticky top-0">
+      <div className="w-full sticky top-0 z-10">
         <input
-          className=" w-full border border-gray-700 mb-2 p-2 rounded"
+          className={`w-full  mb-2 p-2 rounded border`}
           placeholder="Search coin..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
