@@ -1,19 +1,17 @@
 import React from "react";
+import Link from "next/link";
 import { Wrapper, Item, CoinItem } from "../styled";
 import { useCryptoContext } from "@/app/context/context";
 import { Sparkline } from "./Sparkline";
 import { Trends } from "./Trends";
 import { useTheme } from "next-themes";
-import Link from "next/link";
 
 export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
   const { selectedCurrency } = useCryptoContext();
   const { theme } = useTheme();
+
   const setTrend = (coin: any): boolean => {
-    const trend =
-      coin.price_change_percentage_1h_in_currency < 0 &&
-      coin?.price_change_percentage_24h_in_currency < 0 &&
-      coin?.price_change_percentage_7d_in_currency < 0;
+    const trend = coin.price_change_percentage_1h_in_currency < 0;
     return trend;
   };
 
@@ -22,13 +20,9 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
       {coins.map((coin, index) => (
         <Link key={coin?.id} href={`/coin?=${coin.id}`}>
           <Wrapper
-            className={`flex mb-1 px-2 ${
-              theme === "dark"
-                ? "bg-gray-800 bg-opacity-40"
-                : "bg-gray-200 bg-opacity-80"
-            }`}
+            className={`flex mb-1 bg-white dark:bg-gray-800 hover:bg-indigo-900 hover:text-white`}
           >
-            <Item className="flex">
+            <Item className="flex px-1">
               {index + 1 || "#"}
               <img src={coin.image || ""} width={25} height={25} /> {coin.name}
             </Item>
@@ -39,8 +33,10 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
             <CoinItem
               className={
                 coin.price_change_percentage_1h_in_currency < 0
-                  ? "text-pink-600"
-                  : "text-olive-green-600"
+                  ? "text-trend-pink"
+                  : theme === "dark"
+                  ? "text-accent-green"
+                  : "text-trend-blue"
               }
             >
               {coin.price_change_percentage_1h_in_currency?.toFixed(2) + "%"}
@@ -48,8 +44,10 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
             <CoinItem
               className={
                 coin?.price_change_percentage_24h_in_currency < 0
-                  ? "text-pink-600"
-                  : "text-green-600"
+                  ? "text-trend-pink"
+                  : theme === "dark"
+                  ? "text-accent-green"
+                  : "text-trend-blue"
               }
             >
               {coin?.price_change_percentage_24h_in_currency?.toFixed(2) + "%"}
@@ -57,8 +55,10 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
             <CoinItem
               className={
                 coin.price_change_percentage_7d_in_currency < 0
-                  ? "text-pink-600"
-                  : "text-green-600"
+                  ? "text-trend-pink"
+                  : theme === "dark"
+                  ? "text-accent-green"
+                  : "text-trend-blue"
               }
             >
               {coin?.price_change_percentage_7d_in_currency?.toFixed(2) + "%"}

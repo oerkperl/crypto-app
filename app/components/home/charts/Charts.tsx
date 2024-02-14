@@ -14,6 +14,7 @@ import { RootState } from "@/app/store/store";
 import { formatMoney } from "@/app/lib/utils/formatters";
 import { LoadingChart } from "./LoadingChart";
 import { removeDuplicates } from "@/app/lib/utils/formatters";
+import { CoinSwitcher } from "../navigation/CoinSwicher";
 
 type DataEntry = [number, number];
 
@@ -80,6 +81,9 @@ export const Charts: React.FC = () => {
       <Section className="mt-2">
         <div className="mb-2 flex justify-between mt-2">
           <div className="flex">
+            <CoinSwitcher />
+          </div>
+          <div className="flex gap-1 items-center">
             <h2 className=" text-xl">
               {(currentChart && currentChart?.name) || "Bitcoin"}
               {`(${
@@ -88,17 +92,13 @@ export const Charts: React.FC = () => {
                   : "BTC"
               })`}
             </h2>
-          </div>
-          <div className="flex">
             {currentChart && (
               <img
-                className="mr-1"
                 src={currentChart?.image || bitcoinData?.image}
                 width={25}
                 height={25}
               />
             )}
-            <h2 className="">Chart</h2>
           </div>
         </div>
         <Row style={{ height: "525px" }}>

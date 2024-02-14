@@ -34,14 +34,7 @@ type TData = {
 };
 
 export const Graph: React.FC<{ data: TData }> = ({ data }) => {
-  const {
-    data: chartData,
-    type,
-    width,
-    height,
-    backgroundColor,
-    borderColor,
-  } = data;
+  const { data: chartData, type, width, height } = data;
   const chartContainerRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
   const { theme } = useTheme();
@@ -67,16 +60,21 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               fill: true,
               tension: 0.5,
               pointRadius: 0,
-              borderColor: theme === "dark" ? "#0CF864" : "indigo",
+              borderColor: theme === "dark" ? "#2B7629" : "#3D3892",
 
               backgroundColor: () => {
-                const gradient = ctx.createLinearGradient(0, 0, 0, 350);
+                const gradient = ctx.createLinearGradient(
+                  0,
+                  0,
+                  0,
+                  ctx.canvas.height
+                );
                 if (theme === "dark") {
-                  gradient.addColorStop(0, "rgba(0, 255, 95, .5)");
-                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
+                  gradient.addColorStop(0, "rgba(95, 255, 91, 1.0)");
+                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.5)");
                 } else {
-                  gradient.addColorStop(0, "rgba(47, 7, 137, 1.0)");
-                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
+                  gradient.addColorStop(0, "rgba(80, 70, 229, 1.0)");
+                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.5)");
                 }
                 return gradient;
               },

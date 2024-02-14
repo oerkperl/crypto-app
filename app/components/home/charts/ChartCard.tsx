@@ -2,7 +2,6 @@ import { TChartLables } from "@/app/lib/types";
 import { Graph } from "./Graph";
 import { useCryptoContext } from "@/app/context/context";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
-import { useTheme } from "next-themes";
 
 export const ChartCard: React.FC<{
   labels: TChartLables;
@@ -14,15 +13,8 @@ export const ChartCard: React.FC<{
   borderColor?: string;
 }> = ({ labels, data, type, width, height, backgroundColor, borderColor }) => {
   const { selectedCurrency } = useCryptoContext();
-  const { theme } = useTheme();
   return (
-    <div
-      className={` mb-2 p-2 rounded-md ${
-        theme === "dark"
-          ? "bg-gray-800 bg-opacity-40 text-white"
-          : "bg-gray-200 bg-opacity-80 "
-      }`}
-    >
+    <div className={` mb-2 p-2 rounded-md bg-white dark:bg-gray-800`}>
       <div>
         <span className="text-md">{labels.title}: </span>
         <span className="text-2xl">

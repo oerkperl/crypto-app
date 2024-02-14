@@ -6,7 +6,7 @@ const timePeriods = ["1D", "7D", "14D", "1M", "3M", "6M", "1Y"];
 export const TimePeriodButtons = () => {
   const { selectedPeriod, setSelectedPeriod } = useCryptoContext();
   return (
-    <div className="border border-solid border-gray-700 inline-flex p-0.5 rounded-lg">
+    <div className={`inline-flex p-0.5 rounded-lg bg-white dark:bg-gray-800`}>
       {timePeriods.map((period) => (
         <button
           key={period}

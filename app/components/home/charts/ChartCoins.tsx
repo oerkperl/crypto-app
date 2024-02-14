@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useCryptoContext } from "@/app/context/context";
 import { SpinnerContainer } from "../../styled";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
-import { useTheme } from "next-themes";
 
 const Ul = styled.ul`
   display: flex;
@@ -21,7 +20,7 @@ const Li = styled.li`
 export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
   const { setCurrentChart } = useCryptoContext();
   const [searchValue, setSearchValue] = useState("");
-  const { theme } = useTheme();
+
   const handleChartChange = (obj: any) => {
     const { name, symbol, id, current_price, total_volume, image } = obj;
     setCurrentChart({ name, symbol, id, current_price, total_volume, image });
@@ -30,9 +29,9 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
 
   return (
     <div className="relative">
-      <div className="w-full sticky top-0">
+      <div className="w-full sticky top-0 z-10">
         <input
-          className=" w-full border border-gray-700 mb-2 p-2 rounded"
+          className={`w-full  mb-2 p-2 rounded border`}
           placeholder="Search coin..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -51,12 +50,7 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
                   }}
                 >
                   <Li
-                    className={`hover:bg-indigo-600 hover:text-white text-sm
-                    ${
-                      theme === "dark"
-                        ? "bg-gray-800 bg-opacity-40"
-                        : "bg-gray-200 bg-opacity-80"
-                    }
+                    className={`hover:bg-indigo-600 hover:text-white text-sm bg-white dark:bg-gray-800
                   `}
                   >
                     <span className="flex items-center justify-center ">
