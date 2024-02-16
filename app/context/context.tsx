@@ -35,17 +35,23 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
   const [currentChart, setCurrentChart] = useState<any>({});
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
   const [selectedOption, setSelectedOption] = useState("Coins");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [viewingCoinId, setViewingCoinId] = useState<string>("");
 
   const val: CryptoContextValue = {
     setSelectedPeriod,
     setSelectedCurrency,
     setCurrentChart,
     setSelectedOption,
+    setViewingCoinId,
+    setIsOpen,
     currentChart,
     selectedPeriod,
     selectedCurrency,
     currencies,
     selectedOption,
+    isOpen,
+    viewingCoinId,
   };
 
   return (
