@@ -29,7 +29,7 @@ const ThemeSwitcher: React.FC = () => {
   };
 
   return (
-    <NavBtn className=" ">
+    <NavBtn>
       <button
         onClick={toggleTheme}
         className={`px-4 rounded-md hover:text-white hover:bg-indigo-500 w-full bg-white dark:bg-gray-800`}

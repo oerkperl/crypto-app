@@ -32,7 +32,7 @@ export const Coin = () => {
     if (hasId) {
       fetchCoin();
     }
-  }, []);
+  }, [viewingCoinId]);
 
   return (
     <Main>
@@ -43,7 +43,7 @@ export const Coin = () => {
       )}
       {!isLoading && (
         <Section>
-          <h1 className="text-xl">Your Summary:</h1>
+          <h1 className="text-xl mt-4">Your Summary:</h1>
           <div className="flex justiify-between gap-2 mt-4">
             <div className="w-2/6  min-h-16 ">
               <CoinProfileCard coin={coin} />

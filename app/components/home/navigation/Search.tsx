@@ -1,35 +1,62 @@
 import React, { useState } from "react";
+import Link from "next/link";
+import axios from "axios";
+import { usePathname } from "next/navigation";
 import { Input } from "../styled";
-import { getCoins } from "../coinsList/coinsSlice";
-import { useSelector } from "react-redux";
-import { extractKeys } from "@/app/lib/utils/formatters";
-import { useTheme } from "next-themes";
+import { SpinnerContainer } from "../../styled";
+import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
+import { useCryptoContext } from "@/app/context/context";
 
 export const Search = () => {
-  const { theme } = useTheme();
-  const [inputValue, setInputValue] = useState<string>("");
-  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-  const suggestions = useSelector(getCoins);
-  let extractedNames: string[] = extractKeys(suggestions, "name");
-  const suggestionfound = extractedNames.includes(inputValue.trim());
+  const [query, setQuery] = useState<string>("");
+  const [results, setResults] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [canvisit, setCanVisit] = useState<boolean>(false);
+  const { viewingCoinId, setViewingCoinId } = useCryptoContext();
+  const activePath = usePathname();
+  let timeout: any | null = null;
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    setInputValue(inputValue);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuery(value);
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => {
+      if (value.trim() !== "") {
+        fetchResults(value);
+      } else {
+        setIsLoading(false);
+        setResults([]);
+        setCanVisit(false);
+      }
+    }, 1500);
+  };
 
-    if (inputValue.trim() !== "" && extractedNames.length > 0) {
-      const filteredSuggestions = extractedNames.filter((suggestion) =>
-        suggestion.toLowerCase().includes(inputValue.toLowerCase())
+  const fetchResults = async (query: string) => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios(
+        `https://api.coingecko.com/api/v3/search?query=${query}`
       );
-      setFilteredSuggestions(filteredSuggestions);
-    } else {
-      setFilteredSuggestions([]);
+
+      if (data) {
+        setResults(data.coins);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   };
 
-  const handleSuggestionClick = (suggestion: string) => {
-    setInputValue(suggestion);
-    setFilteredSuggestions([]);
+  const handleSuggestionClick = (suggestion: any) => {
+    setQuery(suggestion.name);
+    setViewingCoinId(suggestion.id);
+    setResults([]);
+    setCanVisit(true);
+    if (activePath !== "/") {
+      setQuery("");
+    }
   };
 
   return (
@@ -37,29 +64,41 @@ export const Search = () => {
       <div className={`flex px-2 rounded-md bg-white dark:bg-gray-800 `}>
         <Input
           type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Search..."
+          value={query}
+          onChange={handleChange}
+          placeholder="Search for a coin..."
         />
-        {inputValue.trim() !== "" && suggestionfound && (
-          <button className="hover:text-indigo-500">Go...</button>
+        {canvisit && activePath === "/" && (
+          <button
+            className="hover:text-indigo-500"
+            onClick={() => {
+              setQuery("");
+            }}
+          >
+            <Link href={`/coin?id=${viewingCoinId}`}>Go...</Link>
+          </button>
         )}
       </div>
       <div>
-        {inputValue.trim() !== "" && (
-          <ul className="absolute w-full max-h-64 overflow-y-scroll mt-1 bg-indigo-500 text-white rounded">
-            {filteredSuggestions.map((suggestion, index) => (
+        {query.trim() !== "" && (
+          <ul className="absolute w-full max-h-64 overflow-y-scroll mt-1 bg-indigo-600 text-white rounded">
+            {results.map((result) => (
               <li
-                key={index}
-                onClick={() => handleSuggestionClick(suggestion)}
+                key={result.id}
+                onClick={() => handleSuggestionClick(result)}
                 className=" w-full p-1 hover:bg-white hover:text-indigo-500  "
               >
-                {suggestion}
+                {result.name}
               </li>
             ))}
           </ul>
         )}
-        {inputValue.trim() !== "" && !suggestionfound && <p>No suggestion</p>}
+        {isLoading && (
+          <div className="relative mt-2">
+            <SpinnerContainer $size="20px" />
+            <BlinkingGradientLoader height="40px" />
+          </div>
+        )}
       </div>
     </div>
   );
