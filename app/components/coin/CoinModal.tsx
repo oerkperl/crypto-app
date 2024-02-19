@@ -35,7 +35,7 @@ export const CoinModal: React.FC<ModalProps> = ({
       ></div>
       <div className="fixed w-auto  mx-auto my-6 ">
         <div className="relative flex flex-col w-full bg-gray-200 dark:bg-gray-900 border-0 rounded-lg shadow-lg outline-none focus:outline-none">
-          <div className="top-0 flex justify-end p-2 rounded-t">
+          <div className="top-0 flex justify-end p-2 rounded-t items-center">
             <Link
               href={`/coin?id=${viewingCoinId}`}
               className=" px-4 py-2 hover:bg-indigo-600 rounded-md hover:text-white "

@@ -31,8 +31,8 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
     <div className="relative">
       <div className="w-full sticky top-0 z-10">
         <input
-          className={`w-full  mb-2 p-2 rounded border`}
-          placeholder="Search coin..."
+          className={`w-full  mb-2 p-2 rounded border text:xs`}
+          placeholder="Search for a coin..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />

@@ -14,7 +14,8 @@ import { RootState } from "@/app/store/store";
 import { formatMoney } from "@/app/lib/utils/formatters";
 import { LoadingChart } from "./LoadingChart";
 import { removeDuplicates } from "@/app/lib/utils/formatters";
-import { CoinSwitcher } from "../navigation/CoinSwicher";
+import { CoinSwitcher } from "../navigation/CoinSwitcher";
+import { Converter } from "../converter/Converter";
 
 type DataEntry = [number, number];
 
@@ -22,7 +23,7 @@ export const Charts: React.FC = () => {
   const [priceData, setPriceData] = useState<DataEntry[]>([]);
   const [volumeData, setVolumesData] = useState<DataEntry[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { selectedPeriod, selectedCurrency, currentChart, setCurrentChart } =
+  const { selectedPeriod, selectedCurrency, currentChart, selectedOption } =
     useCryptoContext();
   const days = getNumberOfDays(selectedPeriod).toString();
   const bitcoinData = useSelector((state: RootState) =>
@@ -108,40 +109,47 @@ export const Charts: React.FC = () => {
             </div>
           </Col>
           <Col $width="70%">
-            <div className="">
-              {isLoading && (
-                <div>
-                  <LoadingChart />
-                  <button
-                    className="border border-gray-500 p-2 mt-2 hover:bg-indigo-600 hover:text-white"
-                    onClick={() => {
-                      fetchData();
-                    }}
-                  >
-                    Reload
-                  </button>
-                </div>
-              )}
-              {!isLoading && (
-                <div className="max-h-full">
-                  <ChartCard
-                    data={priceData}
-                    labels={priceLabels}
-                    type={"line"}
-                    height={100}
-                    borderColor="#0CF264"
-                    backgroundColor={[0, 0, 0, 350]}
-                  ></ChartCard>
-                  <ChartCard
-                    labels={volumeLabels}
-                    data={volumeData}
-                    type={"bar"}
-                    height={100}
-                  ></ChartCard>
-                  <TimePeriodButtons />
-                </div>
-              )}
-            </div>
+            {selectedOption === "Coins" && (
+              <div>
+                {isLoading && (
+                  <div>
+                    <LoadingChart />
+                    <button
+                      className="border border-gray-500 p-2 mt-2 hover:bg-indigo-600 hover:text-white"
+                      onClick={() => {
+                        fetchData();
+                      }}
+                    >
+                      Reload
+                    </button>
+                  </div>
+                )}
+                {!isLoading && (
+                  <div className="max-h-full">
+                    <ChartCard
+                      data={priceData}
+                      labels={priceLabels}
+                      type={"line"}
+                      height={100}
+                      borderColor="#0CF264"
+                      backgroundColor={[0, 0, 0, 350]}
+                    ></ChartCard>
+                    <ChartCard
+                      labels={volumeLabels}
+                      data={volumeData}
+                      type={"bar"}
+                      height={100}
+                    ></ChartCard>
+                    <TimePeriodButtons />
+                  </div>
+                )}
+              </div>
+            )}
+            {selectedOption !== "Coins" && (
+              <div>
+                <Converter />
+              </div>
+            )}
           </Col>
         </Row>
       </Section>
