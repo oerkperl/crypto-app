@@ -1,13 +1,7 @@
 "use client";
 import React from "react";
-import { Main, Section } from "../components/styled";
+import { Coin } from "../ui/Coin";
 
 export default function Page() {
-  return (
-    <Main>
-      <Section>
-        <h1>Single coin Page</h1>
-      </Section>
-    </Main>
-  );
+  return <Coin />;
 }

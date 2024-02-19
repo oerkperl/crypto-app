@@ -6,7 +6,7 @@ import { useCryptoContext } from "@/app/context/context";
 export const Trends: React.FC<{
   firstVal: number;
   secondVal: number;
-  trend: boolean;
+  trend?: boolean;
 }> = ({ firstVal, secondVal, trend }) => {
   const percenatge = (firstVal / secondVal) * 100;
   const { selectedCurrency } = useCryptoContext();

@@ -26,7 +26,6 @@ export const NavBtn = styled.span`
   height: 35px;
   line-height: 35px;
   border-radius: 5px;
-  padding: 0 0.5rem;
 `;
 export const CurrencyIcon = styled.span`
   width: 20px;

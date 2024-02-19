@@ -14,7 +14,9 @@ export const ChartCard: React.FC<{
 }> = ({ labels, data, type, width, height, backgroundColor, borderColor }) => {
   const { selectedCurrency } = useCryptoContext();
   return (
-    <div className={` mb-2 p-2 rounded-md bg-white dark:bg-gray-800`}>
+    <div
+      className={` mb-2 p-2  h-[235px] rounded-md bg-white dark:bg-gray-800`}
+    >
       <div>
         <span className="text-md">{labels.title}: </span>
         <span className="text-2xl">

@@ -13,7 +13,7 @@ export const Navabr = () => {
   const portfolio = <FontAwesomeIcon icon={faLayerGroup} />;
   return (
     <Section $margin="1rem 0 0 0">
-      <Row className="">
+      <Row>
         <div className="flex">
           <div className="flex">
             <PageSwitcher name="Home" icon={homeIcon} path={"/"} />
