@@ -1,19 +1,25 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import axios from "axios";
-import { usePathname } from "next/navigation";
-import { Input } from "../styled";
-import { SpinnerContainer } from "../../styled";
-import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
+import { Input } from "../home/styled";
+import { SpinnerContainer } from "../styled";
 import { useCryptoContext } from "@/app/context/context";
-
-export const Search = () => {
-  const [query, setQuery] = useState<string>("");
+interface ISelectCoin {
+  fetchData: () => void;
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  canSelect: boolean;
+  setCanSelect: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const SelectCoin: React.FC<ISelectCoin> = ({
+  fetchData,
+  query,
+  setQuery,
+  canSelect,
+  setCanSelect,
+}) => {
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [canVisit, setCanVisit] = useState<boolean>(false);
-  const { viewingCoinId, setViewingCoinId } = useCryptoContext();
-  const activePath = usePathname();
+  const { setSelectedCoinId } = useCryptoContext();
   let timeout: any | null = null;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +34,7 @@ export const Search = () => {
       } else {
         setIsLoading(false);
         setResults([]);
-        setCanVisit(false);
+        setCanSelect(false);
       }
     }, 1500);
   };
@@ -51,12 +57,9 @@ export const Search = () => {
 
   const handleSuggestionClick = (suggestion: any) => {
     setQuery(suggestion.name);
-    setViewingCoinId(suggestion.id);
+    setSelectedCoinId(suggestion.id);
     setResults([]);
-    setCanVisit(true);
-    if (activePath !== "/") {
-      setQuery("");
-    }
+    setCanSelect(true);
   };
 
   return (
@@ -68,14 +71,14 @@ export const Search = () => {
           onChange={handleChange}
           placeholder="Search for a coin..."
         />
-        {canVisit && activePath === "/" && (
+        {canSelect && (
           <button
             className="hover:text-indigo-500"
             onClick={() => {
-              setQuery("");
+              fetchData();
             }}
           >
-            <Link href={`/coin?id=${viewingCoinId}`}>Go...</Link>
+            Select
           </button>
         )}
       </div>
@@ -94,9 +97,8 @@ export const Search = () => {
           </ul>
         )}
         {isLoading && (
-          <div className="relative mt-2">
+          <div>
             <SpinnerContainer $size="20px" />
-            <BlinkingGradientLoader height="40px" />
           </div>
         )}
       </div>

@@ -4,7 +4,7 @@ import { Main, Section } from "../components/styled";
 import { CoinsList } from "../components/home/coinsList/CoinsList";
 import { BackToTopButton } from "../lib/utils/components/BackToTopButton";
 import { useCryptoContext } from "../context/context";
-import { CoinModal } from "../components/coin/CoinModal";
+import { Modal } from "../components/Modal";
 import { Coin } from "./Coin";
 export const HomePage = () => {
   const { isOpen, setIsOpen } = useCryptoContext();
@@ -14,9 +14,9 @@ export const HomePage = () => {
   return (
     <>
       <Main>
-        <CoinModal isOpen={isOpen} onClose={handleClose}>
+        <Modal isOpen={isOpen} onClose={handleClose}>
           <Coin />
-        </CoinModal>
+        </Modal>
         <Section>
           <Charts />
         </Section>

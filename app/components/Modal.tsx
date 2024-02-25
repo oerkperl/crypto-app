@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpRightAndDownLeftFromCenter } from "@fortawesome/free-solid-svg-icons";
 import { useCryptoContext } from "@/app/context/context";
+import { usePathname } from "next/navigation";
 
 interface ModalProps {
   isOpen: boolean;
@@ -10,13 +11,11 @@ interface ModalProps {
   children: ReactNode;
 }
 
-export const CoinModal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  children,
-}) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   const expandIcon = <FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />;
   const { viewingCoinId, setIsOpen } = useCryptoContext();
+  const activePath = usePathname();
+
   if (!isOpen) {
     return null;
   }
@@ -35,21 +34,23 @@ export const CoinModal: React.FC<ModalProps> = ({
       ></div>
       <div className="fixed w-auto  mx-auto my-6 ">
         <div className="relative flex flex-col w-full bg-gray-200 dark:bg-gray-900 border-0 rounded-lg shadow-lg outline-none focus:outline-none">
-          <div className="top-0 flex justify-end p-2 rounded-t items-center">
-            <Link
-              href={`/coin?id=${viewingCoinId}`}
-              className=" px-4 py-2 hover:bg-indigo-600 rounded-md hover:text-white "
-              onClick={() => setIsOpen(false)}
-            >
-              {expandIcon}
-            </Link>
-            <button
-              className="px-4 py-2 hover:bg-indigo-600 rounded-md hover:text-white "
-              onClick={onClose}
-            >
-              X
-            </button>
-          </div>
+          {activePath === "/" && (
+            <div className="top-0 flex justify-end p-2 rounded-t items-center">
+              <Link
+                href={`/coin?id=${viewingCoinId}`}
+                className=" px-4 py-2 hover:bg-indigo-600 rounded-md hover:text-white "
+                onClick={() => setIsOpen(false)}
+              >
+                {expandIcon}
+              </Link>
+              <button
+                className="px-4 py-2 hover:bg-indigo-600 rounded-md hover:text-white "
+                onClick={onClose}
+              >
+                X
+              </button>
+            </div>
+          )}
           <div className="p-2 flex-auto overflow-y-auto max-h-[85vh]">
             {children}
           </div>

@@ -11,7 +11,7 @@ import { useCryptoContext } from "../context/context";
 export const Coin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coin, setCoin] = useState<any>({});
-  const { viewingCoinId } = useCryptoContext();
+  const { viewingCoinId, setCanVisit } = useCryptoContext();
   const hasId = viewingCoinId !== "" || viewingCoinId !== undefined;
   const url = `https://api.coingecko.com/api/v3/coins/${viewingCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
 
@@ -22,6 +22,7 @@ export const Coin = () => {
         setCoin(data);
         setIsLoading(false);
       }
+      setCanVisit(false);
     } catch (err) {
       console.error(err);
     }

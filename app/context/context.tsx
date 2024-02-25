@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useState, ReactNode, useContext } from "react";
-import { CryptoContextValue } from "@/app/lib/types";
+import { CryptoContextValue, TAsset } from "@/app/lib/types";
 import { GlobalStyle } from "../components/styled";
 import { ThemeProvider } from "next-themes";
 
@@ -12,12 +12,12 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   function useLocalState<T>(key: string, initialValue: T) {
-    const storedValue = window.localStorage.getItem(key);
+    const storedValue = localStorage.getItem(key);
     const item = storedValue ? JSON.parse(storedValue) : initialValue;
     const [state, setState] = useState<T>(item);
 
     const updateState = (value: T) => {
-      window.localStorage.setItem(key, JSON.stringify(value));
+      localStorage.setItem(key, JSON.stringify(value));
       setState(value);
     };
 
@@ -30,13 +30,35 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     { name: "btc", sym: "₿" },
     { name: "eth", sym: "Ξ" },
   ];
-
+  //const [assets, setAssets] = useLocalState<TAsset[]>("assets", []);
+  const [assets, setAssets] = useState<TAsset[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1M");
   const [currentChart, setCurrentChart] = useState<any>({});
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
   const [selectedOption, setSelectedOption] = useState("Coins");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [viewingCoinId, setViewingCoinId] = useState<string>("");
+  const [selectedCoinId, setSelectedCoinId] = useState<string>("");
+  const [canVisit, setCanVisit] = useState<boolean>(false);
+
+  const addAsset = (asset: TAsset) => {
+    if (assets.some((existingAsset) => existingAsset.id === asset.id)) return;
+    setAssets([...assets, asset]);
+  };
+  const getAssets = () => {
+    return assets;
+  };
+  const removeAsset = (asset: TAsset) => {
+    const filtered = assets.filter((a) => a.id !== asset.id);
+    setAssets(filtered);
+  };
+
+  const UpdateAmount = (id: string, newAmount: number) => {
+    const filtered = assets.map((a) =>
+      a.id === id ? { ...a, amount: newAmount } : a
+    );
+    setAssets(filtered);
+  };
 
   const val: CryptoContextValue = {
     setSelectedPeriod,
@@ -45,6 +67,12 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     setSelectedOption,
     setViewingCoinId,
     setIsOpen,
+    setCanVisit,
+    setSelectedCoinId,
+    addAsset,
+    getAssets,
+    removeAsset,
+    UpdateAmount,
     currentChart,
     selectedPeriod,
     selectedCurrency,
@@ -52,6 +80,9 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     selectedOption,
     isOpen,
     viewingCoinId,
+    canVisit,
+    selectedCoinId,
+    assets,
   };
 
   return (
