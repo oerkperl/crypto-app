@@ -81,7 +81,7 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
           <button
             className="hover:text-green-500"
             onClick={() => {
-              fetchData();
+              fetchData;
               setResults([]);
             }}
           >

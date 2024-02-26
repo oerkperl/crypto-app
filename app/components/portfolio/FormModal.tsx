@@ -75,7 +75,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                 {hasError && <p>Network error: try again later</p>}
                 <button
                   className="w-8 h-8  rounded-full bg-white dark:bg-gray-800 hover:bg-indigo-600 hover:text-white"
-                  onClick={() => onClose()}
+                  onClick={onClose}
                 >
                   X
                 </button>
@@ -118,7 +118,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                   <div className="flex gap-2">
                     <button
                       className=" w-1/2 h-12 rounded-lg bg-pink-500 hover:bg-pink-600 text-white"
-                      onClick={() => onClose()}
+                      onClick={onClose}
                     >
                       Cancel
                     </button>
@@ -127,9 +127,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                         canAddAsset ? "hover:bg-green-600" : "hover:bg-gray-600"
                       }`}
                       disabled={!canAddAsset}
-                      onClick={() => {
-                        addNewAsset();
-                      }}
+                      onClick={addNewAsset}
                     >
                       Save
                     </button>

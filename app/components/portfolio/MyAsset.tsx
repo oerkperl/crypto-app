@@ -27,9 +27,7 @@ export const MyAsset: React.FC<{
         {hasError && (
           <button
             className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
-            onClick={() => {
-              fetchAsset();
-            }}
+            onClick={fetchAsset}
           >
             {refeshIcon}
           </button>
