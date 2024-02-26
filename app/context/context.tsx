@@ -30,8 +30,8 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     { name: "btc", sym: "₿" },
     { name: "eth", sym: "Ξ" },
   ];
-  //const [assets, setAssets] = useLocalState<TAsset[]>("assets", []);
-  const [assets, setAssets] = useState<TAsset[]>([]);
+  const [assets, setAssets] = useLocalState<TAsset[]>("assets", []);
+  //const [assets, setAssets] = useState<TAsset[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1M");
   const [currentChart, setCurrentChart] = useState<any>({});
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);

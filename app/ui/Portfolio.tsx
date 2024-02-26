@@ -21,7 +21,7 @@ export const Portfolio = () => {
         <div className="flex justify-between mt-2  items-center">
           <h1 className="">Your Assets</h1>
           <button
-            className="px-8 py-2 rounded-lg bg-indigo-600 text-white"
+            className="px-8 py-1 rounded-md bg-indigo-600 text-white"
             onClick={() => {
               setIsOpen(true);
             }}
@@ -33,8 +33,8 @@ export const Portfolio = () => {
           {!hasAssets && (
             <div className="mt-16">
               <p className="text-center">
-                Looks like you have no assets in your portfolio. Click the 'Add
-                Asset' button to add
+                You have no assets in your portfolio. Click the 'Add Asset'
+                button to add
               </p>
               <LoadingAsset />
             </div>

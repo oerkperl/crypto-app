@@ -54,7 +54,7 @@ export const Search = () => {
     setViewingCoinId(suggestion.id);
     setResults([]);
     setCanVisit(true);
-    if (activePath !== "/") {
+    if (activePath === "/coin") {
       setQuery("");
     }
   };
@@ -68,7 +68,7 @@ export const Search = () => {
           onChange={handleChange}
           placeholder="Search for a coin..."
         />
-        {canVisit && activePath === "/" && (
+        {canVisit && activePath !== "/coin" && (
           <button
             className="hover:text-indigo-500"
             onClick={() => {

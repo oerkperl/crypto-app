@@ -3,11 +3,16 @@ import axios from "axios";
 import { Input } from "../home/styled";
 import { SpinnerContainer } from "../styled";
 import { useCryptoContext } from "@/app/context/context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons/faRotateRight";
+
 interface ISelectCoin {
   fetchData: () => void;
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   canSelect: boolean;
+  hasError: boolean;
   setCanSelect: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const SelectCoin: React.FC<ISelectCoin> = ({
@@ -15,6 +20,7 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
   query,
   setQuery,
   canSelect,
+  hasError,
   setCanSelect,
 }) => {
   const [results, setResults] = useState<any[]>([]);
@@ -73,12 +79,18 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
         />
         {canSelect && (
           <button
-            className="hover:text-indigo-500"
+            className="hover:text-green-500"
             onClick={() => {
               fetchData();
+              setResults([]);
             }}
           >
-            Select
+            {" "}
+            {hasError ? (
+              <FontAwesomeIcon icon={faRotateRight} />
+            ) : (
+              <FontAwesomeIcon icon={faCheck} />
+            )}
           </button>
         )}
       </div>

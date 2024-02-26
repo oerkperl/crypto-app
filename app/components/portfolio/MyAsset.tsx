@@ -26,7 +26,7 @@ export const MyAsset: React.FC<{
 
         {hasError && (
           <button
-            className="px-1 rounded-md hover:bg-indigo-600"
+            className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
             onClick={() => {
               fetchAsset();
             }}
@@ -40,7 +40,7 @@ export const MyAsset: React.FC<{
           <p className="text-xs">Current price</p>
           <span className="text-[#00B1A7] text-sm">
             {hasError ? (
-              <BlinkingGradientLoader width="50px" />
+              <BlinkingGradientLoader width="100px" />
             ) : (
               "$" + asset?.current_price
             )}
@@ -50,7 +50,7 @@ export const MyAsset: React.FC<{
           <h2 className="text-xs">Price change 24h</h2>
           <span className="text-[#00B1A7] text-sm">
             {hasError ? (
-              <BlinkingGradientLoader width="40px" />
+              <BlinkingGradientLoader width="100px" />
             ) : (
               " $" + asset?.price_change_percentage_24h
             )}
