@@ -24,7 +24,7 @@ export const CurrencyDropdown = () => {
       id="currency"
       value={selectedCurrency.name}
       onChange={handleCurrencyChange}
-      className="bg-indigo-500 rounded text-white  focus:outline-none focus:border-blue-500 h-9"
+      className="bg-indigo-600 rounded text-white focus:outline-none h-9"
     >
       {currencies.map((currency) => (
         <option key={currency.name} value={currency.name}>

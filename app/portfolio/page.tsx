@@ -1,13 +1,7 @@
 "use client";
 import React from "react";
-import { Main, Section } from "../components/styled";
+import { Portfolio } from "../ui/Portfolio";
 
 export default function Page() {
-  return (
-    <Main>
-      <Section>
-        <h1>Portfolio Page</h1>
-      </Section>
-    </Main>
-  );
+  return <Portfolio />;
 }

@@ -73,7 +73,7 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
             <SpinnerContainer />
             {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} className="mt-2">
-                <BlinkingGradientLoader height="50px" />
+                <BlinkingGradientLoader height="40px" />
               </div>
             ))}
           </div>

@@ -44,7 +44,7 @@ export const Wrapper = styled.div`
 
 export const Item = styled.div`
   gap: 0.25rem;
-  font-size: 14px;
+  font-size: 12px;
   width: 200px;
   max-hiegth: 200px;
 `;

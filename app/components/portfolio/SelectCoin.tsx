@@ -1,19 +1,31 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import axios from "axios";
-import { usePathname } from "next/navigation";
-import { Input } from "../styled";
-import { SpinnerContainer } from "../../styled";
-import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
+import { Input } from "../home/styled";
+import { SpinnerContainer } from "../styled";
 import { useCryptoContext } from "@/app/context/context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons/faRotateRight";
 
-export const Search = () => {
-  const [query, setQuery] = useState<string>("");
+interface ISelectCoin {
+  fetchData: () => void;
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  canSelect: boolean;
+  hasError: boolean;
+  setCanSelect: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const SelectCoin: React.FC<ISelectCoin> = ({
+  fetchData,
+  query,
+  setQuery,
+  canSelect,
+  hasError,
+  setCanSelect,
+}) => {
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [canVisit, setCanVisit] = useState<boolean>(false);
-  const { viewingCoinId, setViewingCoinId } = useCryptoContext();
-  const activePath = usePathname();
+  const { setSelectedCoinId } = useCryptoContext();
   let timeout: any | null = null;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +40,7 @@ export const Search = () => {
       } else {
         setIsLoading(false);
         setResults([]);
-        setCanVisit(false);
+        setCanSelect(false);
       }
     }, 1500);
   };
@@ -51,12 +63,9 @@ export const Search = () => {
 
   const handleSuggestionClick = (suggestion: any) => {
     setQuery(suggestion.name);
-    setViewingCoinId(suggestion.id);
+    setSelectedCoinId(suggestion.id);
     setResults([]);
-    setCanVisit(true);
-    if (activePath === "/coin") {
-      setQuery("");
-    }
+    setCanSelect(true);
   };
 
   return (
@@ -68,14 +77,20 @@ export const Search = () => {
           onChange={handleChange}
           placeholder="Search for a coin..."
         />
-        {canVisit && activePath !== "/coin" && (
+        {canSelect && (
           <button
-            className="hover:text-indigo-500"
+            className="hover:text-green-500"
             onClick={() => {
-              setQuery("");
+              fetchData;
+              setResults([]);
             }}
           >
-            <Link href={`/coin?id=${viewingCoinId}`}>Go...</Link>
+            {" "}
+            {hasError ? (
+              <FontAwesomeIcon icon={faRotateRight} />
+            ) : (
+              <FontAwesomeIcon icon={faCheck} />
+            )}
           </button>
         )}
       </div>
@@ -94,9 +109,8 @@ export const Search = () => {
           </ul>
         )}
         {isLoading && (
-          <div className="relative mt-2">
+          <div>
             <SpinnerContainer $size="20px" />
-            <BlinkingGradientLoader height="40px" />
           </div>
         )}
       </div>

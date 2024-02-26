@@ -71,7 +71,7 @@ const setChartdata = (charData: any, trend: string): any => {
           return gradient;
         },
         pointRadius: 0,
-        borderWidth: 3,
+        borderWidth: 2,
         fill: true,
       },
     ],

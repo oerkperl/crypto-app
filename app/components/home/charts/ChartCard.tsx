@@ -20,9 +20,11 @@ export const ChartCard: React.FC<{
       <div>
         <span className="text-md">{labels.title}: </span>
         <span className="text-2xl">
-          {selectedCurrency.sym}
-          {labels.amount === "undefinedQd" && <BlinkingGradientLoader />}
-          {labels.amount !== "undefinedQd" && labels.amount}
+          {labels.amount === "undefinedQd" ? (
+            <BlinkingGradientLoader width="200px" />
+          ) : (
+            selectedCurrency.sym + labels.amount
+          )}
         </span>
       </div>
       <div>{labels.date}</div>

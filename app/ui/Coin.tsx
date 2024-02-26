@@ -11,7 +11,7 @@ import { useCryptoContext } from "../context/context";
 export const Coin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coin, setCoin] = useState<any>({});
-  const { viewingCoinId } = useCryptoContext();
+  const { viewingCoinId, setCanVisit } = useCryptoContext();
   const hasId = viewingCoinId !== "" || viewingCoinId !== undefined;
   const url = `https://api.coingecko.com/api/v3/coins/${viewingCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
 
@@ -22,6 +22,7 @@ export const Coin = () => {
         setCoin(data);
         setIsLoading(false);
       }
+      setCanVisit(false);
     } catch (err) {
       console.error(err);
     }
@@ -58,15 +59,21 @@ export const Coin = () => {
               />
             </div>
           </div>
-          <h1 className="mt-4 text-xl ">Description:</h1>
-          <div className="min-w-[1000px] mt-4 bg-white dark:bg-gray-800 rounded-xl px-4 py-2 max-h-52 overflow-auto text-sm">
-            {coin?.description?.en === ""
-              ? "No description for this coin"
-              : coin?.description?.en}
-          </div>
-          <h1 className="mt-4 text-xl">Blockchain Links:</h1>
-          <div className="max-h-64 overflow-auto mt-4 mb-4 pr-2 border-b border-gray-500">
-            <LinksList links={coin?.links?.blockchain_site} />
+          <div className="flex mt-4 justify-between  max-h-72 gap-2 min-w-[1000px]">
+            <div className=" w-1/2">
+              <h1 className="text-xl ">Description:</h1>
+              <div className="h-64 bg-white dark:bg-gray-800 rounded-xl px-4 py-2 overflow-auto text-sm">
+                {coin?.description?.en === ""
+                  ? "No description for this coin"
+                  : coin?.description?.en}
+              </div>
+            </div>
+            <div className=" w-1/2 h-full">
+              <h1 className="text-xl">Blockchain Links:</h1>
+              <div className=" max-h-64  overflow-auto pr-2 ">
+                <LinksList links={coin?.links?.blockchain_site} />
+              </div>
+            </div>
           </div>
         </Section>
       )}
