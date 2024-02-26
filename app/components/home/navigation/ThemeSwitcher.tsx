@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
 import { NavBtn } from "../styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "next-themes";
 
 const ThemeSwitcher: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const dark = <FontAwesomeIcon icon={faMoon} />;
-  const light = <FontAwesomeIcon icon={faCircleHalfStroke} />;
 
   useEffect(() => {
     setMounted(true);
@@ -34,7 +31,7 @@ const ThemeSwitcher: React.FC = () => {
         onClick={toggleTheme}
         className={`px-4 rounded-md hover:text-white hover:bg-indigo-600 w-full bg-white dark:bg-gray-800`}
       >
-        {theme === "light" ? dark : light}
+        <FontAwesomeIcon icon={faCircleHalfStroke} />
       </button>
     </NavBtn>
   );

@@ -19,7 +19,8 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
   const [canSelect, setCanSelect] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
   const { selectedCoinId, addAsset } = useCryptoContext();
-  const canAddAsset: boolean = Object.entries(selectedCoin).length !== 0;
+  const canAddAsset: boolean =
+    Object.entries(selectedCoin).length !== 0 && amount >= 0;
   const date: string = getCurrentDate();
   const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${selectedCoinId}&order=market_cap_desc&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d`;
 
@@ -74,7 +75,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                 {hasError && <p>Network error: try again later</p>}
                 <button
                   className="w-8 h-8  rounded-full bg-white dark:bg-gray-800 hover:bg-indigo-600 hover:text-white"
-                  onClick={() => onClose()}
+                  onClick={onClose}
                 >
                   X
                 </button>
@@ -104,6 +105,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                       setQuery={setQuery}
                       canSelect={canSelect}
                       setCanSelect={setCanSelect}
+                      hasError={hasError}
                     />
                   </div>
                   <input
@@ -116,16 +118,16 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                   <div className="flex gap-2">
                     <button
                       className=" w-1/2 h-12 rounded-lg bg-pink-500 hover:bg-pink-600 text-white"
-                      onClick={() => onClose()}
+                      onClick={onClose}
                     >
                       Cancel
                     </button>
                     <button
-                      className=" w-1/2 h-12 rounded-lg bg-white dark:bg-gray-800 hover:bg-indigo-600 hover:text-white"
+                      className={`w-1/2 h-12 rounded-lg bg-white dark:bg-gray-800  hover:text-white ${
+                        canAddAsset ? "hover:bg-green-600" : "hover:bg-gray-600"
+                      }`}
                       disabled={!canAddAsset}
-                      onClick={() => {
-                        addNewAsset();
-                      }}
+                      onClick={addNewAsset}
                     >
                       Save
                     </button>

@@ -1,5 +1,7 @@
 import React from "react";
 import { useCryptoContext } from "@/app/context/context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 export const ProfileCard: React.FC<{ myCoin: any }> = ({ myCoin }) => {
   const { removeAsset } = useCryptoContext();
@@ -13,11 +15,12 @@ export const ProfileCard: React.FC<{ myCoin: any }> = ({ myCoin }) => {
         <h1>{myCoin?.name}</h1>
         <h1>{`(${myCoin?.symbol.toUpperCase()})`}</h1>
         <button
+          className="px-2 rounded-md hover:bg-pink-600 hover:text-white"
           onClick={() => {
             removeAsset(myCoin);
           }}
         >
-          Delete Asset
+          <FontAwesomeIcon icon={faTrashCan} />
         </button>
       </div>
     </div>

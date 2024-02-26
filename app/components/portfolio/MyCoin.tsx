@@ -38,7 +38,7 @@ export const MyCoin: React.FC<{
       <div className="flex justify-between mt-2">
         <h1>Your coin</h1>
         <button
-          className="px-1 rounded-md hover:bg-indigo-600"
+          className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
           onClick={() => {
             setIsEditing((prev) => !prev);
           }}
@@ -56,11 +56,15 @@ export const MyCoin: React.FC<{
             <form onSubmit={handleSubmit} className="flex">
               <input
                 type="number"
-                className="max-w-24 px-1"
+                className="max-w-32 px-1 rounded-md bg-transparent border border-gray-300"
                 value={coinAmount}
                 onChange={(e: any) => setCoinAmount(e.target.value)}
               />
-              <button style={{ marginLeft: ".5rem" }} onClick={handleSubmit}>
+              <button
+                style={{ marginLeft: ".5rem" }}
+                onClick={handleSubmit}
+                className="px-1 rounded-md hover:bg-green-600 hover:text-white"
+              >
                 {checkIcon}
               </button>
             </form>
@@ -69,8 +73,7 @@ export const MyCoin: React.FC<{
         <div className="flex flex-col gap-2 w-1/4 ">
           <h2 className="text-xs">Value</h2>
           <span className="text-[#00B1A7] text-sm">
-            {" "}
-            {hasError ? <BlinkingGradientLoader width="70px" /> : "$" + value}
+            {hasError ? <BlinkingGradientLoader width="100px" /> : "$" + value}
           </span>
         </div>
         <div className="flex flex-col  gap-2  w-1/4 ">
