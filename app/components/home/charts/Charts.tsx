@@ -109,47 +109,39 @@ export const Charts: React.FC = () => {
             </div>
           </Col>
           <Col $width="70%">
-            {selectedOption === "Coins" && (
-              <div>
-                {isLoading && (
-                  <div>
-                    <LoadingChart />
-                    <button
-                      className="border border-gray-500 p-2 mt-2 hover:bg-indigo-600 hover:text-white"
-                      onClick={() => {
-                        fetchData();
-                      }}
-                    >
-                      Reload
-                    </button>
-                  </div>
-                )}
-                {!isLoading && (
-                  <div className="max-h-full">
-                    <ChartCard
-                      data={priceData}
-                      labels={priceLabels}
-                      type={"line"}
-                      height={100}
-                      borderColor="#0CF264"
-                      backgroundColor={[0, 0, 0, 350]}
-                    ></ChartCard>
+            <div>
+              {isLoading && (
+                <div>
+                  <LoadingChart fetchData={fetchData} />
+                </div>
+              )}
+              {!isLoading && (
+                <div className="max-h-full">
+                  <ChartCard
+                    data={priceData}
+                    labels={priceLabels}
+                    type={"line"}
+                    height={100}
+                    borderColor="#0CF264"
+                    backgroundColor={[0, 0, 0, 350]}
+                  ></ChartCard>
+                  {selectedOption === "Coins" ? (
                     <ChartCard
                       labels={volumeLabels}
                       data={volumeData}
                       type={"bar"}
                       height={100}
                     ></ChartCard>
-                    <TimePeriodButtons />
-                  </div>
-                )}
-              </div>
-            )}
-            {selectedOption !== "Coins" && (
-              <div>
-                <Converter />
-              </div>
-            )}
+                  ) : (
+                    <div>
+                      <Converter />
+                    </div>
+                  )}
+
+                  <TimePeriodButtons />
+                </div>
+              )}
+            </div>
           </Col>
         </Row>
       </Section>

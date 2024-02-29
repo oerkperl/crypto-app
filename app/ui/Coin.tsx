@@ -62,7 +62,7 @@ export const Coin = () => {
           <div className="flex mt-4 justify-between  max-h-72 gap-2 min-w-[1000px]">
             <div className=" w-1/2">
               <h1 className="text-xl ">Description:</h1>
-              <div className="h-64 bg-white dark:bg-gray-800 rounded-xl px-4 py-2 overflow-auto text-sm">
+              <div className="h-64 bg-white dark:bg-gray-800 rounded-xl px-4 py-2 overflow-auto mt-2 text-sm">
                 {coin?.description?.en === ""
                   ? "No description for this coin"
                   : coin?.description?.en}
@@ -70,7 +70,7 @@ export const Coin = () => {
             </div>
             <div className=" w-1/2 h-full">
               <h1 className="text-xl">Blockchain Links:</h1>
-              <div className=" max-h-64  overflow-auto pr-2 ">
+              <div className=" h-64  overflow-auto rounded-xl p-2 mt-2 mb-2 bg-white dark:bg-gray-800">
                 <LinksList links={coin?.links?.blockchain_site} />
               </div>
             </div>

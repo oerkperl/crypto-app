@@ -1,20 +1,27 @@
 import React from "react";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 
-export const LoadingChart = () => {
+export const LoadingChart: React.FC<{ fetchData: () => void }> = ({
+  fetchData,
+}) => {
   return (
-    <div className="mt-4">
-      <div className="flex flex-col gap-2 mb-2 ">
-        <BlinkingGradientLoader height="30px" width="40%" />
-        <BlinkingGradientLoader height="20px" width="30%" />
-        <BlinkingGradientLoader height="125px" />
+    <>
+      <div className="mt-2">
+        <BlinkingGradientLoader height="225px" />
       </div>
-      <div className="flex flex-col gap-2 mb-2">
-        <BlinkingGradientLoader height="30px" width="40%" />
-        <BlinkingGradientLoader height="20px" width="30%" />
-        <BlinkingGradientLoader height="125px" />
+      <div className="mt-2">
+        <BlinkingGradientLoader height="225px" />
       </div>
-      <BlinkingGradientLoader height="40px" width="50%" />
-    </div>
+
+      <div className="mt-2 w-full flex items-center gap-2">
+        <BlinkingGradientLoader height="40px" width="300px" />
+        <button
+          className="border border-gray-500 px-2 py-1 hover:bg-indigo-600 hover:text-white"
+          onClick={fetchData}
+        >
+          Reload
+        </button>
+      </div>
+    </>
   );
 };

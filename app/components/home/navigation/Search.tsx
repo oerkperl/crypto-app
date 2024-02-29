@@ -68,11 +68,12 @@ export const Search = () => {
           onChange={handleChange}
           placeholder="Search for a coin..."
         />
-        {canVisit && activePath !== "/coin" && (
+        {canVisit && activePath !== "/coin" && query !== "" && (
           <button
             className="hover:text-indigo-500"
             onClick={() => {
               setQuery("");
+              setCanVisit(false);
             }}
           >
             <Link href={`/coin?id=${viewingCoinId}`}>Go...</Link>
