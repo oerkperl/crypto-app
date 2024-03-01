@@ -9,7 +9,7 @@ interface CoinProps {
   lable: string;
   handler: (e: any) => void;
 }
-export const ConverterCar: React.FC<CoinProps> = ({
+export const ConverterCard: React.FC<CoinProps> = ({
   type,
   image,
   symbol,

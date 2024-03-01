@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
-import { ConverterCar } from "./ConverterCard";
+import { ConverterCard } from "./ConverterCard";
 export const Converter = () => {
   const { selectedCurrency, currentChart } = useCryptoContext();
 
@@ -64,7 +64,7 @@ export const Converter = () => {
   return (
     <Section>
       <div className="flex justify between gap-2 mt-2 mb-2 h-[235px] relative">
-        <ConverterCar
+        <ConverterCard
           type="coin"
           image={baseCoin?.image || bitcoin?.image}
           currency={currency1}
@@ -72,7 +72,7 @@ export const Converter = () => {
           handler={handleAmount1Change}
           lable={coinToCurrency}
         />
-        <ConverterCar
+        <ConverterCard
           type="currency"
           symbol={selectedCurrency.sym}
           currency={currency2}
