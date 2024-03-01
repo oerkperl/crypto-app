@@ -42,4 +42,5 @@ export type CryptoContextValue = {
   canVisit: boolean;
   selectedCoinId: string;
   assets: TAsset[];
+  chartUrl: string;
 };
