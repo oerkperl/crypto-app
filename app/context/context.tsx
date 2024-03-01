@@ -3,6 +3,7 @@ import React, { createContext, useState, ReactNode, useContext } from "react";
 import { CryptoContextValue, TAsset } from "@/app/lib/types";
 import { GlobalStyle } from "../components/styled";
 import { ThemeProvider } from "next-themes";
+import { getNumberOfDays } from "../lib/utils/formatters";
 
 export const CryptoContext = createContext<CryptoContextValue | undefined>(
   undefined
@@ -39,6 +40,16 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
   const [viewingCoinId, setViewingCoinId] = useState<string>("");
   const [selectedCoinId, setSelectedCoinId] = useState<string>("");
   const [canVisit, setCanVisit] = useState<boolean>(false);
+  const days = getNumberOfDays(selectedPeriod).toString();
+  const baseUrl = `https://api.coingecko.com/api/v3/coins/${
+    currentChart?.id || "bitcoin"
+  }/market_chart?`;
+  const params = new URLSearchParams({
+    vs_currency: selectedCurrency.name,
+    days: days,
+    interval: "daily",
+  });
+  const chartUrl = `${baseUrl}${params}`;
 
   const addAsset = (asset: TAsset) => {
     if (assets.some((existingAsset) => existingAsset.id === asset.id)) return;
@@ -82,6 +93,7 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     canVisit,
     selectedCoinId,
     assets,
+    chartUrl,
   };
 
   return (
