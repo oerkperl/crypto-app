@@ -13,12 +13,12 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   function useLocalState<T>(key: string, initialValue: T) {
-    const storedValue = localStorage.getItem(key);
+    const storedValue = window.localStorage.getItem(key);
     const item = storedValue ? JSON.parse(storedValue) : initialValue;
     const [state, setState] = useState<T>(item);
 
     const updateState = (value: T) => {
-      localStorage.setItem(key, JSON.stringify(value));
+      window.localStorage.setItem(key, JSON.stringify(value));
       setState(value);
     };
 
