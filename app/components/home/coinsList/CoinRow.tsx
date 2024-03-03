@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Link from "next/link";
+import React from "react";
+import Image from "next/image";
 import { Wrapper, Item, CoinItem } from "../styled";
 import { useCryptoContext } from "@/app/context/context";
 import { Sparkline } from "./Sparkline";
@@ -32,7 +32,13 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
         >
           <Item className="flex px-1">
             {index + 1 || "#"}
-            <img src={coin.image || ""} width={25} height={25} /> {coin.name}
+            <Image
+              src={coin.image || ""}
+              width={25}
+              height={25}
+              alt="coin image"
+            />{" "}
+            {coin.name}
           </Item>
           <CoinItem $width="150px">
             {selectedCurrency.sym}

@@ -17,13 +17,12 @@ export const Converter = () => {
   const bitcoin = useSelector((state: RootState) =>
     getCoinById(state, "bitcoin")
   );
-  const [amount1, setAmount1] = useState<number>(1);
-  const [amount2, setAmount2] = useState<number>(baseCoin?.current_price);
-  const [currency1, setCurrency1] = useState<string>(selectedCurrency.name);
-  const [currency2, setCurrency2] = useState<string>(currentChart.name);
-  const [conversionRate, setConversionrate] = useState<number>(
-    baseCoin?.current_price
-  );
+  const hasData = bitcoin || baseCoin;
+  const [amount1, setAmount1] = useState<number>(0);
+  const [amount2, setAmount2] = useState<number>(0);
+  const [currency1, setCurrency1] = useState<string>("");
+  const [currency2, setCurrency2] = useState<string>("");
+  const [conversionRate, setConversionrate] = useState<number>(0);
 
   const handleAmount1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
@@ -59,7 +58,7 @@ export const Converter = () => {
     } else if (baseCoin) {
       initialze(baseCoin);
     }
-  }, [baseCoin, bitcoin, selectedCurrency, currentChart]);
+  }, [baseCoin, bitcoin, selectedCurrency, currentChart, initialze]);
 
   return (
     <Section>
@@ -71,6 +70,7 @@ export const Converter = () => {
           amount={amount1}
           handler={handleAmount1Change}
           lable={coinToCurrency}
+          hasData={hasData}
         />
         <ConverterCard
           type="currency"
@@ -79,6 +79,7 @@ export const Converter = () => {
           amount={amount2}
           handler={handleAmount2Change}
           lable={currencyToCoin}
+          hasData={hasData}
         />
         <div
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full

@@ -33,7 +33,7 @@ export const Coin = () => {
     if (hasId) {
       fetchCoin();
     }
-  }, [viewingCoinId]);
+  }, [viewingCoinId, fetchCoin, hasId]);
 
   return (
     <Main>

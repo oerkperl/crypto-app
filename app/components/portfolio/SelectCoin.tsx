@@ -25,7 +25,9 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
 }) => {
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { setSelectedCoinId } = useCryptoContext();
+  const [isTakingLoang, setIsTakingLong] = useState<boolean>(false);
+  const [notification, setNotification] = useState<string>("");
+  const { setSelectedCoinId, setErrorMessage } = useCryptoContext();
   let timeout: any | null = null;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,9 +57,11 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
       if (data) {
         setResults(data.coins);
         setIsLoading(false);
+        setIsTakingLong(false);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      setIsLoading(false);
+      setErrorMessage(setNotification, "Possible server Timeout", 3000);
     }
   };
 
@@ -69,51 +73,49 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
   };
 
   return (
-    <div className="relative">
-      <div className={`flex px-2 rounded-md bg-white dark:bg-gray-800 `}>
-        <Input
-          type="text"
-          value={query}
-          onChange={handleChange}
-          placeholder="Search for a coin..."
-        />
-        {canSelect && (
-          <button
-            className="hover:text-green-500"
-            onClick={() => {
-              fetchData();
-              setResults([]);
-            }}
-          >
-            {" "}
-            {hasError ? (
-              <FontAwesomeIcon icon={faRotateRight} />
-            ) : (
-              <FontAwesomeIcon icon={faCheck} />
-            )}
-          </button>
-        )}
+    <>
+      <div className="relative">
+        <div className={`flex px-2 rounded-md bg-white dark:bg-gray-800 `}>
+          <Input
+            type="text"
+            value={query}
+            onChange={handleChange}
+            placeholder="Search for a coin..."
+          />
+          {canSelect && (
+            <button
+              className="hover:text-green-500"
+              onClick={() => {
+                fetchData();
+                setResults([]);
+              }}
+            >
+              {hasError ? (
+                <FontAwesomeIcon icon={faRotateRight} />
+              ) : (
+                <FontAwesomeIcon icon={faCheck} />
+              )}
+            </button>
+          )}
+        </div>
+        <div>
+          {query.trim() !== "" && (
+            <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-indigo-600 text-white rounded">
+              {results.map((result) => (
+                <li
+                  key={result.id}
+                  onClick={() => handleSuggestionClick(result)}
+                  className=" w-full p-1 hover:bg-white hover:text-indigo-500  "
+                >
+                  {result.name}
+                </li>
+              ))}
+            </ul>
+          )}
+          {isLoading && <SpinnerContainer $size="20px" />}
+        </div>
       </div>
-      <div>
-        {query.trim() !== "" && (
-          <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-indigo-600 text-white rounded">
-            {results.map((result) => (
-              <li
-                key={result.id}
-                onClick={() => handleSuggestionClick(result)}
-                className=" w-full p-1 hover:bg-white hover:text-indigo-500  "
-              >
-                {result.name}
-              </li>
-            ))}
-          </ul>
-        )}
-        {isLoading && (
-          <div>
-            <SpinnerContainer $size="20px" />
-          </div>
-        )}
-      </div>
-    </div>
+      {notification !== "" && <div>{notification}</div>}
+    </>
   );
 };

@@ -70,6 +70,13 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     setAssets(filtered);
   };
 
+  const setErrorMessage = (handler: any, message: string, duration: number) => {
+    handler(message);
+    setTimeout(function () {
+      handler("");
+    }, duration);
+  };
+
   const val: CryptoContextValue = {
     setSelectedPeriod,
     setSelectedCurrency,
@@ -83,6 +90,7 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     getAssets,
     removeAsset,
     UpdateAmount,
+    setErrorMessage,
     currentChart,
     selectedPeriod,
     selectedCurrency,

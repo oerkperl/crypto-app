@@ -33,8 +33,7 @@ const options = {
   tension: 0.5,
 };
 
-const setChartdata = (charData: any, trend: string): any => {
-  const { theme } = useTheme();
+const setChartdata = (charData: any, trend: string, theme: string): any => {
   const filtered = charData.filter((e: any, i: any) => i % 4 === 0);
   const data = {
     labels: filtered,
@@ -83,6 +82,7 @@ export const Sparkline: React.FC<{ Chartdata: any; trend: string }> = ({
   Chartdata,
   trend,
 }) => {
-  const passedData = setChartdata(Chartdata, trend);
+  const { theme } = useTheme();
+  const passedData = setChartdata(Chartdata, trend, theme as string);
   return <Line options={options} data={passedData} />;
 };
