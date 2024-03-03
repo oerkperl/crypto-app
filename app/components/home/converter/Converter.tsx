@@ -58,7 +58,7 @@ export const Converter = () => {
     } else if (baseCoin) {
       initialze(baseCoin);
     }
-  }, [baseCoin, bitcoin, selectedCurrency, currentChart, initialze]);
+  }, [baseCoin, bitcoin, selectedCurrency, currentChart]);
 
   return (
     <Section>
