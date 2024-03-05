@@ -25,9 +25,9 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
 }) => {
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isTakingLoang, setIsTakingLong] = useState<boolean>(false);
   const [notification, setNotification] = useState<string>("");
   const { setSelectedCoinId, setErrorMessage } = useCryptoContext();
+
   let timeout: any | null = null;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,11 +57,10 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
       if (data) {
         setResults(data.coins);
         setIsLoading(false);
-        setIsTakingLong(false);
       }
     } catch (error) {
       setIsLoading(false);
-      setErrorMessage(setNotification, "Possible server Timeout", 3000);
+      setErrorMessage(setNotification, "Possible server timeout", 3000);
     }
   };
 
@@ -70,6 +69,10 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
     setSelectedCoinId(suggestion.id);
     setResults([]);
     setCanSelect(true);
+  };
+
+  const clear = () => {
+    setResults([]);
   };
 
   return (
@@ -82,7 +85,7 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
             onChange={handleChange}
             placeholder="Search for a coin..."
           />
-          {canSelect && (
+          {canSelect && query !== "" && (
             <button
               className="hover:text-green-500"
               onClick={() => {
@@ -99,8 +102,13 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
           )}
         </div>
         <div>
-          {query.trim() !== "" && (
+          {query.trim() && (
             <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-indigo-600 text-white rounded">
+              {results.length > 0 && (
+                <div className="flex justify-end px-2">
+                  <button onClick={clear}>x</button>
+                </div>
+              )}
               {results.map((result) => (
                 <li
                   key={result.id}

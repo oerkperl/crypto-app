@@ -102,7 +102,7 @@ export const Charts: React.FC = () => {
                     borderColor="#0CF264"
                     backgroundColor={[0, 0, 0, 350]}
                   ></ChartCard>
-                  {selectedOption === "Coins" ? (
+                  {selectedOption === "Charts" ? (
                     <ChartCard
                       labels={volumeLabels}
                       data={volumeData}

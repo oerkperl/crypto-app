@@ -4,6 +4,7 @@ import { faLayerGroup } from "@fortawesome/free-solid-svg-icons/faLayerGroup";
 import { useCryptoContext } from "@/app/context/context";
 import { formatDate } from "@/app/lib/utils/formatters";
 import { DetailsCard } from "./DetailsCard";
+import { TrendLabel } from "../TrendLable";
 
 export const CoinPriceCard: React.FC<{ marketData: any }> = ({
   marketData,
@@ -35,11 +36,15 @@ export const CoinPriceCard: React.FC<{ marketData: any }> = ({
           {symbol}
           {marketData?.current_price[currency]}
         </h1>
-        <h1>
-          {marketData?.price_change_percentage_24h_in_currency[
-            currency
-          ].toFixed(3) + "%"}
-        </h1>
+
+        <div>
+          <TrendLabel
+            value={
+              marketData?.price_change_percentage_24h_in_currency[currency]
+            }
+            percentage={true}
+          />
+        </div>
         <p>{cardIcon}</p>
         <div className="flex justify-between  w-full">
           <DetailsCard details={athData} />

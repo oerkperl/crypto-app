@@ -19,14 +19,13 @@ export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
         setHasError(false);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
       setHasError(true);
     }
   };
 
   useEffect(() => {
     fetchAsset();
-  }, [fetchAsset]);
+  }, []);
   return (
     <>
       <div className="bg-white dark:bg-gray-800 rounded-xl w-full min-h-16 mb-2 relative">

@@ -4,6 +4,8 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { useCryptoContext } from "@/app/context/context";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
+import { calculatPriceChange } from "@/app/lib/utils/formatters";
+import { TrendLabel } from "../TrendLable";
 
 export const MyCoin: React.FC<{
   myCoin: any;
@@ -16,10 +18,6 @@ export const MyCoin: React.FC<{
   const editIcon = <FontAwesomeIcon icon={faPenToSquare} />;
   const checkIcon = <FontAwesomeIcon icon={faCheck} />;
   const value = myCoin?.amount * asset?.current_price;
-
-  const calculatPriceChange = (oldVal: number, newVal: number): number => {
-    return ((newVal - oldVal) / oldVal) * 100;
-  };
 
   const priceChangeSincePurchase = calculatPriceChange(
     myCoin?.priceDuringPurchase,
@@ -82,7 +80,7 @@ export const MyCoin: React.FC<{
             {hasError ? (
               <BlinkingGradientLoader width="100px" />
             ) : (
-              priceChangeSincePurchase.toFixed(2) + "%"
+              <TrendLabel value={priceChangeSincePurchase} percentage={true} />
             )}
           </span>
         </div>

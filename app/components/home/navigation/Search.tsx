@@ -4,17 +4,21 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { Input } from "../styled";
 import { SpinnerContainer } from "../../styled";
-import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { useCryptoContext } from "@/app/context/context";
 
 export const Search = () => {
-  const [query, setQuery] = useState<string>("");
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [notification, setNotification] = useState<string>("");
   const [canVisit, setCanVisit] = useState<boolean>(false);
-  const { viewingCoinId, setViewingCoinId, setErrorMessage, isOpen } =
-    useCryptoContext();
+  const {
+    viewingCoinId,
+    setViewingCoinId,
+    setErrorMessage,
+    isOpen,
+    query,
+    setQuery,
+  } = useCryptoContext();
   const activePath = usePathname();
   let timeout: any | null = null;
 
@@ -49,8 +53,7 @@ export const Search = () => {
       }
     } catch (error) {
       setIsLoading(false);
-      setErrorMessage(setNotification, "Possible server Timeout", 3000);
-      console.error("Error fetching data:", error);
+      setErrorMessage(setNotification, "Possible server timeout", 3000);
     }
   };
 
@@ -62,6 +65,11 @@ export const Search = () => {
     if (activePath === "/coin" && isOpen) {
       setQuery("");
     }
+  };
+
+  const clear = () => {
+    setResults([]);
+    setQuery("");
   };
 
   return (
@@ -88,6 +96,11 @@ export const Search = () => {
       <div>
         {query.trim() !== "" && (
           <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-indigo-600 text-white rounded">
+            {results.length > 0 && (
+              <div className="flex justify-end px-2">
+                <button onClick={clear}>x</button>
+              </div>
+            )}
             {results.map((result) => (
               <li
                 key={result.id}

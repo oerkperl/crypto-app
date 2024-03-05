@@ -1,10 +1,10 @@
 import { useCryptoContext } from "@/app/context/context";
 export const CoinSwitcher = () => {
-  const options = ["Coins", "Converter"];
+  const options = ["Charts", "Converter"];
   const { selectedOption, setSelectedOption } = useCryptoContext();
 
   return (
-    <div className={`bg-white dark:bg-gray-800 inline-flex p-0.5 rounded-lg `}>
+    <div className={`bg-white  dark:bg-gray-800 inline-flex p-1 rounded-lg `}>
       {options.map((option, index) => (
         <button
           key={index}

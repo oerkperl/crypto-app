@@ -15,11 +15,12 @@ interface ModalProps {
 export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
   const [amount, setAmount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [notification, setNotification] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
   const [selectedCoin, setSelectedCoin] = useState<any>({});
   const [canSelect, setCanSelect] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
-  const { selectedCoinId, addAsset } = useCryptoContext();
+  const { selectedCoinId, addAsset, setErrorMessage } = useCryptoContext();
   const canAddAsset: boolean =
     Object.entries(selectedCoin).length !== 0 && amount >= 0;
   const date: string = getCurrentDate();
@@ -35,7 +36,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
         setCanSelect(false);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      setErrorMessage(setNotification, "Network error:try again later", 3000);
       setHasError(true);
     }
   };
@@ -59,9 +60,11 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
   };
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value;
-    if (!isNaN(Number(inputValue))) {
-      setAmount(Number(inputValue));
+    const inputValue = parseFloat(event.target.value);
+    if (inputValue < 0) {
+      setErrorMessage(setNotification, "Negative input attempt", 3000);
+    } else {
+      setAmount(inputValue);
     }
   };
 
@@ -73,7 +76,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
             <div className="w-full border border-gray-400 p-8 rounded-xl">
               <div className="flex justify-between">
                 <h1>Select coin</h1>
-                {hasError && <p>Network error: try again later</p>}
+                {notification !== "" && <p>{notification}</p>}
                 <button
                   className="w-8 h-8  rounded-full bg-white dark:bg-gray-800 hover:bg-indigo-600 hover:text-white"
                   onClick={onClose}
