@@ -14,7 +14,6 @@ export const TopSection = () => {
   const dispatch = useAppDispatch();
   const fetchData = () => {
     dispatch(fetchChartData(chartUrl));
-    console.log("called");
   };
 
   useEffect(() => {
