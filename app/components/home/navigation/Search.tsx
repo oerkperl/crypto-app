@@ -11,14 +11,17 @@ export const Search = () => {
   const [query, setQuery] = useState<string>("");
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [notification, setNotification] = useState<string>("");
   const [canVisit, setCanVisit] = useState<boolean>(false);
-  const { viewingCoinId, setViewingCoinId } = useCryptoContext();
+  const { viewingCoinId, setViewingCoinId, setErrorMessage, isOpen } =
+    useCryptoContext();
   const activePath = usePathname();
   let timeout: any | null = null;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
+
     if (timeout) {
       clearTimeout(timeout);
     }
@@ -45,6 +48,8 @@ export const Search = () => {
         setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
+      setErrorMessage(setNotification, "Possible server Timeout", 3000);
       console.error("Error fetching data:", error);
     }
   };
@@ -54,7 +59,7 @@ export const Search = () => {
     setViewingCoinId(suggestion.id);
     setResults([]);
     setCanVisit(true);
-    if (activePath === "/coin") {
+    if (activePath === "/coin" && isOpen) {
       setQuery("");
     }
   };
@@ -94,12 +99,8 @@ export const Search = () => {
             ))}
           </ul>
         )}
-        {isLoading && (
-          <div className="relative mt-2">
-            <SpinnerContainer $size="20px" />
-            <BlinkingGradientLoader height="40px" />
-          </div>
-        )}
+        {isLoading && <SpinnerContainer $size="20px" />}
+        {notification !== "" && <div>{notification}</div>}
       </div>
     </div>
   );

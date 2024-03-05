@@ -1,6 +1,8 @@
 import React from "react";
+import Image from "next/image";
+import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 
-interface CoinProps {
+type CoinProps = {
   type: string;
   image?: string;
   symbol?: string;
@@ -8,7 +10,8 @@ interface CoinProps {
   amount: number;
   lable: string;
   handler: (e: any) => void;
-}
+  hasData: boolean;
+};
 export const ConverterCard: React.FC<CoinProps> = ({
   type,
   image,
@@ -17,6 +20,7 @@ export const ConverterCard: React.FC<CoinProps> = ({
   amount,
   lable,
   handler,
+  hasData,
 }) => {
   return (
     <div className="w-1/2 h-full bg-white dark:bg-gray-800 rounded-xl flex items-center pl-8 ">
@@ -24,7 +28,16 @@ export const ConverterCard: React.FC<CoinProps> = ({
         <div className="flex items-center gap-2">
           {type === "coin" && (
             <span className=" w-10 h-10 ">
-              <img src={image} width={100} height={100} />
+              {hasData ? (
+                <Image
+                  src={image as string}
+                  width={100}
+                  height={100}
+                  alt="coin image"
+                />
+              ) : (
+                <BlinkingGradientLoader width="50px" height="40px" />
+              )}
             </span>
           )}
           {type === "currency" && (
@@ -41,7 +54,9 @@ export const ConverterCard: React.FC<CoinProps> = ({
           placeholder={currency}
           className="bg-transparent border-b border-gray-300 pb-2"
         />
-        <label>{lable}</label>
+        <label>
+          {hasData ? lable : <BlinkingGradientLoader width="200px" />}
+        </label>
       </div>
     </div>
   );

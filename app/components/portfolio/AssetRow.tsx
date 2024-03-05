@@ -26,7 +26,7 @@ export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
 
   useEffect(() => {
     fetchAsset();
-  }, []);
+  }, [fetchAsset]);
   return (
     <>
       <div className="bg-white dark:bg-gray-800 rounded-xl w-full min-h-16 mb-2 relative">

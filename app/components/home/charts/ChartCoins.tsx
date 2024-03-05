@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import { useCryptoContext } from "@/app/context/context";
 import { SpinnerContainer } from "../../styled";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
@@ -54,11 +55,12 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
                   `}
                   >
                     <span className="flex items-center justify-center ">
-                      <img
+                      <Image
                         className="mr-1"
                         src={coin?.image}
                         height={20}
                         width={20}
+                        alt="coin image"
                       />
 
                       {coin?.name}

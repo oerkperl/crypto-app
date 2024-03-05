@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import Image from "next/image";
 import { Section } from "../../styled";
 import { ChartCard } from "./ChartCard";
 import { TChartLables } from "@/app/lib/types";
@@ -20,13 +21,7 @@ import { fetchChartData, getChart, getChartStatus } from "./chartsSlice";
 
 export const Charts: React.FC = () => {
   const dispatch = useAppDispatch();
-  const {
-    selectedPeriod,
-    selectedCurrency,
-    currentChart,
-    selectedOption,
-    chartUrl,
-  } = useCryptoContext();
+  const { currentChart, selectedOption, chartUrl } = useCryptoContext();
 
   const bitcoinData = useSelector((state: RootState) =>
     getCoinById(state, "bitcoin")
@@ -54,13 +49,9 @@ export const Charts: React.FC = () => {
     date: todayDateString,
   };
 
-  const fetchData = async () => {
+  const fetchData = () => {
     dispatch(fetchChartData(chartUrl));
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [selectedPeriod, selectedCurrency, currentChart]);
 
   return (
     <>
@@ -79,10 +70,11 @@ export const Charts: React.FC = () => {
               })`}
             </h2>
             {currentChart && (
-              <img
+              <Image
                 src={currentChart?.image || bitcoinData?.image}
                 width={25}
                 height={25}
+                alt="coin image"
               />
             )}
           </div>

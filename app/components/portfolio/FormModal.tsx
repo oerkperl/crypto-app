@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Image from "next/image";
 import { useCryptoContext } from "@/app/context/context";
 import { getCurrentDate } from "@/app/lib/utils/formatters";
 import { TAsset } from "@/app/lib/types";
@@ -83,13 +84,14 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
               <div className="flex gap-4  py-4">
                 <div className="w-1/3  rounded-lg  bg-white dark:bg-gray-800 flex flex-col items-center justify-center">
                   <div className=" h-20 w-20 flex items-center justify-center rounded-md bg-gray-200 dark:bg-gray-900">
-                    <img
+                    <Image
                       src={
                         selectedCoin?.image ||
                         "https://i.ibb.co/WW7YRBv/Default-bitcoin-thumnail-centred-3.jpg"
                       }
                       height={70}
                       width={70}
+                      alt="coin image"
                     />
                   </div>
                   <div>{selectedCoin?.name || "No coin selected"}</div>

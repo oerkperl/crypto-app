@@ -12,18 +12,6 @@ export const CryptoContext = createContext<CryptoContextValue | undefined>(
 const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  function useLocalState<T>(key: string, initialValue: T) {
-    const storedValue = localStorage.getItem(key);
-    const item = storedValue ? JSON.parse(storedValue) : initialValue;
-    const [state, setState] = useState<T>(item);
-
-    const updateState = (value: T) => {
-      localStorage.setItem(key, JSON.stringify(value));
-      setState(value);
-    };
-
-    return [state, updateState] as const;
-  }
   const currencies = [
     { name: "usd", sym: "$" },
     { name: "gbp", sym: "£" },
@@ -31,7 +19,7 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     { name: "btc", sym: "₿" },
     { name: "eth", sym: "Ξ" },
   ];
-  const [assets, setAssets] = useLocalState<TAsset[]>("assets", []);
+  const [assets, setAssets] = useState<TAsset[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1M");
   const [currentChart, setCurrentChart] = useState<any>({});
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
@@ -70,6 +58,13 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     setAssets(filtered);
   };
 
+  const setErrorMessage = (handler: any, message: string, duration: number) => {
+    handler(message);
+    setTimeout(function () {
+      handler("");
+    }, duration);
+  };
+
   const val: CryptoContextValue = {
     setSelectedPeriod,
     setSelectedCurrency,
@@ -83,6 +78,7 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     getAssets,
     removeAsset,
     UpdateAmount,
+    setErrorMessage,
     currentChart,
     selectedPeriod,
     selectedCurrency,

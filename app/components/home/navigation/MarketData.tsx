@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
 import { ProgressBar } from "@/app/lib/utils/components/ProgressBar";
 import { Wrapper, Item } from "../styled";
 import { useCryptoContext } from "@/app/context/context";
@@ -80,7 +81,12 @@ export const MarketData = () => {
             </Item>
             <Item className="flex justify-center items-center">
               {bitcoin?.image && (
-                <img src={bitcoin?.image} width={25} height={25} />
+                <Image
+                  src={bitcoin?.image}
+                  width={25}
+                  height={25}
+                  alt="bitcoin image"
+                />
               )}
               {btc_mc_percentage + "%"}
               <ProgressBar
@@ -90,7 +96,12 @@ export const MarketData = () => {
             </Item>
             <Item className="flex items-center justify-center">
               {ethereum?.image && (
-                <img src={ethereum?.image} width={25} height={25} />
+                <Image
+                  src={ethereum?.image}
+                  width={25}
+                  height={25}
+                  alt="etherium image"
+                />
               )}
               {eth_mc_percentage + "%"}
               <ProgressBar
