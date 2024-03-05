@@ -14,6 +14,7 @@ export const TopSection = () => {
   const dispatch = useAppDispatch();
   const fetchData = () => {
     dispatch(fetchChartData(chartUrl));
+    console.log("called");
   };
 
   useEffect(() => {
@@ -23,10 +24,10 @@ export const TopSection = () => {
     <>
       <FetchCoins />
       <Main>
+        <Navabr />
         <Section>
           <MarketData />
         </Section>
-        <Navabr />
       </Main>
     </>
   );

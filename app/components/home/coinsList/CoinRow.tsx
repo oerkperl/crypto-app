@@ -5,6 +5,7 @@ import { useCryptoContext } from "@/app/context/context";
 import { Sparkline } from "./Sparkline";
 import { Trends } from "./Trends";
 import { useTheme } from "next-themes";
+import { TrendLabel } from "../../TrendLable";
 
 export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
   const { selectedCurrency, setIsOpen, setViewingCoinId } = useCryptoContext();
@@ -53,7 +54,10 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
                 : "text-trend-blue"
             }
           >
-            {coin.price_change_percentage_1h_in_currency?.toFixed(2) + "%"}
+            <TrendLabel
+              value={coin?.price_change_percentage_1h_in_currency}
+              percentage={true}
+            />
           </CoinItem>
           <CoinItem
             className={
@@ -64,7 +68,10 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
                 : "text-trend-blue"
             }
           >
-            {coin?.price_change_percentage_24h_in_currency?.toFixed(2) + "%"}
+            <TrendLabel
+              value={coin?.price_change_percentage_24h_in_currency}
+              percentage={true}
+            />
           </CoinItem>
           <CoinItem
             className={
@@ -75,7 +82,10 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
                 : "text-trend-blue"
             }
           >
-            {coin?.price_change_percentage_7d_in_currency?.toFixed(2) + "%"}
+            <TrendLabel
+              value={coin?.price_change_percentage_7d_in_currency}
+              percentage={true}
+            />
           </CoinItem>
           <Item className="p-2">
             <Trends

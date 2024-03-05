@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { ProgressBar } from "@/app/lib/utils/components/ProgressBar";
-import { Wrapper, Item } from "../styled";
+import { Wrapper } from "../styled";
 import { useCryptoContext } from "@/app/context/context";
 import { getCoinById } from "../coinsList/coinsSlice";
 import { useSelector } from "react-redux";
@@ -37,9 +37,7 @@ export const MarketData = () => {
       if (data) {
         setIsLoading(false);
       }
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -57,29 +55,26 @@ export const MarketData = () => {
       )}
 
       {!isLoading && (
-        <div className="border-b border-gray-500">
+        <div className="border-b border-t border-gray-400 mt-2 text-sm">
           <Wrapper className="flex justify-between text-center">
-            <Item>
-              <p className="text-xl">Logo</p>
-            </Item>
-            <Item>
+            <div>
               <FontAwesomeIcon icon={faCoins} />
               <span> Coins {data?.active_cryptocurrencies}</span>
-            </Item>
-            <Item>
+            </div>
+            <div>
               <FontAwesomeIcon icon={faClone} />
               <span> Exchange</span>
-            </Item>
-            <Item>
+            </div>
+            <div>
               {selectedCurrency.sym}
               {formatMoney(data?.total_market_cap[currencyName])}
-            </Item>
+            </div>
 
-            <Item>
+            <div>
               {selectedCurrency.sym}
               {formatMoney(data?.total_volume[currencyName])}
-            </Item>
-            <Item className="flex justify-center items-center">
+            </div>
+            <div className="flex items-center gap-1">
               {bitcoin?.image && (
                 <Image
                   src={bitcoin?.image}
@@ -92,9 +87,11 @@ export const MarketData = () => {
               <ProgressBar
                 progress={btc_mc_percentage.toString()}
                 width="50px"
+                fg="#FE921A"
+                customBg="#666"
               />
-            </Item>
-            <Item className="flex items-center justify-center">
+            </div>
+            <div className="flex items-center gap-1">
               {ethereum?.image && (
                 <Image
                   src={ethereum?.image}
@@ -107,8 +104,10 @@ export const MarketData = () => {
               <ProgressBar
                 progress={eth_mc_percentage.toString()}
                 width="50px"
+                fg="#537FEF"
+                customBg="#666"
               />
-            </Item>
+            </div>
           </Wrapper>
         </div>
       )}

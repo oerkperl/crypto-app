@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang="en">
       <head></head>
       <body className={`bg-gray-200 dark:bg-gray-900 ${inter.className}`}>
         <CryptoContextProvider>

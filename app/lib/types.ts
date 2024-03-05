@@ -24,6 +24,7 @@ export type CryptoContextValue = {
   setSelectedOption: Dispatch<SetStateAction<string>>;
   setViewingCoinId: Dispatch<SetStateAction<string>>;
   setSelectedCoinId: Dispatch<SetStateAction<string>>;
+  setQuery: Dispatch<SetStateAction<string>>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   setCanVisit: Dispatch<SetStateAction<boolean>>;
   setCurrentChart: Dispatch<SetStateAction<any>>;
@@ -44,4 +45,5 @@ export type CryptoContextValue = {
   selectedCoinId: string;
   assets: TAsset[];
   chartUrl: string;
+  query: string;
 };

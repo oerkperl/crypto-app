@@ -11,6 +11,7 @@ type CoinProps = {
   lable: string;
   handler: (e: any) => void;
   hasData: boolean;
+  notification: string;
 };
 export const ConverterCard: React.FC<CoinProps> = ({
   type,
@@ -21,10 +22,14 @@ export const ConverterCard: React.FC<CoinProps> = ({
   lable,
   handler,
   hasData,
+  notification,
 }) => {
   return (
-    <div className="w-1/2 h-full bg-white dark:bg-gray-800 rounded-xl flex items-center pl-8 ">
-      <div className="flex flex-col gap-4 text-sm w-4/5">
+    <div className="w-1/2 h-full bg-white dark:bg-gray-800 rounded-xl flex items-center pl-8 relative">
+      {notification !== "" && (
+        <p className="absolute top-0 left-1/4">{notification}</p>
+      )}
+      <div className="flex flex-col gap-4 text-sm w-4/5 ">
         <div className="flex items-center gap-2">
           {type === "coin" && (
             <span className=" w-10 h-10 ">

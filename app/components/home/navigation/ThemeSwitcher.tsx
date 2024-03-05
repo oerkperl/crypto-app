@@ -14,7 +14,7 @@ const ThemeSwitcher: React.FC = () => {
     if (storedTheme) {
       setTheme(storedTheme);
     }
-  }, [setTheme]);
+  }, []);
 
   if (!mounted) return null;
 

@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { ConverterCard } from "./ConverterCard";
 export const Converter = () => {
-  const { selectedCurrency, currentChart } = useCryptoContext();
+  const { selectedCurrency, currentChart, setErrorMessage } =
+    useCryptoContext();
 
   let baseCoin = useSelector((state: RootState) =>
     getCoinById(state, currentChart.id)
@@ -23,17 +24,26 @@ export const Converter = () => {
   const [currency1, setCurrency1] = useState<string>("");
   const [currency2, setCurrency2] = useState<string>("");
   const [conversionRate, setConversionrate] = useState<number>(0);
+  const [notification, setNotification] = useState<string>("");
 
   const handleAmount1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     setAmount1(value);
-    setAmount2(value * conversionRate);
+    if (value < 0) {
+      setErrorMessage(setNotification, "Negative input", 3000);
+    } else {
+      setAmount2(value * conversionRate);
+    }
   };
 
   const handleAmount2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     setAmount2(value);
-    setAmount1(value / conversionRate);
+    if (value < 0) {
+      setErrorMessage(setNotification, "Negative input", 3000);
+    } else {
+      setAmount1(value / conversionRate);
+    }
   };
   const coinToCurrency = `1 ${baseCoin?.name || bitcoin?.name}       
   = ${baseCoin?.current_price || bitcoin?.current_price}
@@ -71,6 +81,7 @@ export const Converter = () => {
           handler={handleAmount1Change}
           lable={coinToCurrency}
           hasData={hasData}
+          notification={notification}
         />
         <ConverterCard
           type="currency"
@@ -80,6 +91,7 @@ export const Converter = () => {
           handler={handleAmount2Change}
           lable={currencyToCoin}
           hasData={hasData}
+          notification={notification}
         />
         <div
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full

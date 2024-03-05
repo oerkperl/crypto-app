@@ -23,11 +23,12 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1M");
   const [currentChart, setCurrentChart] = useState<any>({});
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
-  const [selectedOption, setSelectedOption] = useState("Coins");
+  const [selectedOption, setSelectedOption] = useState("Charts");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [viewingCoinId, setViewingCoinId] = useState<string>("");
   const [selectedCoinId, setSelectedCoinId] = useState<string>("");
   const [canVisit, setCanVisit] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
   const days = getNumberOfDays(selectedPeriod).toString();
   const baseUrl = `https://api.coingecko.com/api/v3/coins/${
     currentChart?.id || "bitcoin"
@@ -79,6 +80,7 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     removeAsset,
     UpdateAmount,
     setErrorMessage,
+    setQuery,
     currentChart,
     selectedPeriod,
     selectedCurrency,
@@ -90,6 +92,7 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     selectedCoinId,
     assets,
     chartUrl,
+    query,
   };
 
   return (

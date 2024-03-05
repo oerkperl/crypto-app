@@ -12,7 +12,7 @@ export const FetchCoins = () => {
 
   useEffect(() => {
     dispatch(fetchCryptoData(apiUrl));
-  }, [selectedCurrency, apiUrl, dispatch]);
+  }, [selectedCurrency]);
 
   return null;
 };
