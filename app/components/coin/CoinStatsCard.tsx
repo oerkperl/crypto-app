@@ -31,8 +31,8 @@ export const CoinStatsCard: React.FC<{
 
   return (
     hasData && (
-      <div className="w-full h-64 bg-white dark:bg-gray-800 rounded-xl flex items-center px-4 ">
-        <div className="flex flex-col gap-1">
+      <div className="  border-gray-300 border dark:border-gray-700 bg-white dark:bg-transparent rounded-lg py-2">
+        <div className="flex  flex-col gap-1">
           <StatRow stat={symbol + formatMoney(marketCap)} title="Market Cap:" />
           <StatRow
             stat={symbol + formatMoney(fullyDilutedVal)}

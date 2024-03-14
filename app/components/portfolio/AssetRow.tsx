@@ -28,7 +28,7 @@ export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
   }, []);
   return (
     <>
-      <div className="bg-white dark:bg-gray-800 rounded-xl w-full min-h-16 mb-2 relative">
+      <div className="border border-gray-300 dark:border-gray-700 rounded-xl w-full min-h-16 mb-2 relative">
         <div className="flex gap-4">
           <ProfileCard myCoin={myCoin} />
           <div className="w-full mt-2 flex flex-col p-4 ">
@@ -37,7 +37,6 @@ export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
               fetchAsset={fetchAsset}
               hasError={hasError}
             />
-            <hr className="mt-4 " />
             <MyCoin myCoin={myCoin} asset={asset} hasError={hasError} />
           </div>
         </div>

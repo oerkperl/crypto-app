@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Image from "next/image";
 import { useCryptoContext } from "@/app/context/context";
 import { SpinnerContainer } from "../../styled";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
-import { TrendLabel } from "../../TrendLable";
+import { SingleCoin } from "../../SingleCoin";
 
 const Ul = styled.ul`
   display: flex;
@@ -18,7 +17,7 @@ const Li = styled.li`
 `;
 
 export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
-  const { setCurrentChart, selectedCurrency } = useCryptoContext();
+  const { setCurrentChart, currentChart } = useCryptoContext();
   const [searchValue, setSearchValue] = useState("");
 
   const handleChartChange = (obj: any) => {
@@ -50,38 +49,15 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
                   }}
                 >
                   <Li
-                    className={`hover:bg-indigo-600 hover:text-white text-sm bg-white dark:bg-gray-800 py-1 flex gap-1
+                    className={`hover:bg-indigo-600 hover:text-white text-sm border border-gray-300 dark:border-gray-700 
+                    text-xs py-1 flex gap-1 ${
+                      currentChart?.id === coin?.id
+                        ? "bg-indigo-700 text-white hover:text-white"
+                        : "bg-white dark:bg-transparent"
+                    }
                   `}
                   >
-                    <div className=" w-1/4 flex items-center justify-center">
-                      <Image
-                        className=""
-                        src={coin?.image}
-                        height={30}
-                        width={30}
-                        alt="coin image"
-                      />
-                    </div>
-                    <div className="">
-                      <div className="">
-                        <div className="flex items-center gap-1 ">
-                          <label>{coin?.name}</label>
-                          <label>{`(${coin?.symbol.toUpperCase()})`}</label>
-                        </div>
-                      </div>
-                      <div className="mt-1">
-                        <div className="flex items-center gap-4 ">
-                          <label>
-                            {selectedCurrency.sym}
-                            {coin?.current_price}
-                          </label>
-                          <TrendLabel
-                            value={coin?.price_change_percentage_24h}
-                            percentage={true}
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    <SingleCoin coin={coin} />
                   </Li>
                 </button>
               ))}

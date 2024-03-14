@@ -7,14 +7,12 @@ import { RootState } from "@/app/store/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { ConverterCard } from "./ConverterCard";
-export const Converter = () => {
+export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
+  baseCoin,
+  height,
+}) => {
   const { selectedCurrency, currentChart, setErrorMessage } =
     useCryptoContext();
-
-  let baseCoin = useSelector((state: RootState) =>
-    getCoinById(state, currentChart.id)
-  );
-
   const bitcoin = useSelector((state: RootState) =>
     getCoinById(state, "bitcoin")
   );
@@ -72,30 +70,32 @@ export const Converter = () => {
 
   return (
     <Section>
-      <div className="flex justify between gap-2 mt-2 mb-2 h-[235px] relative">
+      <div
+        className={`flex justify between gap-2  relative h-${height || "full"}`}
+      >
         <ConverterCard
           type="coin"
           image={baseCoin?.image || bitcoin?.image}
-          currency={currency1}
           amount={amount1}
           handler={handleAmount1Change}
           lable={coinToCurrency}
           hasData={hasData}
           notification={notification}
+          title={baseCoin?.name || "Bitcoin"}
         />
         <ConverterCard
           type="currency"
           symbol={selectedCurrency.sym}
-          currency={currency2}
           amount={amount2}
           handler={handleAmount2Change}
           lable={currencyToCoin}
           hasData={hasData}
           notification={notification}
+          title={selectedCurrency?.name.toLocaleUpperCase()}
         />
         <div
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full
-        w-12 h-12 bg-gray-200 dark:bg-gray-900 flex items-center justify-center
+        w-12 h-12 bg-gray-100 dark:bg-gray-950  flex items-center justify-center
         "
         >
           <FontAwesomeIcon icon={faRotate} />

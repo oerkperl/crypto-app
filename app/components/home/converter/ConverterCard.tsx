@@ -6,26 +6,26 @@ type CoinProps = {
   type: string;
   image?: string;
   symbol?: string;
-  currency: string;
   amount: number;
   lable: string;
   handler: (e: any) => void;
   hasData: boolean;
   notification: string;
+  title: string;
 };
 export const ConverterCard: React.FC<CoinProps> = ({
   type,
   image,
   symbol,
-  currency,
   amount,
   lable,
   handler,
   hasData,
   notification,
+  title,
 }) => {
   return (
-    <div className="w-1/2 h-full bg-white dark:bg-gray-800 rounded-xl flex items-center pl-8 relative">
+    <div className="w-1/2 h-full bg-white dark:bg-transparent border border-gray-300 dark:border-gray-700 rounded-xl flex items-center pl-8 py-2 relative">
       {notification !== "" && (
         <p className="absolute top-0 left-1/4">{notification}</p>
       )}
@@ -50,14 +50,15 @@ export const ConverterCard: React.FC<CoinProps> = ({
               {symbol}
             </span>
           )}
-          <label>{currency?.toUpperCase()}</label>
+
+          <label>{title}</label>
         </div>
         <input
           type="number"
           value={amount}
           onChange={handler}
-          placeholder={currency}
-          className="bg-transparent border-b border-gray-300 pb-2"
+          placeholder={title}
+          className="bg-transparent border-b border-gray-300 dark:border-gray-700 pb-2"
         />
         <label>
           {hasData ? lable : <BlinkingGradientLoader width="200px" />}

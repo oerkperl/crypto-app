@@ -2,7 +2,6 @@
 import React, { createContext, useState, ReactNode, useContext } from "react";
 import { CryptoContextValue, TAsset } from "@/app/lib/types";
 import { GlobalStyle } from "../components/styled";
-import { ThemeProvider } from "next-themes";
 import { getNumberOfDays } from "../lib/utils/formatters";
 
 export const CryptoContext = createContext<CryptoContextValue | undefined>(
@@ -97,10 +96,8 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <CryptoContext.Provider value={val}>
-      <ThemeProvider attribute="class">
-        <GlobalStyle />
-        {children}
-      </ThemeProvider>
+      <GlobalStyle />
+      {children}
     </CryptoContext.Provider>
   );
 };

@@ -1,33 +1,36 @@
-import { TChartLables } from "@/app/lib/types";
 import { Graph } from "./Graph";
 import { useCryptoContext } from "@/app/context/context";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 
 export const ChartCard: React.FC<{
-  labels: TChartLables;
+  labels?: any;
   data: any[];
   type: any;
   width?: number;
   height?: number;
-  backgroundColor?: [number, number, number, number];
-  borderColor?: string;
-}> = ({ labels, data, type, width, height, backgroundColor, borderColor }) => {
+  cardHeight?: string;
+}> = ({ labels, data, type, width, height, cardHeight }) => {
   const { selectedCurrency } = useCryptoContext();
   return (
     <div
-      className={` mb-2 p-2  h-[235px] rounded-md bg-white dark:bg-gray-800`}
+      className={` mb-2 p-2 rounded-xl h-${
+        cardHeight || "full"
+      } bg-white dark:bg-transparent `}
     >
-      <div>
-        <span className="text-md">{labels.title}: </span>
-        <span className="text-2xl">
-          {labels.amount === "undefinedQd" ? (
-            <BlinkingGradientLoader width="200px" />
-          ) : (
-            selectedCurrency.sym + labels.amount
-          )}
-        </span>
-      </div>
-      <div>{labels.date}</div>
+      {labels && (
+        <div>
+          <span className="text-md">{labels.title}: </span>
+          <span className="text-2xl">
+            {labels.amount === "undefinedQd" ? (
+              <BlinkingGradientLoader width="200px" />
+            ) : (
+              selectedCurrency.sym + labels.amount
+            )}
+          </span>
+          <div>{labels.date}</div>
+        </div>
+      )}
+
       <div>
         {data && (
           <Graph
@@ -36,8 +39,6 @@ export const ChartCard: React.FC<{
               type: type,
               width: width,
               height: height,
-              backgroundColor: backgroundColor,
-              borderColor: borderColor,
             }}
           />
         )}

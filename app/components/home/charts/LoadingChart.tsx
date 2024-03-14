@@ -1,16 +1,19 @@
 import React from "react";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 
-export const LoadingChart: React.FC<{ fetchData: () => void }> = ({
-  fetchData,
-}) => {
+export const LoadingChart: React.FC<{
+  fetchData: () => void;
+  option: string;
+}> = ({ fetchData, option }) => {
   return (
     <>
       <div className="mt-2">
         <BlinkingGradientLoader height="225px" />
       </div>
       <div className="mt-2">
-        <BlinkingGradientLoader height="225px" />
+        <BlinkingGradientLoader
+          height={option === "Charts" ? "225px" : "150px"}
+        />
       </div>
 
       <div className="mt-2 w-full flex items-center gap-2">

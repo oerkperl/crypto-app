@@ -23,8 +23,8 @@ export const TopSection = () => {
     <>
       <FetchCoins />
       <Main>
-        <Navabr />
         <Section>
+          <Navabr />
           <MarketData />
         </Section>
       </Main>

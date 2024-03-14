@@ -3,6 +3,7 @@ import { ProgressBar } from "@/app/lib/utils/components/ProgressBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
+import { TrendLabel } from "../TrendLable";
 
 export const MyAsset: React.FC<{
   asset: any;
@@ -19,6 +20,8 @@ export const MyAsset: React.FC<{
     (asset?.circulating_supply / asset?.total_supply) * 100
   );
 
+  const priceChange = asset?.price_change_percentage_24h;
+
   return (
     <>
       <div className="flex justify-between">
@@ -33,7 +36,7 @@ export const MyAsset: React.FC<{
           </button>
         )}
       </div>
-      <div className="flex justify-between mt-2">
+      <div className="flex justify-between mt-2 pb-2 mb-2 border-b border-gray-300 dark:border-gray-700">
         <div className="flex flex-col gap-2 w-1/4 ">
           <p className="text-xs">Current price</p>
           <span className="text-[#00B1A7] text-sm">
@@ -50,7 +53,7 @@ export const MyAsset: React.FC<{
             {hasError ? (
               <BlinkingGradientLoader width="100px" />
             ) : (
-              " $" + asset?.price_change_percentage_24h
+              <TrendLabel value={priceChange} percentage={true} />
             )}
           </span>
         </div>

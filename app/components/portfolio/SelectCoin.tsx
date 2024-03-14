@@ -78,7 +78,7 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
   return (
     <>
       <div className="relative">
-        <div className={`flex px-2 rounded-md bg-white dark:bg-gray-800 `}>
+        <div className={`flex px-2 rounded-md  `}>
           <Input
             type="text"
             value={query}

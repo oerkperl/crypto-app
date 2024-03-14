@@ -4,7 +4,7 @@ export const CoinSwitcher = () => {
   const { selectedOption, setSelectedOption } = useCryptoContext();
 
   return (
-    <div className={`bg-white  dark:bg-gray-800 inline-flex p-1 rounded-lg `}>
+    <div className={` inline-flex p-1 rounded-lg `}>
       {options.map((option, index) => (
         <button
           key={index}
