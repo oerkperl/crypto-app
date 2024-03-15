@@ -16,9 +16,9 @@ export const Coin = () => {
   const [coin, setCoin] = useState<any>({});
   const { viewingCoinId, setCanVisit, setQuery, selectedCurrency } =
     useCryptoContext();
-  const hasId = viewingCoinId !== "" || viewingCoinId !== undefined;
+  const hasId = !!viewingCoinId;
   const url = `https://api.coingecko.com/api/v3/coins/${viewingCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
-  let baseCoin = {
+  const baseCoin = {
     image: coin?.image?.small,
     name: coin?.name,
     current_price: coin?.market_data?.current_price[selectedCurrency.name],
