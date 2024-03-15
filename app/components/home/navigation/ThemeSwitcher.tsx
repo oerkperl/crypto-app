@@ -29,7 +29,8 @@ const ThemeSwitcher: React.FC = () => {
     <NavBtn>
       <button
         onClick={toggleTheme}
-        className={`px-4 rounded-md hover:text-white hover:bg-indigo-600 w-full bg-white dark:bg-gray-800`}
+        className={`px-4 rounded-md bg-customBg hover:text-white hover:bg-indigo-600 w-full 
+        bg-white dark:bg-transparent border border-gray-300 dark:border-gray-700`}
       >
         <FontAwesomeIcon icon={faCircleHalfStroke} />
       </button>

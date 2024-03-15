@@ -73,19 +73,19 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
       <Section>
         <div className="flex  w-[1000px] h-[80vh] ">
           <div className=" w-full flex items-center justify-center h-full border-gray-500  rounded-lg">
-            <div className="w-full border border-gray-400 p-8 rounded-xl">
+            <div className="w-full border border-gray-300 dark:border-gray-700 p-8 rounded-xl">
               <div className="flex justify-between">
-                <h1>Select coin</h1>
+                <h1>Select a coin</h1>
                 {notification !== "" && <p>{notification}</p>}
                 <button
-                  className="w-8 h-8  rounded-full bg-white dark:bg-gray-800 hover:bg-indigo-600 hover:text-white"
+                  className="w-8 h-8  rounded-full  dark:bg-gray-900 hover:bg-indigo-600 hover:text-white"
                   onClick={onClose}
                 >
                   X
                 </button>
               </div>
               <div className="flex gap-4  py-4">
-                <div className="w-1/3  rounded-lg  bg-white dark:bg-gray-800 flex flex-col items-center justify-center">
+                <div className="w-1/3  rounded-lg border border-gray-300 dark:border-gray-700  flex flex-col items-center justify-center">
                   <div className=" h-20 w-20 flex items-center justify-center rounded-md bg-gray-200 dark:bg-gray-900">
                     <Image
                       src={
@@ -103,7 +103,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                   })`}</div>
                 </div>
                 <div className="w-2/3  flex flex-col gap-6">
-                  <div className="h-12 w-full rounded-lg bg-white dark:bg-gray-800 flex items-center">
+                  <div className="h-12 w-full border rounded-lg  border-gray-300 dark:border-gray-700 flex items-center">
                     <SelectCoin
                       fetchData={fetchData}
                       query={query}
@@ -114,7 +114,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                     />
                   </div>
                   <input
-                    className="h-12  w-full rounded-lg pl-2 bg-white dark:bg-gray-800"
+                    className="h-12  w-full rounded-lg pl-2 border  border-gray-300 dark:border-gray-900"
                     type="number"
                     placeholder="Purchase amount"
                     value={amount}
@@ -128,7 +128,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                       Cancel
                     </button>
                     <button
-                      className={`w-1/2 h-12 rounded-lg bg-white dark:bg-gray-800  hover:text-white ${
+                      className={`w-1/2 h-12 rounded-lg  border border-gray-300 dark:border-gray-700  hover:text-white ${
                         canAddAsset ? "hover:bg-green-600" : "hover:bg-gray-600"
                       }`}
                       disabled={!canAddAsset}

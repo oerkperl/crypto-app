@@ -1,9 +1,10 @@
 import "./globals.css";
+import StoreProvider from "./store/provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import StoreProvider from "./store/provider";
 import { CryptoContextProvider } from "./context/context";
 import { TopSection } from "./ui/TopSections";
+import { TheThemeProvider } from "./ui/TheThemProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,13 +21,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head></head>
-      <body className={`bg-gray-200 dark:bg-gray-900 ${inter.className}`}>
-        <CryptoContextProvider>
-          <StoreProvider>
-            <TopSection />
-            {children}
-          </StoreProvider>
-        </CryptoContextProvider>
+      <body
+        className={` bg-gray-100 dark:bg-gray-950 dark:text-gray-400 ${inter.className}`}
+      >
+        <TheThemeProvider>
+          <CryptoContextProvider>
+            <StoreProvider>
+              <TopSection />
+              {children}
+            </StoreProvider>
+          </CryptoContextProvider>
+        </TheThemeProvider>
       </body>
     </html>
   );

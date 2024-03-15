@@ -33,7 +33,7 @@ export const MyCoin: React.FC<{
   };
   return (
     <>
-      <div className="flex justify-between mt-2">
+      <div className="flex justify-between">
         <h1>Your coin</h1>
         <button
           className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"

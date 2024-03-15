@@ -12,6 +12,7 @@ import {
   Filler,
 } from "chart.js";
 import { useTheme } from "next-themes";
+import "chartjs-plugin-crosshair";
 
 ChartJS.register(
   CategoryScale,
@@ -60,7 +61,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               fill: true,
               tension: 0.5,
               pointRadius: 0,
-              borderColor: theme === "dark" ? "#2B7629" : "#3D3892",
+              borderColor: theme === "dark" ? "#2B7629" : "#02A299",
 
               backgroundColor: () => {
                 const gradient = ctx.createLinearGradient(
@@ -73,7 +74,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
                   gradient.addColorStop(0, "rgba(95, 255, 91, 1.0)");
                   gradient.addColorStop(1, "rgba(0, 0, 0, 0.5)");
                 } else {
-                  gradient.addColorStop(0, "rgba(80, 70, 229, 1.0)");
+                  gradient.addColorStop(0, "rgba(1, 241, 227, 1.0)");
                   gradient.addColorStop(1, "rgba(0, 0, 0, 0.5)");
                 }
                 return gradient;
@@ -82,6 +83,13 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
           ],
         },
         options: {
+          responsive: true,
+          animation: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: "index",
+            intersect: false,
+          },
           scales: {
             x: {
               display: true,

@@ -21,7 +21,16 @@ import { fetchChartData, getChart, getChartStatus } from "./chartsSlice";
 
 export const Charts: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { currentChart, selectedOption, chartUrl } = useCryptoContext();
+  const {
+    currentChart,
+    selectedOption,
+    chartUrl,
+    selectedPeriod,
+    setSelectedPeriod,
+  } = useCryptoContext();
+  let baseCoin = useSelector((state: RootState) =>
+    getCoinById(state, currentChart.id)
+  );
 
   const bitcoinData = useSelector((state: RootState) =>
     getCoinById(state, "bitcoin")
@@ -79,43 +88,52 @@ export const Charts: React.FC = () => {
             )}
           </div>
         </div>
-        <Row style={{ height: "525px" }}>
-          <Col $width="30%" className=" mr-2">
-            <div className=" max-h-full overflow-y-scroll pr-2">
+        <Row
+          className={`${
+            selectedOption === "Charts" ? "h-[525px]" : "h-[440px]"
+          }`}
+        >
+          <Col $width="30%" className=" mr-1">
+            <div className=" max-h-full overflow-y-scroll pr-1">
               <ChartCoins coins={allCoins} />
             </div>
           </Col>
           <Col $width="70%">
             <div>
-              {chartStatus !== "succeeded" && (
+              {chartStatus === "failed" && (
                 <div>
-                  <LoadingChart fetchData={fetchData} />
+                  <LoadingChart fetchData={fetchData} option={selectedOption} />
                 </div>
               )}
               {chartStatus === "succeeded" && (
-                <div className="max-h-full">
+                <div className=" min-h-full ">
                   <ChartCard
                     data={priceData}
                     labels={priceLabels}
                     type={"line"}
-                    height={100}
-                    borderColor="#0CF264"
-                    backgroundColor={[0, 0, 0, 350]}
+                    height={160}
                   ></ChartCard>
                   {selectedOption === "Charts" ? (
                     <ChartCard
                       labels={volumeLabels}
                       data={volumeData}
                       type={"bar"}
-                      height={100}
+                      height={160}
                     ></ChartCard>
                   ) : (
-                    <div>
-                      <Converter />
+                    <div className="my-2 ">
+                      <div className="">
+                        <Converter baseCoin={baseCoin} height="[235px]" />
+                      </div>
                     </div>
                   )}
 
-                  <TimePeriodButtons />
+                  <div className="pb-2 border-b border-gray-300 dark:border-gray-700">
+                    <TimePeriodButtons
+                      thePeriod={selectedPeriod}
+                      periodHandler={setSelectedPeriod}
+                    />
+                  </div>
                 </div>
               )}
             </div>

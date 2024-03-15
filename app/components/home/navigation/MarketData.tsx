@@ -55,7 +55,7 @@ export const MarketData = () => {
       )}
 
       {!isLoading && (
-        <div className="border-b border-t border-gray-400 mt-2 text-sm">
+        <div className="border-y border-gray-300 dark:border-gray-700 mt-2 text-xs">
           <Wrapper className="flex justify-between text-center">
             <div>
               <FontAwesomeIcon icon={faCoins} />
@@ -63,15 +63,15 @@ export const MarketData = () => {
             </div>
             <div>
               <FontAwesomeIcon icon={faClone} />
-              <span> Exchange</span>
+              <span> Exchange {data?.markets}</span>
             </div>
             <div>
-              {selectedCurrency.sym}
+              {"Market Cap " + selectedCurrency.sym}
               {formatMoney(data?.total_market_cap[currencyName])}
             </div>
 
             <div>
-              {selectedCurrency.sym}
+              {"24h Vol " + selectedCurrency.sym}
               {formatMoney(data?.total_volume[currencyName])}
             </div>
             <div className="flex items-center gap-1">

@@ -2,7 +2,7 @@ import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoade
 import React from "react";
 export const LoadingAsset = () => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl w-full min-h-16 mt-2 mb-2 relative">
+    <div className="border border-gray-300 dark:border-gray-700 rounded-xl w-full min-h-16 mt-2 mb-2 relative">
       <div className="flex gap-4">
         <div className="w-1/4 h-48 flex flex-col gap-4 justify-center items-center">
           <BlinkingGradientLoader height="50px" width="50px" />

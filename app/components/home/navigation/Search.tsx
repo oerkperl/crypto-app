@@ -69,12 +69,13 @@ export const Search = () => {
 
   const clear = () => {
     setResults([]);
-    setQuery("");
   };
 
   return (
     <div className="relative">
-      <div className={`flex px-2 rounded-md bg-white dark:bg-gray-800 `}>
+      <div
+        className={`flex px-2 rounded-md bg-white dark:bg-transparent border border-gray-300 dark:border-gray-700`}
+      >
         <Input
           type="text"
           value={query}

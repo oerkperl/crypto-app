@@ -12,16 +12,16 @@ const trimLink = (link: string): string => {
 };
 export const LinksList: React.FC<LinksListProps> = ({ links }) => {
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       {links &&
         links.map((link) =>
           link !== "" ? (
             <Link key={nanoid()} href={link} target="_blank">
               <div
-                className="w-full  mb-2 min-h-8 bg-gray-200 dark:bg-gray-700 rounded-lg flex flex-wrap items-center justify-center 
-                hover:bg-indigo-600 hover:text-white"
+                className="w-full min-h-8 bg-gray-200 dark:bg-gray-900 rounded-full flex items-center justify-center 
+                hover:bg-indigo-600 hover:text-white bg-opacity-80"
               >
-                {trimLink(link)}
+                <p>{trimLink(link)}</p>
               </div>
             </Link>
           ) : (

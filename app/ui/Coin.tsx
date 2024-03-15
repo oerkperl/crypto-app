@@ -7,14 +7,22 @@ import { CoinProfileCard } from "../components/coin/CoinProfileCard";
 import { CoinPriceCard } from "../components/coin/CoinPriceCard";
 import { CoinStatsCard } from "../components/coin/CoinStatsCard";
 import { useCryptoContext } from "../context/context";
+import { Converter } from "../components/home/converter/Converter";
+import { PriceChart } from "../components/coin/PriceChart";
+import { OtherCoins } from "../components/portfolio/OtherCoins";
 
 export const Coin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coin, setCoin] = useState<any>({});
-  const { viewingCoinId, setCanVisit, setQuery } = useCryptoContext();
-  const hasId = viewingCoinId !== "" || viewingCoinId !== undefined;
-  const url = `https://api.coingecko.com/api/v3/coins/${viewingCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
-
+  const { viewingCoinId, setCanVisit, setQuery, selectedCurrency } =
+    useCryptoContext();
+  const hasId = !!viewingCoinId;
+  const url = `https://api.coingecko.com/api/v3/coins/${viewingCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
+  const baseCoin = {
+    image: coin?.image?.small,
+    name: coin?.name,
+    current_price: coin?.market_data?.current_price[selectedCurrency.name],
+  };
   const fetchCoin = async () => {
     try {
       const { data } = await axios(url);
@@ -44,39 +52,52 @@ export const Coin = () => {
       {!isLoading && (
         <Section>
           <h1 className="text-xl mt-4">Your Summary:</h1>
-          <div className="flex justiify-between gap-2 mt-4">
-            <div className="w-2/6  min-h-16 ">
+          <div className="flex flex-col gap-2 mt-4">
+            <div className="min-h-16 flex ">
               <CoinProfileCard coin={coin} />
-            </div>
-            <div className="w-2/6  min-h-16 ">
               <CoinPriceCard marketData={coin?.market_data} />
             </div>
-            <div className="w-2/6  min-h-16">
-              <CoinStatsCard
-                statsData={coin?.market_data}
-                coinSymbol={coin.symbol}
-              />
+            <div className="w-full min-h-16  flex gap-2">
+              <div className="w-1/2">
+                <CoinStatsCard
+                  statsData={coin?.market_data}
+                  coinSymbol={coin.symbol}
+                />
+              </div>
+              <div className="w-1/2 ">
+                <PriceChart coinId={coin?.id} />
+              </div>
             </div>
           </div>
-          <div className="flex mt-4 justify-between  max-h-72 gap-2 min-w-[1000px]">
-            <div className=" w-1/2">
-              <h1 className="text-xl ">Description:</h1>
-              <div
-                className="h-64 bg-white dark:bg-gray-800 rounded-xl px-4 py-2 overflow-auto mt-2 text-sm"
-                dangerouslySetInnerHTML={{
-                  __html:
-                    coin?.description?.en === ""
-                      ? "No description for this coin"
-                      : coin?.description?.en,
-                }}
-              ></div>
+          <div className=" w-full mt-4">
+            <h1 className="text-xl">
+              About {coin?.name}
+              {`(${coin?.symbol?.toUpperCase()})`}
+            </h1>
+            <div
+              className="overflow-auto text-justify text-sm pr-2"
+              dangerouslySetInnerHTML={{
+                __html:
+                  coin?.description?.en === ""
+                    ? "No description for this coin"
+                    : coin?.description?.en,
+              }}
+            />
+          </div>
+          <div className="flex gap-2 mt-4 mb-2">
+            <div className=" w-4/6 flex">
+              <Converter baseCoin={baseCoin} />
             </div>
-            <div className=" w-1/2 h-full">
-              <h1 className="text-xl">Blockchain Links:</h1>
-              <div className=" h-64  overflow-auto rounded-xl p-2 mt-2 mb-2 bg-white dark:bg-gray-800">
+            <div className=" w-2/6 border p-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-transparent rounded-xl h-94">
+              <div className=" max-h-40 overflow-auto pr-1 ">
                 <LinksList links={coin?.links?.blockchain_site} />
               </div>
             </div>
+          </div>
+
+          <div className="w-full my-2">
+            <h1>Other Coins:</h1>
+            <OtherCoins />
           </div>
         </Section>
       )}
