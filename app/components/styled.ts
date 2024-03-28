@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Main = styled.main`
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 0.5rem;
 `;

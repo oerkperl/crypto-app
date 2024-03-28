@@ -12,9 +12,8 @@ export const PageSwitcher: React.FC<{
   return (
     <Link href={path}>
       <div
-        className={`flex items-center px-4 py-1 gap-1 rounded-full hover:text-white hover:bg-indigo-600
-        
-      ${path === activePath ? "text-white bg-indigo-600" : ""}
+        className={`flex items-center px-4 py-1 gap-1 rounded-full dark:hover:text-white hover:text-gray-500 
+        ${path === activePath ? "dark:text-white " : ""}
       `}
       >
         <p className="text-xs">{icon}</p>

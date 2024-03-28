@@ -24,7 +24,7 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
       {coins.map((coin, index) => (
         <Wrapper
           key={coin?.id}
-          className={`flex bg-white dark:bg-transparent border-b border-gray-300 dark:border-gray-700 cursor-pointer hover:bg-indigo-900 hover:text-white`}
+          className={`flex  border-b border-gray-300 dark:border-gray-700 cursor-pointer hover:bg-indigo-900 hover:text-white`}
           onClick={() => {
             viewCoin(coin?.id);
           }}
@@ -75,7 +75,7 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
               trend={setTrend(coin)}
             />
           </Item>
-          <Item className="p-1 h-12">
+          <Item className="max-w-full p-1 h-12">
             <Sparkline
               Chartdata={coin.sparkline_in_7d.price}
               trend={

@@ -41,7 +41,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
         <div className="">
           {hasError && <BlinkingGradientLoader height="215px" />}
           {!hasError && (
-            <ChartCard data={priceData} type={"line"} height={170} />
+            <ChartCard data={priceData} type={"line"} height={185} />
           )}
         </div>
         <div className="flex gap-2">

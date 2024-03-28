@@ -42,7 +42,6 @@ export const MarketData = () => {
 
   useEffect(() => {
     setIsLoading(true);
-
     fetchMarketDat();
   }, [selectedCurrency]);
 
@@ -55,58 +54,72 @@ export const MarketData = () => {
       )}
 
       {!isLoading && (
-        <div className="border-y border-gray-300 dark:border-gray-700 mt-2 text-xs">
+        <div className=" text-xs">
           <Wrapper className="flex justify-between text-center">
-            <div>
-              <FontAwesomeIcon icon={faCoins} />
-              <span> Coins {data?.active_cryptocurrencies}</span>
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faClone} />
-              <span> Exchange {data?.markets}</span>
-            </div>
-            <div>
-              {"Market Cap " + selectedCurrency.sym}
-              {formatMoney(data?.total_market_cap[currencyName])}
-            </div>
+            <div className="flex gap-10">
+              <div>
+                <FontAwesomeIcon icon={faCoins} />
+                <span> Coins: </span>
+                <span className="dark:text-white">
+                  {data?.active_cryptocurrencies}
+                </span>
+              </div>
+              <div>
+                <FontAwesomeIcon icon={faClone} />
+                <span> Exchange:</span>
+                <span className="dark:text-white"> {data?.markets}</span>
+              </div>
+              <div>
+                <span>Market Cap: </span>
+                <span className="dark:text-white">
+                  {selectedCurrency.sym +
+                    formatMoney(data?.total_market_cap[currencyName])}
+                </span>
+              </div>
 
-            <div>
-              {"24h Vol " + selectedCurrency.sym}
-              {formatMoney(data?.total_volume[currencyName])}
+              <div>
+                <span>24h Volume: </span>
+                <span className="dark:text-white">
+                  {selectedCurrency.sym +
+                    formatMoney(data?.total_volume[currencyName])}
+                </span>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              {bitcoin?.image && (
-                <Image
-                  src={bitcoin?.image}
-                  width={25}
-                  height={25}
-                  alt="bitcoin image"
+            <div className="flex">
+              <div className="flex items-center gap-1">
+                {bitcoin?.image && (
+                  <Image
+                    src={bitcoin?.image}
+                    width={25}
+                    height={25}
+                    alt="bitcoin image"
+                  />
+                )}
+                {btc_mc_percentage + "%"}
+                <ProgressBar
+                  progress={btc_mc_percentage.toString()}
+                  width="100px"
+                  fg="#FE921A"
+                  customBg="#666"
                 />
-              )}
-              {btc_mc_percentage + "%"}
-              <ProgressBar
-                progress={btc_mc_percentage.toString()}
-                width="50px"
-                fg="#FE921A"
-                customBg="#666"
-              />
-            </div>
-            <div className="flex items-center gap-1">
-              {ethereum?.image && (
-                <Image
-                  src={ethereum?.image}
-                  width={25}
-                  height={25}
-                  alt="etherium image"
+              </div>
+              <div className="flex items-center gap-1">
+                {ethereum?.image && (
+                  <Image
+                    src={ethereum?.image}
+                    width={25}
+                    height={25}
+                    alt="etherium image"
+                  />
+                )}
+                {eth_mc_percentage + "%"}
+                <ProgressBar
+                  progress={eth_mc_percentage.toString()}
+                  width="100px"
+                  fg="#537FEF"
+                  customBg="#666"
                 />
-              )}
-              {eth_mc_percentage + "%"}
-              <ProgressBar
-                progress={eth_mc_percentage.toString()}
-                width="50px"
-                fg="#537FEF"
-                customBg="#666"
-              />
+              </div>
             </div>
           </Wrapper>
         </div>

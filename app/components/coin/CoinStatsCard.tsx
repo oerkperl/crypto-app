@@ -11,7 +11,6 @@ export const CoinStatsCard: React.FC<{
   const currency = selectedCurrency.name;
   const symbol = selectedCurrency.sym;
   const hasData = statsData !== undefined;
-
   const circulatingSupply = `${statsData?.circulating_supply.toFixed()} ${coinSymbol?.toUpperCase()}`;
   const fullyDilutedVal = statsData?.fully_diluted_valuation[currency];
   const marketCap = statsData?.market_cap[currency];
@@ -31,7 +30,7 @@ export const CoinStatsCard: React.FC<{
 
   return (
     hasData && (
-      <div className="  border-gray-300 border dark:border-gray-700 bg-white dark:bg-transparent rounded-lg py-2">
+      <div className="bg-white dark:bg-accent-bg rounded-lg py-2">
         <div className="flex  flex-col gap-1">
           <StatRow stat={symbol + formatMoney(marketCap)} title="Market Cap:" />
           <StatRow

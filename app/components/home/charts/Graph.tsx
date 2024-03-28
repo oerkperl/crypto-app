@@ -12,6 +12,7 @@ import {
   Filler,
 } from "chart.js";
 import { useTheme } from "next-themes";
+import { formatMoney } from "@/app/lib/utils/formatters";
 import "chartjs-plugin-crosshair";
 
 ChartJS.register(
@@ -30,8 +31,6 @@ type TData = {
   type?: any;
   width?: number;
   height?: number;
-  backgroundColor?: [number, number, number, number] | [];
-  borderColor?: string;
 };
 
 export const Graph: React.FC<{ data: TData }> = ({ data }) => {
@@ -59,7 +58,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               label: "",
               data: chartData.map((entry) => entry[1]),
               fill: true,
-              tension: 0.5,
+              tension: 0.3,
               pointRadius: 0,
               borderColor: theme === "dark" ? "#2B7629" : "#02A299",
 
@@ -72,7 +71,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
                 );
                 if (theme === "dark") {
                   gradient.addColorStop(0, "rgba(95, 255, 91, 1.0)");
-                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.5)");
+                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.7)");
                 } else {
                   gradient.addColorStop(0, "rgba(1, 241, 227, 1.0)");
                   gradient.addColorStop(1, "rgba(0, 0, 0, 0.5)");
@@ -99,10 +98,21 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               },
             },
             y: {
-              display: false,
+              display: true,
               grid: {
-                display: false,
+                display: true,
                 drawBorder: false,
+                color: "#555",
+              },
+              ticks: {
+                callback: function (value: any, index: number, values: any) {
+                  if (value >= 1000) {
+                    const newVal = formatMoney(value);
+                    return newVal;
+                  } else {
+                    return value;
+                  }
+                },
               },
             },
           },
@@ -120,7 +130,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
         chartInstanceRef.current.destroy();
       }
     };
-  }, [chartData, type, theme]);
+  }, [chartData, theme]);
 
   return (
     <div>

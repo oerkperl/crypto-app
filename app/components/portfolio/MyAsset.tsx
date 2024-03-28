@@ -65,7 +65,7 @@ export const MyAsset: React.FC<{
           </div>
         </div>
         <div className="flex flex-col gap-2 w-1/4 ">
-          <h2 className="text-xs">Circulatin supply vs Total supply</h2>
+          <h2 className="text-xs">Circulating supply vs Total supply</h2>
           <div className="text-[#00B1A7] text-sm flex items-center  gap-2">
             {hasError ? "" : circulatingVtotalSupply + "%"}
             <ProgressBar

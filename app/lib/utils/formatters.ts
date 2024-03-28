@@ -12,7 +12,7 @@ export const formatMoney = (value: number): string => {
     const thousandValue = value / 1_000;
     return `${thousandValue.toFixed(1)} K`;
   } else {
-    return `${value?.toFixed(1)}Qd`;
+    return `${value?.toFixed(1)}`;
   }
 };
 

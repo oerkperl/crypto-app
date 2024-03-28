@@ -12,22 +12,17 @@ export const ChartCard: React.FC<{
 }> = ({ labels, data, type, width, height, cardHeight }) => {
   const { selectedCurrency } = useCryptoContext();
   return (
-    <div
-      className={` mb-2 p-2 rounded-xl h-${
-        cardHeight || "full"
-      } bg-white dark:bg-transparent `}
-    >
+    <div className={` mt-2 py-2 rounded-xl h-${cardHeight || "full"}  `}>
       {labels && (
         <div>
           <span className="text-md">{labels.title}: </span>
           <span className="text-2xl">
-            {labels.amount === "undefinedQd" ? (
+            {labels.amount === "undefined" ? (
               <BlinkingGradientLoader width="200px" />
             ) : (
               selectedCurrency.sym + labels.amount
             )}
           </span>
-          <div>{labels.date}</div>
         </div>
       )}
 
