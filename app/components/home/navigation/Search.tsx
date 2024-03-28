@@ -73,9 +73,7 @@ export const Search = () => {
 
   return (
     <div className="relative">
-      <div
-        className={`flex px-2 rounded-md bg-white dark:bg-transparent border border-gray-300 dark:border-gray-700`}
-      >
+      <div className={`flex px-2 rounded-md bg-gray-100 dark:bg-input-bg`}>
         <Input
           type="text"
           value={query}
@@ -84,7 +82,7 @@ export const Search = () => {
         />
         {canVisit && activePath !== "/coin" && query !== "" && (
           <button
-            className="hover:text-indigo-500"
+            className="text-green-500"
             onClick={() => {
               setQuery("");
               setCanVisit(false);
@@ -96,7 +94,7 @@ export const Search = () => {
       </div>
       <div>
         {query.trim() !== "" && (
-          <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-indigo-600 text-white rounded">
+          <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-white dark:bg-accent-bg text-gray-400 rounded">
             {results.length > 0 && (
               <div className="flex justify-end px-2">
                 <button onClick={clear}>x</button>
@@ -106,7 +104,7 @@ export const Search = () => {
               <li
                 key={result.id}
                 onClick={() => handleSuggestionClick(result)}
-                className=" w-full p-1 hover:bg-white hover:text-indigo-500  "
+                className=" w-full p-1 hover:bg-input-bg hover:text-white  "
               >
                 {result.name}
               </li>

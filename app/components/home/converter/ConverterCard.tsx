@@ -25,28 +25,25 @@ export const ConverterCard: React.FC<CoinProps> = ({
   title,
 }) => {
   return (
-    <div className="w-1/2 h-full bg-white dark:bg-transparent border border-gray-300 dark:border-gray-700 rounded-xl flex items-center pl-8 py-2 relative">
-      {notification !== "" && (
-        <p className="absolute top-0 left-1/4">{notification}</p>
-      )}
-      <div className="flex flex-col gap-4 text-sm w-4/5 ">
+    <div className="w-full h-full flex items-center  py-2  relative">
+      <div className="flex flex-col gap-3 text-sm w-full ">
         <div className="flex items-center gap-2">
           {type === "coin" && (
-            <span className=" w-10 h-10 ">
+            <span className=" w-5 h-5 ">
               {hasData ? (
                 <Image
                   src={image as string}
-                  width={100}
-                  height={100}
+                  width={50}
+                  height={50}
                   alt="coin image"
                 />
               ) : (
-                <BlinkingGradientLoader width="50px" height="40px" />
+                <BlinkingGradientLoader width="50px" height="20px" />
               )}
             </span>
           )}
           {type === "currency" && (
-            <span className="bg-indigo-700 text-white w-10 h-10 rounded-full flex items-center justify-center">
+            <span className="bg-indigo-700 text-white w-5 h-5 rounded-full flex items-center justify-center">
               {symbol}
             </span>
           )}
@@ -58,11 +55,13 @@ export const ConverterCard: React.FC<CoinProps> = ({
           value={amount}
           onChange={handler}
           placeholder={title}
-          className="bg-transparent border-b border-gray-300 dark:border-gray-700 pb-2"
+          className="py-0.5 px-1 rounded w-full bg-gray-100 dark:bg-input-bg"
         />
-        <label>
-          {hasData ? lable : <BlinkingGradientLoader width="200px" />}
-        </label>
+        <div className="flex w-full whitespace-nowrap overflow-hidden overflow-ellipsis">
+          <label>
+            {hasData ? lable : <BlinkingGradientLoader width="200px" />}
+          </label>
+        </div>
       </div>
     </div>
   );

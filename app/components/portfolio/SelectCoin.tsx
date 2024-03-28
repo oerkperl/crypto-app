@@ -103,7 +103,7 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
         </div>
         <div>
           {query.trim() && (
-            <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-indigo-600 text-white rounded">
+            <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-white dark:bg-accent-bg text-gray-400 rounded">
               {results.length > 0 && (
                 <div className="flex justify-end px-2">
                   <button onClick={clear}>x</button>
@@ -113,7 +113,7 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
                 <li
                   key={result.id}
                   onClick={() => handleSuggestionClick(result)}
-                  className=" w-full p-1 hover:bg-white hover:text-indigo-500  "
+                  className=" w-full p-1 hover:bg-input-bg hover:white  "
                 >
                   {result.name}
                 </li>
