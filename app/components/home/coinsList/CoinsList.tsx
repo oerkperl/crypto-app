@@ -11,7 +11,7 @@ import { removeDuplicates } from "@/app/lib/utils/formatters";
 const CoinsTableHead = () => {
   return (
     <>
-      <Wrapper className="flex border-b border-gray-300 dark:border-gray-700">
+      <Wrapper className="flex bg-white dark:bg-accent-bg rounded">
         <Item>
           <span># </span>
           <span>Name</span>

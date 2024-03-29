@@ -6,7 +6,7 @@ export const LoadingChart: React.FC<{
   option: string;
 }> = ({ fetchData, option }) => {
   return (
-    <>
+    <div className="px-2">
       <div className="mt-2">
         <BlinkingGradientLoader height="225px" />
       </div>
@@ -25,6 +25,6 @@ export const LoadingChart: React.FC<{
           Reload
         </button>
       </div>
-    </>
+    </div>
   );
 };

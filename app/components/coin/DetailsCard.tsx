@@ -6,7 +6,7 @@ export const DetailsCard: React.FC<{ details: any }> = ({ details }) => {
   const { selectedCurrency } = useCryptoContext();
   const symbol = selectedCurrency.sym;
   return (
-    <div className="w-1/3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-transparent rounded-md p-2 flex">
+    <div className="w-1/3 bg-white dark:bg-accent-bg rounded-md p-2 flex">
       <div className="flex flex-col text-sm w-full">
         <div className="flex justify-between">
           <p>{details.title}</p>

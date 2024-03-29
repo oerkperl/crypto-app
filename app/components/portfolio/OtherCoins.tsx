@@ -5,10 +5,12 @@ import { getCoins } from "../home/coinsList/coinsSlice";
 import { SingleCoin } from "../SingleCoin";
 import { useCryptoContext } from "@/app/context/context";
 
-export const OtherCoins = ({}) => {
+export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
+  switchCart,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const allCoins = removeDuplicates(useSelector(getCoins), "id");
-  const { setViewingCoinId } = useCryptoContext();
+  const { setViewingCoinId, setCurrentChart } = useCryptoContext();
   const [autoScrol, setAutoScrol] = useState<boolean>(true);
   const scrollLeft = () => {
     if (containerRef.current) {
@@ -17,6 +19,11 @@ export const OtherCoins = ({}) => {
         behavior: "smooth",
       });
     }
+  };
+
+  const handleChartChange = (obj: any) => {
+    const { name, symbol, id, current_price, total_volume, image } = obj;
+    setCurrentChart({ name, symbol, id, current_price, total_volume, image });
   };
 
   const scrollRight = (space: number) => {
@@ -47,8 +54,7 @@ export const OtherCoins = ({}) => {
   return (
     <>
       <div
-        className=" relative overflow-hidden w-full border border-gray-300 dark:border-gray-700 
-        bg-gray-100 dark:bg-transparent rounded-lg mt-2 "
+        className=" relative overflow-hidden w-full  "
         onMouseEnter={() => {
           setAutoScrol(false);
         }}
@@ -65,12 +71,14 @@ export const OtherCoins = ({}) => {
               <button
                 key={coin.id}
                 onClick={() => {
-                  setViewingCoinId(coin?.id);
+                  switchCart
+                    ? handleChartChange(coin)
+                    : setViewingCoinId(coin?.id);
                 }}
               >
                 <li
-                  className={`w-80 hover:bg-indigo-600 hover:text-white text-sm rounded-md border border-gray-300 dark:border-gray-700 
-                    text-xs py-1 flex gap-1 bg-white dark:bg-transparent
+                  className={`w-80 hover:bg-indigo-600 hover:text-white text-sm rounded-md  border border-gray-300 dark:border-0
+                    text-xs py-1 flex gap-1 bg-white dark:bg-accent-bg
                   `}
                 >
                   <SingleCoin coin={coin} />
@@ -82,13 +90,13 @@ export const OtherCoins = ({}) => {
         {!autoScrol && (
           <>
             <button
-              className="absolute top-0 left-0 h-full px-2 z-10 bg-gray-400 dark:bg-gray-800 hover:bg-indigo-600"
+              className="absolute top-1/4 left-1 h-1/2 px-2 z-10 bg-gray-400 dark:bg-gray-800 hover:bg-indigo-600 "
               onClick={scrollLeft}
             >
               {"<"}
             </button>
             <button
-              className="absolute top-0 right-0 h-full px-2 z-10 bg-gray-400 dark:bg-gray-800 hover:bg-indigo-600"
+              className="absolute top-1/4 right-1 h-1/2 px-2 z-10 bg-gray-400 dark:bg-gray-800 hover:bg-indigo-600"
               onClick={() => {
                 scrollRight(350);
               }}
