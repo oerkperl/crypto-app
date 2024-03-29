@@ -65,6 +65,11 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     }, duration);
   };
 
+  const viewCoin = (id: string): void => {
+    setViewingCoinId(id);
+    setIsOpen(true);
+  };
+
   const val: CryptoContextValue = {
     setSelectedPeriod,
     setSelectedCurrency,
@@ -80,6 +85,7 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
     UpdateAmount,
     setErrorMessage,
     setQuery,
+    viewCoin,
     currentChart,
     selectedPeriod,
     selectedCurrency,

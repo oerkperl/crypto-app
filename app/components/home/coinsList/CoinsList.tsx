@@ -12,10 +12,10 @@ const CoinsTableHead = () => {
   return (
     <>
       <Wrapper className="flex bg-white dark:bg-accent-bg rounded">
-        <Item>
+        <CoinItem $width="235px" className="pl-2">
           <span># </span>
           <span>Name</span>
-        </Item>
+        </CoinItem>
         <CoinItem $width="150px">Price</CoinItem>
         <CoinItem>1h</CoinItem>
         <CoinItem>24h</CoinItem>

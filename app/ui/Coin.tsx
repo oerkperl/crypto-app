@@ -95,10 +95,7 @@ export const Coin = () => {
             </div>
           </div>
           <h1>Other Coins:</h1>
-          <div
-            className="w-full border-gray-300 dark:border-gray-700
-        bg-gray-100 dark:bg-transparent rounded-lg "
-          >
+          <div className="w-full border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-transparent rounded-lg">
             <OtherCoins />
           </div>
         </Section>

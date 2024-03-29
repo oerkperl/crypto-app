@@ -21,8 +21,7 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const handleChartChange = (obj: any) => {
-    const { name, symbol, id, current_price, total_volume, image } = obj;
-    setCurrentChart({ name, symbol, id, current_price, total_volume, image });
+    setCurrentChart(obj);
     setSearchValue("");
   };
 
