@@ -34,6 +34,7 @@ export type CryptoContextValue = {
   removeAsset: (asset: TAsset) => void;
   getAssets: () => TAsset[];
   setErrorMessage: (handler: any, message: string, duration: number) => void;
+  viewCoin: (id: string) => void;
   selectedPeriod: string;
   selectedOption: string;
   isOpen: boolean;

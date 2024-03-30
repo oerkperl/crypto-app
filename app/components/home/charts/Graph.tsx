@@ -50,7 +50,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
         type: type,
         data: {
           labels: chartData.map((entry) =>
-            new Date(entry[0]).toLocaleDateString().substring(0, 2)
+            new Date(entry[0]).toLocaleDateString()
           ),
 
           datasets: [
@@ -70,11 +70,11 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
                   ctx.canvas.height
                 );
                 if (theme === "dark") {
-                  gradient.addColorStop(0, "rgba(95, 255, 91, 1.0)");
-                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.7)");
+                  gradient.addColorStop(0, "rgba(95, 255, 91, 0.5)");
+                  gradient.addColorStop(1, "rgba(95, 255, 91, 0.01)");
                 } else {
                   gradient.addColorStop(0, "rgba(1, 241, 227, 1.0)");
-                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.5)");
+                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.05)");
                 }
                 return gradient;
               },
@@ -91,7 +91,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
           },
           scales: {
             x: {
-              display: true,
+              display: false,
               grid: {
                 display: false,
                 drawBorder: false,
@@ -107,8 +107,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               ticks: {
                 callback: function (value: any, index: number, values: any) {
                   if (value >= 1000) {
-                    const newVal = formatMoney(value);
-                    return newVal;
+                    return formatMoney(value);
                   } else {
                     return value;
                   }

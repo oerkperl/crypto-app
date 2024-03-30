@@ -7,16 +7,11 @@ import { Trends } from "./Trends";
 import { TrendLabel } from "../../TrendLable";
 
 export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
-  const { selectedCurrency, setIsOpen, setViewingCoinId } = useCryptoContext();
+  const { selectedCurrency, viewCoin } = useCryptoContext();
 
   const setTrend = (coin: any): boolean => {
     const trend = coin.price_change_percentage_1h_in_currency < 0;
     return trend;
-  };
-
-  const viewCoin = (id: string): void => {
-    setViewingCoinId(id);
-    setIsOpen(true);
   };
 
   return (
@@ -24,12 +19,12 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
       {coins.map((coin, index) => (
         <Wrapper
           key={coin?.id}
-          className={`flex  border-b border-gray-300 dark:border-gray-700 cursor-pointer hover:bg-indigo-900 hover:text-white`}
+          className={`flex  border-b border-gray-300 dark:border-gray-700 cursor-pointer hover:bg-indigo-600 hover:text-white`}
           onClick={() => {
             viewCoin(coin?.id);
           }}
         >
-          <Item className="flex items-center gap-1">
+          <CoinItem $width="235px" className="flex ml-1 items-center gap-1">
             <span> {index + 1 || "#"}</span>
             <Image
               src={coin.image || ""}
@@ -38,7 +33,7 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
               alt="coin image"
             />{" "}
             <span>{coin.name}</span>
-          </Item>
+          </CoinItem>
           <CoinItem $width="150px">
             {selectedCurrency.sym}
             {coin.current_price}

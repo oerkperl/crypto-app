@@ -1,5 +1,5 @@
 "use client";
-import { Charts } from "../components/home/charts/Charts";
+import { Dashboard } from "../components/home/charts/Dashboard";
 import { Main, Section } from "../components/styled";
 import { CoinsList } from "../components/home/coinsList/CoinsList";
 import { BackToTopButton } from "../lib/utils/components/BackToTopButton";
@@ -18,7 +18,7 @@ export const HomePage = () => {
           <Coin />
         </Modal>
         <Section>
-          <Charts />
+          <Dashboard />
         </Section>
         <CoinsList />
         <BackToTopButton />
