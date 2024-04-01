@@ -13,7 +13,7 @@ export const ProfileCard: React.FC<{ myCoin: any }> = ({ myCoin }) => {
       <div className="h-16 w-16 bg-gray-100 dark:bg-accent-bg rounded-md flex items-center justify-center ">
         <Link
           onClick={() => setViewingCoinId(myCoin?.id)}
-          href={`/coin?id=${viewingCoinId}`}
+          href={`/coin?id=${myCoin?.id}`}
         >
           <Image src={myCoin?.image} height={40} width={40} alt="coin image" />
         </Link>
