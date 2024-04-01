@@ -15,13 +15,8 @@ import { fetchChartData, getChart, getChartStatus } from "./chartsSlice";
 
 export const Charts: React.FC = () => {
   const dispatch = useAppDispatch();
-  const {
-    currentChart,
-    selectedOption,
-    chartUrl,
-    selectedPeriod,
-    setSelectedPeriod,
-  } = useCryptoContext();
+  const { currentChart, chartUrl, selectedPeriod, setSelectedPeriod } =
+    useCryptoContext();
 
   const bitcoin = useSelector((state: RootState) =>
     getCoinById(state, "bitcoin")
@@ -51,9 +46,9 @@ export const Charts: React.FC = () => {
   return (
     <>
       <div>
-        {chartStatus === "failed" && (
+        {chartStatus !== "succeeded" && (
           <div>
-            <LoadingChart fetchData={fetchData} option={selectedOption} />
+            <LoadingChart fetchData={fetchData} />
           </div>
         )}
 
@@ -91,13 +86,13 @@ export const Charts: React.FC = () => {
               data={priceData}
               labels={priceLabels}
               type={"line"}
-              height={190}
+              height={210}
             />
             <ChartCard
               labels={volumeLabels}
               data={volumeData}
               type={"bar"}
-              height={200}
+              height={210}
             />
           </div>
         )}

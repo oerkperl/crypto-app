@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { useCryptoContext } from "@/app/context/context";
@@ -13,16 +13,19 @@ interface ModalProps {
 }
 
 export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [wantsToSave, setWantsToSave] = useState<boolean>(false);
   const [notification, setNotification] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
   const [selectedCoin, setSelectedCoin] = useState<any>({});
   const [canSelect, setCanSelect] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
   const { selectedCoinId, addAsset, setErrorMessage } = useCryptoContext();
-  const canAddAsset: boolean =
-    Object.entries(selectedCoin).length !== 0 && amount >= 0;
+  const hasCoin: boolean = Object.entries(selectedCoin).length !== 0;
+  const hasAmount: boolean = amount !== undefined && amount >= 0;
+  const canAddAsset: boolean = hasAmount && hasCoin;
+
   const date: string = getCurrentDate();
   const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${selectedCoinId}&order=market_cap_desc&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d`;
 
@@ -44,7 +47,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
     const asset: TAsset = {
       id: selectedCoin?.id,
       name: selectedCoin?.name,
-      amount: amount,
+      amount: amount !== undefined ? amount : 0,
       purchaseDate: date,
       image: selectedCoin?.image,
       symbol: selectedCoin?.symbol,
@@ -68,24 +71,36 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
     }
   };
 
+  useEffect(() => {
+    if (!hasCoin && hasAmount) {
+      setErrorMessage(setNotification, "No Coin Selected", 5000);
+    }
+    if (!hasAmount && hasCoin) {
+      setErrorMessage(setNotification, "Select amount", 5000);
+    }
+    if (!hasAmount && !hasCoin && wantsToSave) {
+      setErrorMessage(setNotification, "Complete the form please.", 5000);
+    }
+  }, [wantsToSave]);
+
   return (
     <Main>
       <Section>
         <div className="flex  w-[1000px] h-[80vh] ">
           <div className=" w-full flex items-center justify-center h-full border-gray-500  rounded-lg">
-            <div className="w-full border border-gray-300 dark:border-gray-700 p-8 rounded-xl">
+            <div className="w-full bg-white dark:bg-accent-bg border-gray-300 dark:border-gray-700 p-8 rounded-xl">
               <div className="flex justify-between">
                 <h1>Select a coin</h1>
                 {notification !== "" && <p>{notification}</p>}
                 <button
-                  className="w-8 h-8  rounded-full  dark:bg-gray-900 hover:bg-indigo-600 hover:text-white"
+                  className="w-8 h-8  rounded-full  bg-gray-100 dark:bg-input-bg hover:bg-indigo-600 hover:text-white"
                   onClick={onClose}
                 >
                   X
                 </button>
               </div>
               <div className="flex gap-4  py-4">
-                <div className="w-1/3  rounded-lg border border-gray-300 dark:border-gray-700  flex flex-col items-center justify-center">
+                <div className="w-1/3  rounded-lg bg-gray-100 dark:bg-input-bg border-gray-300 dark:border-gray-700  flex flex-col items-center justify-center">
                   <div className=" h-20 w-20 flex items-center justify-center rounded-md bg-gray-200 dark:bg-gray-900">
                     <Image
                       src={
@@ -103,7 +118,14 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                   })`}</div>
                 </div>
                 <div className="w-2/3  flex flex-col gap-6">
-                  <div className="h-12 w-full border rounded-lg  border-gray-300 dark:border-gray-700 flex items-center">
+                  <div
+                    className={`h-12 w-full bg-gray-100 dark:bg-input-bg rounded-lg flex items-center
+                  ${
+                    !hasCoin && wantsToSave
+                      ? "border border-pink-600"
+                      : "border-0"
+                  }`}
+                  >
                     <SelectCoin
                       fetchData={fetchData}
                       query={query}
@@ -114,25 +136,36 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                     />
                   </div>
                   <input
-                    className="h-12  w-full rounded-lg pl-2 border  border-gray-300 dark:border-gray-900"
+                    className={`h-12 w-full rounded-lg pl-2 bg-gray-100 dark:bg-input-bg outline-none
+                    ${
+                      !hasAmount && wantsToSave
+                        ? "border border-pink-600"
+                        : "border-0"
+                    }
+                    `}
                     type="number"
-                    placeholder="Purchase amount"
+                    placeholder={"Amount"}
                     value={amount}
                     onChange={handleAmountChange}
                   />
                   <div className="flex gap-2">
                     <button
-                      className=" w-1/2 h-12 rounded-lg bg-pink-500 hover:bg-pink-600 text-white"
+                      className=" w-1/2 h-12 bg-pink-700 rounded-lg hover:bg-pink-600 text-gray-200 hover:text-white "
                       onClick={onClose}
                     >
                       Cancel
                     </button>
                     <button
-                      className={`w-1/2 h-12 rounded-lg  border border-gray-300 dark:border-gray-700  hover:text-white ${
-                        canAddAsset ? "hover:bg-green-600" : "hover:bg-gray-600"
+                      className={`w-1/2 h-12 rounded-lg  text-gray-200 ${
+                        canAddAsset
+                          ? "bg-green-700 text-white hover:bg-green-600"
+                          : "bg-indigo-600 hover:bg-input-bg hover:text-white"
                       }`}
-                      disabled={!canAddAsset}
-                      onClick={addNewAsset}
+                      onClick={() => {
+                        canAddAsset ? addNewAsset() : "";
+                      }}
+                      onMouseEnter={() => setWantsToSave(true)}
+                      onMouseLeave={() => setWantsToSave(false)}
                     >
                       Save
                     </button>

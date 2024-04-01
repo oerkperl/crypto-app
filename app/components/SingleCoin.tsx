@@ -6,7 +6,7 @@ export const SingleCoin: React.FC<{ coin: any }> = ({ coin }) => {
   const { selectedCurrency } = useCryptoContext();
   return (
     <>
-      <div className=" w-1/6 flex items-center justify-center ml-1 rounded-md bg-gray-300 dark:bg-gray-800">
+      <div className=" w-1/6 flex items-center justify-center ml-1 rounded-md bg-gray-300 dark:bg-input-bg">
         <Image
           className=""
           src={coin?.image}

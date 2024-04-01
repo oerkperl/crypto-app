@@ -1,6 +1,7 @@
 import { Graph } from "./Graph";
 import { useCryptoContext } from "@/app/context/context";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
+import { SpinnerContainer } from "../../styled";
 
 export const ChartCard: React.FC<{
   labels?: any;
@@ -8,11 +9,10 @@ export const ChartCard: React.FC<{
   type: any;
   width?: number;
   height?: number;
-  cardHeight?: string;
-}> = ({ labels, data, type, width, height, cardHeight }) => {
+}> = ({ labels, data, type, width, height }) => {
   const { selectedCurrency } = useCryptoContext();
   return (
-    <div className={` mt-2 py-2 rounded-xl h-${cardHeight || "full"}  `}>
+    <div className={`rounded-xl`}>
       {labels && (
         <div>
           <span className="text-md">{labels.title}: </span>
@@ -26,7 +26,7 @@ export const ChartCard: React.FC<{
         </div>
       )}
 
-      <div>
+      <div className=" relative">
         {data && (
           <Graph
             data={{

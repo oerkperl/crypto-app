@@ -60,8 +60,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               fill: true,
               tension: 0.3,
               pointRadius: 0,
-              borderColor: theme === "dark" ? "#2B7629" : "#02A299",
-
+              borderColor: "#02A299",
               backgroundColor: () => {
                 const gradient = ctx.createLinearGradient(
                   0,
@@ -70,11 +69,11 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
                   ctx.canvas.height
                 );
                 if (theme === "dark") {
-                  gradient.addColorStop(0, "rgba(95, 255, 91, 0.5)");
-                  gradient.addColorStop(1, "rgba(95, 255, 91, 0.01)");
+                  gradient.addColorStop(0, "rgba(1, 241, 227, 1.0)");
+                  gradient.addColorStop(1, "rgba(255, 255, 255, 0.005)");
                 } else {
                   gradient.addColorStop(0, "rgba(1, 241, 227, 1.0)");
-                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.05)");
+                  gradient.addColorStop(1, "rgba(0, 0, 0, 0.3)");
                 }
                 return gradient;
               },
@@ -102,7 +101,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               grid: {
                 display: true,
                 drawBorder: false,
-                color: "#555",
+                color: "#333",
               },
               ticks: {
                 callback: function (value: any, index: number, values: any) {
