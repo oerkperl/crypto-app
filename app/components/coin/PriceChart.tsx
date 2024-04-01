@@ -35,11 +35,30 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
       fetchChart();
     }
   }, [selectedCurrency, selectedPeriod]);
+  const randomHeight = () => {
+    return Math.floor(Math.random() * (200 - 40 + 1)) + 40;
+  };
   return (
     <>
       <div className=" h-full flex flex-col justify-between">
         <div className="">
-          {hasError && <BlinkingGradientLoader height="215px" />}
+          {hasError && (
+            <div className="mt-2 flex w-full pt-2 overflow-hidden">
+              {Array.from({ length: 100 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="mr-2 relative max-h-48  flex flex-col justify-end"
+                >
+                  <div className=" bottom-item   w-2">
+                    <BlinkingGradientLoader
+                      height={randomHeight() + "px"}
+                      width="10px"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           {!hasError && (
             <ChartCard data={priceData} type={"line"} height={185} />
           )}

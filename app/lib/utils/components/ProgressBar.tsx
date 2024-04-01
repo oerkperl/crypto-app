@@ -34,11 +34,7 @@ export const ProgressBar: React.FC<{
   customBg?: string;
 }> = ({ progress, width, downTrend, fg, customBg }) => {
   const { theme } = useTheme();
-  const color = downTrend
-    ? "#E323FF"
-    : theme === "dark"
-    ? "#5EFF5A"
-    : "#00B1A7";
+  const color = downTrend ? "#E323FF" : "#00B1A7";
   const bg = downTrend ? "#F39DFF" : theme === "dark" ? "#777" : "#8AF0EB";
 
   return (

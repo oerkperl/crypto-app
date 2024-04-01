@@ -41,12 +41,7 @@ const setChartdata = (charData: any, trend: string, theme: string): any => {
       {
         label: "First dataset",
         data: filtered,
-        borderColor:
-          trend === "down"
-            ? "#E323FF"
-            : theme === "dark"
-            ? "#2B7629"
-            : "#02A299",
+        borderColor: trend === "down" ? "#E323FF" : "#02A299",
         backgroundColor: (context: any) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(
@@ -56,13 +51,8 @@ const setChartdata = (charData: any, trend: string, theme: string): any => {
             context.chart.height
           );
           if (trend !== "down") {
-            if (theme === "dark") {
-              gradient.addColorStop(0, "rgba(95, 255, 91, 1.0)");
-              gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
-            } else {
-              gradient.addColorStop(0, "rgba(1, 241, 227, 1.0)");
-              gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
-            }
+            gradient.addColorStop(0, "rgba(1, 241, 227, 1.0)");
+            gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
           } else {
             gradient.addColorStop(0, "rgba(228, 35, 255, 1.0)");
             gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");

@@ -1,25 +1,54 @@
 import React from "react";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
-
 export const LoadingChart: React.FC<{
   fetchData: () => void;
-  option: string;
-}> = ({ fetchData, option }) => {
+}> = ({ fetchData }) => {
+  const randomHeight = () => {
+    return Math.floor(Math.random() * (200 - 40 + 1)) + 40;
+  };
+
   return (
     <div className="px-2">
       <div className="mt-2">
-        <BlinkingGradientLoader height="225px" />
+        Price:
+        <div className="mt-2 flex w-full pt-2 overflow-hidden">
+          {Array.from({ length: 100 }).map((_, index) => (
+            <div
+              key={index}
+              className="mr-2 relative max-h-48  flex flex-col justify-end"
+            >
+              <div className=" bottom-item   w-2">
+                <BlinkingGradientLoader
+                  height={randomHeight() + "px"}
+                  width="10px"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="mt-2">
-        <BlinkingGradientLoader
-          height={option === "Charts" ? "225px" : "150px"}
-        />
+      <div className="mt-2 ">
+        Volume:
+        <div className="mt-2 flex w-full pt-2 overflow-hidden ">
+          {Array.from({ length: 100 }).map((_, index) => (
+            <div
+              key={index}
+              className="mr-2 relative max-h-48  flex flex-col justify-end"
+            >
+              <div className=" bottom-item   w-2">
+                <BlinkingGradientLoader
+                  height={randomHeight() + "px"}
+                  width="10px"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="mt-2 w-full flex items-center gap-2">
-        <BlinkingGradientLoader height="40px" width="300px" />
         <button
-          className="border border-gray-500 px-2 py-1 hover:bg-indigo-600 hover:text-white"
+          className="border dark:border-indigo-500 rounded px-2 py-1 hover:bg-indigo-600 hover:text-white"
           onClick={fetchData}
         >
           Reload

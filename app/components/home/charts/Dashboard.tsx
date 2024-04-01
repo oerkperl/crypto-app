@@ -46,7 +46,8 @@ export const Dashboard: React.FC = () => {
             </div>
             <div className="mt-2">
               <button
-                className="border border-gray-300 dark:border-indigo-500 w-full rounded py-1 hover:bg-indigo-600 hover:text-white"
+                className="border border-gray-300 dark:border-indigo-500 w-full rounded py-1 hover:bg-indigo-600 
+                bg-white dark:bg-transparent hover:text-white"
                 onClick={() => viewCoin(currentChart?.id || bitcoin?.id)}
               >
                 View more
