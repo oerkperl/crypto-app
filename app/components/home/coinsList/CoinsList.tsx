@@ -11,7 +11,7 @@ import { removeDuplicates } from "@/app/lib/utils/formatters";
 const CoinsTableHead = () => {
   return (
     <>
-      <Wrapper className="flex bg-white dark:bg-accent-bg rounded">
+      <Wrapper className="flex bg-white dark:bg-accent-bg rounded shadow-sm">
         <CoinItem $width="235px" className="pl-2">
           <span># </span>
           <span>Name</span>
@@ -43,7 +43,7 @@ export const CoinsList = () => {
 
   return (
     <>
-      <Section className="mt-4">
+      <Section className="mt-4 sticky top-0">
         <div>
           <CoinsTableHead />
         </div>

@@ -77,7 +77,7 @@ export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
                 }}
               >
                 <li
-                  className={`w-80 hover:bg-indigo-600 hover:text-white text-sm rounded-md  border border-gray-300 dark:border-0
+                  className={`w-80 hover:bg-indigo-600 hover:text-white text-sm rounded-md  shadow-md border border-gray-300 dark:border-0
                     text-xs py-1 flex gap-1 bg-white dark:bg-accent-bg
                   `}
                 >

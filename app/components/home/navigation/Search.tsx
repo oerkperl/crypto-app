@@ -73,7 +73,9 @@ export const Search = () => {
 
   return (
     <div className="relative">
-      <div className={`flex px-2 rounded-md bg-gray-100 dark:bg-input-bg`}>
+      <div
+        className={`flex px-2 rounded-md bg-gray-100 dark:bg-input-bg shadow-md`}
+      >
         <Input
           type="text"
           value={query}
@@ -94,7 +96,7 @@ export const Search = () => {
       </div>
       <div>
         {query.trim() !== "" && (
-          <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-white dark:bg-accent-bg text-gray-400 rounded">
+          <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-white dark:bg-accent-bg dark:text-gray-400 shadow-md rounded">
             {results.length > 0 && (
               <div className="flex justify-end px-2">
                 <button onClick={clear}>x</button>

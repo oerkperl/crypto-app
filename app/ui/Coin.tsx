@@ -85,10 +85,10 @@ export const Coin = () => {
             />
           </div>
           <div className="flex gap-2 mt-4 mb-2">
-            <div className=" w-1/2 flex bg-white dark:bg-accent-bg  px-2 rounded-xl">
+            <div className=" w-1/2 flex bg-white dark:bg-accent-bg shadow-md px-2 rounded-xl">
               <Converter baseCoin={baseCoin} />
             </div>
-            <div className=" w-1/2  p-2 bg-white dark:bg-accent-bg rounded-xl h-94">
+            <div className=" w-1/2  p-2 bg-white dark:bg-accent-bg shadow-md rounded-xl h-94">
               <div className=" max-h-52 overflow-auto pr-1 ">
                 <LinksList links={coin?.links?.blockchain_site} />
               </div>

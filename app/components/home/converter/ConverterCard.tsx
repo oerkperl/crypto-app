@@ -21,7 +21,6 @@ export const ConverterCard: React.FC<CoinProps> = ({
   lable,
   handler,
   hasData,
-  notification,
   title,
 }) => {
   return (
@@ -55,7 +54,7 @@ export const ConverterCard: React.FC<CoinProps> = ({
           value={amount}
           onChange={handler}
           placeholder={title}
-          className="py-0.5 px-1 rounded w-full bg-gray-100 dark:bg-input-bg"
+          className="py-0.5 px-1 rounded w-full bg-gray-100 dark:bg-input-bg shadow-md"
         />
         <div className="flex w-full whitespace-nowrap overflow-hidden overflow-ellipsis">
           <label>
