@@ -2,7 +2,8 @@ import React from "react";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 export const LoadingChart: React.FC<{
   fetchData: () => void;
-}> = ({ fetchData }) => {
+  status: "idle" | "loading" | "succeeded" | "failed";
+}> = ({ fetchData, status }) => {
   const randomHeight = () => {
     return Math.floor(Math.random() * (200 - 40 + 1)) + 40;
   };
@@ -46,14 +47,16 @@ export const LoadingChart: React.FC<{
         </div>
       </div>
 
-      <div className="mt-2 w-full flex items-center gap-2">
-        <button
-          className="border dark:border-indigo-500 rounded px-2 py-1 hover:bg-indigo-600 hover:text-white"
-          onClick={fetchData}
-        >
-          Reload
-        </button>
-      </div>
+      {status === "failed" && (
+        <div className="mt-2 w-full flex items-center gap-2">
+          <button
+            className="border dark:border-indigo-500 shadow-md rounded px-2 py-1 hover:bg-indigo-600 hover:text-white"
+            onClick={fetchData}
+          >
+            Refresh
+          </button>
+        </div>
+      )}
     </div>
   );
 };

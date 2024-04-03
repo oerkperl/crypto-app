@@ -27,9 +27,9 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
 
   return (
     <div className="relative pt-2">
-      <div className="w-full sticky top-0 z-10">
+      <div className="w-full sticky top-1 z-10">
         <input
-          className={`w-full  mb-2 p-2 rounded  text:xs bg-gray-100 dark:bg-input-bg`}
+          className={`w-full  mb-2 p-2 rounded shadow-md text:xs bg-gray-100 dark:bg-input-bg`}
           placeholder="Search for a coin..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -48,7 +48,7 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
                   }}
                 >
                   <Li
-                    className={`hover:bg-indigo-600 hover:text-white text-sm  border-gray-300 dark:border-gray-700 
+                    className={`hover:bg-indigo-600 shadow-sm hover:text-white text-sm   border-gray-300 dark:border-indigo-700 
                     text-xs py-1 flex gap-1 ${
                       currentChart?.id === coin?.id
                         ? "bg-indigo-700 text-white hover:text-white"

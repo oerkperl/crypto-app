@@ -86,21 +86,21 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
   return (
     <Main>
       <Section>
-        <div className="flex  w-[1000px] h-[80vh] ">
-          <div className=" w-full flex items-center justify-center h-full border-gray-500  rounded-lg">
-            <div className="w-full bg-white dark:bg-accent-bg border-gray-300 dark:border-gray-700 p-8 rounded-xl">
+        <div className="flex  w-[1000px] h-[80vh]">
+          <div className=" w-full flex items-center justify-center h-full">
+            <div className="w-full bg-white dark:bg-accent-bg shadow-md p-8 rounded-xl">
               <div className="flex justify-between">
                 <h1>Select a coin</h1>
                 {notification !== "" && <p>{notification}</p>}
                 <button
-                  className="w-8 h-8  rounded-full  bg-gray-100 dark:bg-input-bg hover:bg-indigo-600 hover:text-white"
+                  className="w-8 h-8  rounded-full shadow-md bg-gray-100 dark:bg-input-bg hover:bg-indigo-600 hover:text-white"
                   onClick={onClose}
                 >
                   X
                 </button>
               </div>
               <div className="flex gap-4  py-4">
-                <div className="w-1/3  rounded-lg bg-gray-100 dark:bg-input-bg border-gray-300 dark:border-gray-700  flex flex-col items-center justify-center">
+                <div className="w-1/3  rounded-lg bg-gray-100 dark:bg-input-bg shadow-md flex flex-col items-center justify-center">
                   <div className=" h-20 w-20 flex items-center justify-center rounded-md bg-gray-200 dark:bg-gray-900">
                     <Image
                       src={
@@ -119,7 +119,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                 </div>
                 <div className="w-2/3  flex flex-col gap-6">
                   <div
-                    className={`h-12 w-full bg-gray-100 dark:bg-input-bg rounded-lg flex items-center
+                    className={`h-12 w-full shadow-md bg-gray-100 dark:bg-input-bg rounded-lg flex items-center
                   ${
                     !hasCoin && wantsToSave
                       ? "border border-pink-600"
@@ -136,7 +136,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                     />
                   </div>
                   <input
-                    className={`h-12 w-full rounded-lg pl-2 bg-gray-100 dark:bg-input-bg outline-none
+                    className={`h-12 w-full shadow-md rounded-lg pl-2 bg-gray-100 dark:bg-input-bg outline-none
                     ${
                       !hasAmount && wantsToSave
                         ? "border border-pink-600"

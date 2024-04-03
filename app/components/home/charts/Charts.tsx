@@ -48,7 +48,7 @@ export const Charts: React.FC = () => {
       <div>
         {chartStatus !== "succeeded" && (
           <div>
-            <LoadingChart fetchData={fetchData} />
+            <LoadingChart fetchData={fetchData} status={chartStatus} />
           </div>
         )}
 

@@ -101,7 +101,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
               grid: {
                 display: true,
                 drawBorder: false,
-                color: "#333",
+                color: theme === "dark" ? "#333" : "#999",
               },
               ticks: {
                 callback: function (value: any, index: number, values: any) {

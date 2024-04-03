@@ -6,7 +6,7 @@ export const ChartSummary: React.FC<{ coin: any }> = ({ coin }) => {
   const { selectedCurrency } = useCryptoContext();
 
   return (
-    <div className=" relative bg-white dark:bg-accent-bg rounded flex flex-col px-2 py-1">
+    <div className=" relative bg-white dark:bg-accent-bg rounded shadow-md flex flex-col px-2 py-1">
       {coin !== undefined ? (
         <>
           <div className="flex justify-between text-sm">

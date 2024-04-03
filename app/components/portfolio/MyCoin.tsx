@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { useCryptoContext } from "@/app/context/context";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { calculatPriceChange } from "@/app/lib/utils/formatters";
@@ -14,7 +15,7 @@ export const MyCoin: React.FC<{
 }> = ({ myCoin, asset, hasError }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [coinAmount, setCoinAmount] = useState<number>(myCoin?.amount);
-  const { UpdateAmount } = useCryptoContext();
+  const { UpdateAmount, removeAsset } = useCryptoContext();
   const editIcon = <FontAwesomeIcon icon={faPenToSquare} />;
   const checkIcon = <FontAwesomeIcon icon={faCheck} />;
   const value = myCoin?.amount * asset?.current_price;
@@ -35,14 +36,26 @@ export const MyCoin: React.FC<{
     <>
       <div className="flex justify-between">
         <h1>Your coin</h1>
-        <button
-          className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
-          onClick={() => {
-            setIsEditing((prev) => !prev);
-          }}
-        >
-          {editIcon}
-        </button>
+        <div className="flex gap-2">
+          <button>
+            <button
+              className="px-2 rounded-md hover:bg-pink-600 hover:text-white"
+              onClick={() => {
+                removeAsset(myCoin);
+              }}
+            >
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+          </button>
+          <button
+            className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
+            onClick={() => {
+              setIsEditing((prev) => !prev);
+            }}
+          >
+            {editIcon}
+          </button>
+        </div>
       </div>
       <div className="flex justify-between  mt-2">
         <div className="flex flex-col gap-2 w-1/4 ">

@@ -1,7 +1,6 @@
 import { Graph } from "./Graph";
 import { useCryptoContext } from "@/app/context/context";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
-import { SpinnerContainer } from "../../styled";
 
 export const ChartCard: React.FC<{
   labels?: any;

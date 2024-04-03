@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body
-        className={` bg-gray-100 dark:bg-gray-950 dark:text-gray-400 ${inter.className}`}
+        className={` bg-gray-100 dark:bg-gray-950 relative dark:text-gray-400 ${inter.className}`}
       >
         <TheThemeProvider>
           <CryptoContextProvider>
