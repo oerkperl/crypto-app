@@ -73,35 +73,83 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
 
   useEffect(() => {
     if (!hasCoin && hasAmount) {
-      setErrorMessage(setNotification, "No Coin Selected", 5000);
+      setNotification("Select a coin");
     }
     if (!hasAmount && hasCoin) {
-      setErrorMessage(setNotification, "Select amount", 5000);
+      setNotification("Choose amount");
     }
-    if (!hasAmount && !hasCoin && wantsToSave) {
-      setErrorMessage(setNotification, "Complete the form please.", 5000);
+    if (!hasAmount && !hasCoin) {
+      setNotification("Complete the form please");
+    }
+    if (wantsToSave === false) {
+      setNotification("");
     }
   }, [wantsToSave]);
 
   return (
     <Main>
       <Section>
-        <div className="flex  w-[1000px] h-[80vh]">
+        <div className="flex  w-[800px] h-[50vh]">
           <div className=" w-full flex items-center justify-center h-full">
-            <div className="w-full bg-white dark:bg-accent-bg shadow-md p-8 rounded-xl">
+            <div className="w-full  rounded-xl">
               <div className="flex justify-between">
-                <h1>Select a coin</h1>
+                <h1>Add Asset</h1>
                 {notification !== "" && <p>{notification}</p>}
                 <button
-                  className="w-8 h-8  rounded-full shadow-md bg-gray-100 dark:bg-input-bg hover:bg-indigo-600 hover:text-white"
+                  className="w-6 h-6  rounded-full shadow-md bg-gray-100 dark:bg-input-bg hover:bg-indigo-600 hover:text-white"
                   onClick={onClose}
                 >
                   X
                 </button>
               </div>
-              <div className="flex gap-4  py-4">
-                <div className="w-1/3  rounded-lg bg-gray-100 dark:bg-input-bg shadow-md flex flex-col items-center justify-center">
-                  <div className=" h-20 w-20 flex items-center justify-center rounded-md bg-gray-200 dark:bg-gray-900">
+              <hr className="my-4 border-gray-300 dark:border-gray-700" />
+              <div className="flex gap-4">
+                <div className="w-2/3  flex flex-col gap-6">
+                  <div className="flex items-center">
+                    <div className="w-1/5 ">
+                      <label>Coin</label>
+                    </div>
+                    <div
+                      className={`h-12 w-4/5 shadow-md bg-white dark:bg-input-bg rounded-lg flex items-center
+                  ${
+                    !hasCoin && wantsToSave
+                      ? "border border-pink-600"
+                      : "border-0"
+                  }`}
+                    >
+                      <SelectCoin
+                        fetchData={fetchData}
+                        query={query}
+                        setQuery={setQuery}
+                        canSelect={canSelect}
+                        setCanSelect={setCanSelect}
+                        hasError={hasError}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-1/5">
+                      <label>Amount</label>
+                    </div>
+                    <div className="w-4/5">
+                      <input
+                        className={`h-12 w-full shadow-md rounded-lg pl-2 bg-white dark:bg-input-bg outline-none
+                    ${
+                      !hasAmount && wantsToSave
+                        ? "border border-pink-600"
+                        : "border-0"
+                    }
+                    `}
+                        type="number"
+                        placeholder={"Amount"}
+                        value={amount}
+                        onChange={handleAmountChange}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="w-1/3 rounded-lg flex flex-col gap-2 items-center justify-center">
+                  <div className=" h-20 w-20 flex items-center justify-center rounded-md bg-gray-300 dark:bg-gray-900">
                     <Image
                       src={
                         selectedCoin?.image ||
@@ -112,64 +160,39 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                       alt="coin image"
                     />
                   </div>
-                  <div>{selectedCoin?.name || "No coin selected"}</div>
-                  <div>{`(${
-                    selectedCoin?.symbol?.toUpperCase() || " ... "
-                  })`}</div>
+                  <div className="flex gap-1">
+                    <p className="text-sm">
+                      {selectedCoin?.name || "No coin selected"}
+                    </p>
+                    {hasCoin && (
+                      <div>{`(${selectedCoin?.symbol?.toUpperCase()})`}</div>
+                    )}
+                  </div>
                 </div>
-                <div className="w-2/3  flex flex-col gap-6">
-                  <div
-                    className={`h-12 w-full shadow-md bg-gray-100 dark:bg-input-bg rounded-lg flex items-center
-                  ${
-                    !hasCoin && wantsToSave
-                      ? "border border-pink-600"
-                      : "border-0"
-                  }`}
+              </div>
+              <hr className="my-4 border-gray-300 dark:border-gray-700" />
+              <div className="flex w-full justify-end">
+                <div className="flex w-1/2 gap-2">
+                  <button
+                    className=" w-1/2 h-10 bg-pink-700 rounded-md hover:bg-pink-600 text-gray-200 hover:text-white "
+                    onClick={onClose}
                   >
-                    <SelectCoin
-                      fetchData={fetchData}
-                      query={query}
-                      setQuery={setQuery}
-                      canSelect={canSelect}
-                      setCanSelect={setCanSelect}
-                      hasError={hasError}
-                    />
-                  </div>
-                  <input
-                    className={`h-12 w-full shadow-md rounded-lg pl-2 bg-gray-100 dark:bg-input-bg outline-none
-                    ${
-                      !hasAmount && wantsToSave
-                        ? "border border-pink-600"
-                        : "border-0"
-                    }
-                    `}
-                    type="number"
-                    placeholder={"Amount"}
-                    value={amount}
-                    onChange={handleAmountChange}
-                  />
-                  <div className="flex gap-2">
-                    <button
-                      className=" w-1/2 h-12 bg-pink-700 rounded-lg hover:bg-pink-600 text-gray-200 hover:text-white "
-                      onClick={onClose}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className={`w-1/2 h-12 rounded-lg  text-gray-200 ${
-                        canAddAsset
-                          ? "bg-green-700 text-white hover:bg-green-600"
-                          : "bg-indigo-600 hover:bg-input-bg hover:text-white"
-                      }`}
-                      onClick={() => {
-                        canAddAsset ? addNewAsset() : "";
-                      }}
-                      onMouseEnter={() => setWantsToSave(true)}
-                      onMouseLeave={() => setWantsToSave(false)}
-                    >
-                      Save
-                    </button>
-                  </div>
+                    Cancel
+                  </button>
+                  <button
+                    className={`w-1/2 h-10 rounded-md text-gray-200 ${
+                      canAddAsset
+                        ? "bg-green-700 text-white hover:bg-green-600"
+                        : "bg-indigo-600 hover:bg-input-bg hover:text-white"
+                    }`}
+                    onClick={() => {
+                      canAddAsset ? addNewAsset() : "";
+                    }}
+                    onMouseEnter={() => setWantsToSave(true)}
+                    onMouseLeave={() => setWantsToSave(false)}
+                  >
+                    Save
+                  </button>
                 </div>
               </div>
             </div>
