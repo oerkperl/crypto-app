@@ -30,12 +30,12 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 justify-center flex overflow-y-auto outline-none focus:outline-none">
+    <div className="fixed inset-0 z-50 justify-center flex items-center overflow-y-auto outline-none focus:outline-none">
       <div
-        className="absolute inset-0 bg-black opacity-50 "
+        className="absolute inset-0 bg-black opacity-50 flex"
         onClick={handleCloseModal}
       ></div>
-      <div className="fixed min-w-[800px] mx-auto my-6">
+      <div className="fixed min-w-[800px] mx-auto my-6 rounded-md">
         <div className="relative flex flex-col w-full border-0 rounded-lg shadow-lg outline-none focus:outline-none">
           {activePath === "/" && (
             <div className="top-0 flex gap-2 justify-end p-2 rounded-t items-center bg-white dark:bg-accent-bg">

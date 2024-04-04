@@ -7,7 +7,10 @@ import { ChartCard } from "../home/charts/ChartCard";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 
 export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
-  const [priceData, setPriceData] = useState<any>(null);
+  const [data, setData] = useState<any>(null);
+  const [ChartData, setChartData] = useState<any>(null);
+  const [isViewingPriceChart, setIsViewingPriceChart] = useState<boolean>(true);
+  const [type, setType] = useState<string>("line");
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1M");
   const [hasError, setHasError] = useState<boolean>(false);
   const { selectedCurrency } = useCryptoContext();
@@ -23,7 +26,10 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
     try {
       const { data } = await axios(chartUrl);
       if (data) {
-        setPriceData(data.prices);
+        setData(data);
+        isViewingPriceChart
+          ? setChartData(data.prices)
+          : setChartData(data.total_volumes);
         setHasError(false);
       }
     } catch (error) {
@@ -35,12 +41,63 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
       fetchChart();
     }
   }, [selectedCurrency, selectedPeriod]);
+
   const randomHeight = () => {
     return Math.floor(Math.random() * (200 - 40 + 1)) + 40;
   };
+
+  const showVolumeChart = () => {
+    setChartData(data.total_volumes);
+    setType("bar");
+    setIsViewingPriceChart(false);
+  };
+  const showPriceChart = () => {
+    setChartData(data.prices);
+    setType("line");
+    setIsViewingPriceChart(true);
+  };
   return (
     <>
-      <div className=" h-full flex flex-col justify-between">
+      <div className=" h-full flex flex-col p-2">
+        <div className="flex justify-between">
+          <div className="flex">
+            <button
+              className={`hover:text-gray-600 dark:hover:text-white px-2 rounded ${
+                isViewingPriceChart ? "text-white bg-indigo-700" : ""
+              }`}
+              onClick={showPriceChart}
+            >
+              Price
+            </button>
+            <button
+              className={`hover:text-gray-700 dark:hover:text-white px-2 rounded ${
+                !isViewingPriceChart ? "text-white bg-indigo-700" : ""
+              }`}
+              onClick={showVolumeChart}
+            >
+              Volume
+            </button>
+          </div>
+          <div className="flex gap-2">
+            {!hasError && (
+              <TimePeriodButtons
+                thePeriod={selectedPeriod}
+                periodHandler={setSelectedPeriod}
+              />
+            )}
+            {hasError && (
+              <div className="flex gap-2 px-2">
+                <h1 className="text-center">
+                  Error fetching chart, try again later...
+                </h1>
+                <button className="hover:underline" onClick={fetchChart}>
+                  Reload
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
         <div className="">
           {hasError && (
             <div className="mt-2 flex w-full pt-2 overflow-hidden">
@@ -59,27 +116,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
               ))}
             </div>
           )}
-          {!hasError && (
-            <ChartCard data={priceData} type={"line"} height={185} />
-          )}
-        </div>
-        <div className="flex gap-2">
-          {!hasError && (
-            <TimePeriodButtons
-              thePeriod={selectedPeriod}
-              periodHandler={setSelectedPeriod}
-            />
-          )}
-          {hasError && (
-            <div className="flex gap-2 px-2">
-              <h1 className="text-center">
-                Error fetching chart, try again later...
-              </h1>
-              <button className="hover:underline" onClick={fetchChart}>
-                Reload
-              </button>
-            </div>
-          )}
+          {!hasError && <ChartCard data={ChartData} type={type} height={185} />}
         </div>
       </div>
     </>
