@@ -33,10 +33,10 @@ export const Portfolio = () => {
           {!hasAssets && (
             <div className="mt-16">
               <p className="text-center">
-                You have no assets in your portfolio. Click the Add Asset button
-                to add
+                You have no assets in your portfolio. Click the{" "}
+                <strong className="dark:text-white">Add Asset </strong>button to
+                add
               </p>
-              <LoadingAsset />
             </div>
           )}
           {hasAssets && (

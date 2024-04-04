@@ -14,7 +14,7 @@ export const TrendLabel: React.FC<TrendLabelProps> = ({
   return (
     <div className="flex items-center gap-1">
       {value >= 0 && (
-        <span className="text-trend-blue dark:text-accent-green">
+        <span className="text-trend-blue">
           <FontAwesomeIcon icon={faCaretUp} />
         </span>
       )}
@@ -23,7 +23,9 @@ export const TrendLabel: React.FC<TrendLabelProps> = ({
           <FontAwesomeIcon icon={faCaretDown} />
         </span>
       )}
-      <label>
+      <label
+        className={`${value >= 0 ? "text-trend-blue" : "text-trend-pink"}`}
+      >
         {Math.abs(value).toFixed(2)}
         {percentage && "%"}
       </label>

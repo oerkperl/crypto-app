@@ -19,7 +19,7 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
       {coins.map((coin, index) => (
         <Wrapper
           key={coin?.id}
-          className={`flex  border-b border-gray-300 dark:border-gray-700 cursor-pointer hover:bg-indigo-600 hover:text-white`}
+          className={`flex  bg-white dark:bg-transparent border-b border-gray-300 dark:border-gray-700 cursor-pointer hover:bg-indigo-600 hover:text-white`}
           onClick={() => {
             viewCoin(coin?.id);
           }}

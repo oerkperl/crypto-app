@@ -35,7 +35,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         className="absolute inset-0 bg-black opacity-50 "
         onClick={handleCloseModal}
       ></div>
-      <div className="fixed min-w-[1000px] mx-auto my-6">
+      <div className="fixed min-w-[800px] mx-auto my-6">
         <div className="relative flex flex-col w-full border-0 rounded-lg shadow-lg outline-none focus:outline-none">
           {activePath === "/" && (
             <div className="top-0 flex gap-2 justify-end p-2 rounded-t items-center bg-white dark:bg-accent-bg">
