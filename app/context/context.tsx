@@ -46,8 +46,8 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
   const getAssets = () => {
     return assets;
   };
-  const removeAsset = (asset: TAsset) => {
-    const filtered = assets.filter((a) => a.id !== asset.id);
+  const removeAsset = (id: string) => {
+    const filtered = assets.filter((a) => a.id !== id);
     setAssets(filtered);
   };
 

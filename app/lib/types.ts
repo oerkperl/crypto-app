@@ -31,7 +31,7 @@ export type CryptoContextValue = {
   setSelectedCurrency: Dispatch<SetStateAction<TCurrency>>;
   addAsset: (asset: TAsset) => void;
   UpdateAmount: (id: string, amount: number) => void;
-  removeAsset: (asset: TAsset) => void;
+  removeAsset: (id: string) => void;
   getAssets: () => TAsset[];
   setErrorMessage: (handler: any, message: string, duration: number) => void;
   viewCoin: (id: string) => void;

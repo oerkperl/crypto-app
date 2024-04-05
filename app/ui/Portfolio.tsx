@@ -31,7 +31,7 @@ export const Portfolio = () => {
         </div>
         <div>
           {!hasAssets && (
-            <div className="mt-16">
+            <div className="mt-14">
               <p className="text-center">
                 You have no assets in your portfolio. Click the{" "}
                 <strong className="dark:text-white">Add Asset </strong>button to
@@ -45,7 +45,7 @@ export const Portfolio = () => {
             </div>
           )}
         </div>
-        <div className="">
+        <div>
           <Modal isOpen={isOpen} onClose={handleCloseModal}>
             <FormModal onClose={handleCloseModal} isOpen={isOpen} />
           </Modal>

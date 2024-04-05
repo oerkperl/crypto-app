@@ -37,21 +37,9 @@ export const MyCoin: React.FC<{
       <div className="flex justify-between">
         <h1>Your coin</h1>
         <div className="flex gap-2">
-          <button>
-            <button
-              className="px-2 rounded-md hover:bg-pink-600 hover:text-white"
-              onClick={() => {
-                removeAsset(myCoin);
-              }}
-            >
-              <FontAwesomeIcon icon={faTrashCan} />
-            </button>
-          </button>
           <button
             className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
-            onClick={() => {
-              setIsEditing((prev) => !prev);
-            }}
+            onClick={() => setIsEditing((prev) => !prev)}
           >
             {editIcon}
           </button>

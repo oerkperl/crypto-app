@@ -89,9 +89,9 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
   return (
     <Main>
       <Section>
-        <div className="flex  w-[800px] h-[50vh]">
+        <div className="flex w-[800px] h-[40vh]">
           <div className=" w-full flex items-center justify-center h-full">
-            <div className="w-full  rounded-xl">
+            <div className="w-full ">
               <div className="flex justify-between">
                 <h1>Add Asset</h1>
                 {notification !== "" && <p>{notification}</p>}
@@ -102,8 +102,8 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                   X
                 </button>
               </div>
-              <hr className="my-4 border-gray-300 dark:border-gray-700" />
-              <div className="flex gap-4">
+              <hr className="my-6 border-gray-300 dark:border-gray-700" />
+              <div className="flex ">
                 <div className="w-2/3  flex flex-col gap-6">
                   <div className="flex items-center">
                     <div className="w-1/5 ">
@@ -148,7 +148,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                     </div>
                   </div>
                 </div>
-                <div className="w-1/3 rounded-lg flex flex-col gap-2 items-center justify-center">
+                <div className="w-1/3  rounded-lg flex flex-col gap-2 items-center justify-center">
                   <div className=" h-20 w-20 flex items-center justify-center rounded-md bg-gray-300 dark:bg-gray-900">
                     <Image
                       src={
@@ -170,7 +170,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                   </div>
                 </div>
               </div>
-              <hr className="my-4 border-gray-300 dark:border-gray-700" />
+              <hr className="my-6 border-gray-300 dark:border-gray-700" />
               <div className="flex w-full justify-end">
                 <div className="flex w-1/2 gap-2">
                   <button

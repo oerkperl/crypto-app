@@ -54,7 +54,7 @@ export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
   return (
     <>
       <div
-        className=" relative overflow-hidden w-full  "
+        className=" relative overflow-hidden w-full mb-2 "
         onMouseEnter={() => {
           setAutoScrol(false);
         }}
@@ -64,7 +64,7 @@ export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
       >
         <div
           ref={containerRef}
-          className={`flex gap-2 overflow-x-hidden relative w-full px-8 py-2`}
+          className={`flex gap-2 overflow-x-hidden relative w-full px-8`}
         >
           <ul className=" flex w-full gap-2">
             {allCoins.map((coin) => (

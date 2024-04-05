@@ -128,7 +128,7 @@ export const Graph: React.FC<{ data: TData }> = ({ data }) => {
         chartInstanceRef.current.destroy();
       }
     };
-  }, [chartData, theme]);
+  }, [chartData, type, theme]);
 
   return (
     <div>

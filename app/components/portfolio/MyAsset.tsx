@@ -2,8 +2,10 @@ import React from "react";
 import { ProgressBar } from "@/app/lib/utils/components/ProgressBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { TrendLabel } from "../TrendLable";
+import { useCryptoContext } from "@/app/context/context";
 
 export const MyAsset: React.FC<{
   asset: any;
@@ -11,7 +13,7 @@ export const MyAsset: React.FC<{
   hasError: boolean;
 }> = ({ asset, fetchAsset, hasError }) => {
   const refeshIcon = <FontAwesomeIcon icon={faRotateRight} />;
-
+  const { removeAsset } = useCryptoContext();
   const marketCapVvolume = Math.round(
     (asset?.total_volume / asset?.market_cap) * 100
   );
@@ -26,15 +28,24 @@ export const MyAsset: React.FC<{
     <>
       <div className="flex justify-between">
         <h1>Market price</h1>
-
-        {hasError && (
-          <button
-            className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
-            onClick={fetchAsset}
-          >
-            {refeshIcon}
-          </button>
-        )}
+        <div className="flex gap-2">
+          {hasError && (
+            <button
+              className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
+              onClick={fetchAsset}
+            >
+              {refeshIcon}
+            </button>
+          )}
+          {!hasError && (
+            <button
+              className="px-2 rounded-md hover:bg-pink-600 hover:text-white"
+              onClick={() => removeAsset(asset?.id)}
+            >
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+          )}
+        </div>
       </div>
       <div className="flex justify-between mt-2 pb-2 mb-2 border-b border-gray-300 dark:border-gray-700">
         <div className="flex flex-col gap-2 w-1/4 ">

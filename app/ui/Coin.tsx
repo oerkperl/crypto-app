@@ -52,20 +52,23 @@ export const Coin = () => {
       {!isLoading && (
         <Section>
           <h1 className="text-xl mt-4">{coin?.name} Summary:</h1>
-          <div className="flex flex-col gap-2 mt-4">
+          <div className="flex flex-col gap-2 mt-2">
             <div className="min-h-16 flex ">
               <CoinProfileCard coin={coin} />
               <CoinPriceCard marketData={coin?.market_data} />
             </div>
-            <div className="w-full min-h-16  flex gap-2">
-              <div className="w-1/2">
-                <CoinStatsCard
-                  statsData={coin?.market_data}
-                  coinSymbol={coin.symbol}
-                />
-              </div>
-              <div className="w-1/2 ">
+            <div className=" rounded">
+              <CoinStatsCard
+                statsData={coin?.market_data}
+                coinSymbol={coin.symbol}
+              />
+            </div>
+            <div className="w-full flex gap-2 mt-2 min-h-16 ">
+              <div className="w-3/5 bg-white dark:bg-accent-bg shadow-md rounded-xl">
                 <PriceChart coinId={coin?.id} />
+              </div>
+              <div className=" w-2/5 flex bg-white dark:bg-accent-bg shadow-md px-2 rounded-xl">
+                <Converter baseCoin={baseCoin} />
               </div>
             </div>
           </div>
@@ -84,18 +87,16 @@ export const Coin = () => {
               }}
             />
           </div>
-          <div className="flex gap-2 mt-4 mb-2">
-            <div className=" w-1/2 flex bg-white dark:bg-accent-bg shadow-md px-2 rounded-xl">
-              <Converter baseCoin={baseCoin} />
-            </div>
-            <div className=" w-1/2  p-2 bg-white dark:bg-accent-bg shadow-md rounded-xl h-94">
-              <div className=" max-h-52 overflow-auto pr-1 ">
+          <div className="mt-4">
+            <div className="bg-white dark:bg-accent-bg shadow-md rounded-xl h-94">
+              <div className=" max-h-52 overflow-auto">
                 <LinksList links={coin?.links?.blockchain_site} />
               </div>
             </div>
           </div>
-          <h1>Other Coins:</h1>
-          <div className="w-full border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-transparent rounded-lg">
+          <hr className="border-gray-300 dark:border-gray-700 my-4" />
+
+          <div className="w-full bg-gray-100 dark:bg-transparent rounded-lg">
             <OtherCoins />
           </div>
         </Section>
