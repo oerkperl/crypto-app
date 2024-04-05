@@ -40,9 +40,7 @@ export const MyAsset: React.FC<{
           {!hasError && (
             <button
               className="px-2 rounded-md hover:bg-pink-600 hover:text-white"
-              onClick={() => {
-                removeAsset(asset?.id);
-              }}
+              onClick={() => removeAsset(asset?.id)}
             >
               <FontAwesomeIcon icon={faTrashCan} />
             </button>

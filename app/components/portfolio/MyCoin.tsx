@@ -39,9 +39,7 @@ export const MyCoin: React.FC<{
         <div className="flex gap-2">
           <button
             className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
-            onClick={() => {
-              setIsEditing((prev) => !prev);
-            }}
+            onClick={() => setIsEditing((prev) => !prev)}
           >
             {editIcon}
           </button>

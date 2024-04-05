@@ -30,7 +30,7 @@ export const CoinPriceCard: React.FC<{ marketData: any }> = ({
   return (
     <>
       {hasData && (
-        <div className="flex   w-full items-center gap-2">
+        <div className="flex w-full items-center gap-2">
           <div className=" w-1/3 h-14 px-2 py-1 bg-white dark:bg-accent-bg rounded-md shadow-md flex">
             <div>
               <h1 className="text-xl">

@@ -90,7 +90,10 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
                 <h1 className="text-center">
                   Error fetching chart, try again later...
                 </h1>
-                <button className="hover:underline" onClick={fetchChart}>
+                <button
+                  className="hover:underline dark:hover:text-white"
+                  onClick={fetchChart}
+                >
                   Reload
                 </button>
               </div>

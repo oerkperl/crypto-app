@@ -6,6 +6,7 @@ import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 interface TrendLabelProps {
   value: number;
   percentage?: boolean;
+  color?: boolean;
 }
 export const TrendLabel: React.FC<TrendLabelProps> = ({
   value,
