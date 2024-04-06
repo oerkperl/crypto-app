@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useCryptoContext } from "@/app/context/context";
 import { getCurrentDate } from "@/app/lib/utils/formatters";
 import { TAsset } from "@/app/lib/types";
-import { Main, Section } from "../styled";
 import { SelectCoin } from "./SelectCoin";
 
 interface ModalProps {
@@ -87,8 +86,8 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
   }, [wantsToSave]);
 
   return (
-    <Main>
-      <Section>
+    <main>
+      <section>
         <div className="flex w-[800px] h-[40vh]">
           <div className=" w-full flex items-center justify-center h-full">
             <div className="w-full ">
@@ -198,7 +197,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
             </div>
           </div>
         </div>
-      </Section>
-    </Main>
+      </section>
+    </main>
   );
 };

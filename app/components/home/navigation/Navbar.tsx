@@ -1,7 +1,5 @@
 import React from "react";
 import ThemeSwitcher from "./ThemeSwitcher";
-import { Section } from "../../styled";
-import { NavBtn, NavFrom } from "../styled";
 import { Search } from "./Search";
 import { PageSwitcher } from "./PageSwitcher";
 import { CurrencyDropdown } from "./CurrencyDropdown";
@@ -13,7 +11,7 @@ export const Navabr = () => {
   const homeIcon = <FontAwesomeIcon icon={faHouse} />;
   const portfolio = <FontAwesomeIcon icon={faLayerGroup} />;
   return (
-    <Section>
+    <section>
       <div className="flex justify-between rounded py-2 px-1 items-center shadow-sm bg-white dark:bg-accent-bg">
         <div>
           <div className="flex gap-2">
@@ -28,19 +26,13 @@ export const Navabr = () => {
           </div>
         </div>
         <div>
-          <NavFrom>
-            <NavBtn>
-              <Search />
-            </NavBtn>
-          </NavFrom>
+          <Search />
         </div>
-        <div>
-          <NavFrom>
-            <CurrencyDropdown />
-            <ThemeSwitcher />
-          </NavFrom>
+        <div className="flex gap-2">
+          <CurrencyDropdown />
+          <ThemeSwitcher />
         </div>
       </div>
-    </Section>
+    </section>
   );
 };

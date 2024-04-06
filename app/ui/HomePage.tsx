@@ -13,16 +13,16 @@ export const HomePage = () => {
   };
   return (
     <>
-      <Main>
+      <main className="max-w-[1300px] mx-auto">
         <Modal isOpen={isOpen} onClose={handleClose}>
           <Coin />
         </Modal>
-        <Section>
+        <section>
           <Dashboard />
-        </Section>
+        </section>
         <CoinsList />
         <BackToTopButton />
-      </Main>
+      </main>
     </>
   );
 };

@@ -16,8 +16,8 @@ export const Portfolio = () => {
   };
 
   return (
-    <Main className="relative">
-      <Section className=" ">
+    <main className="max-w-[1300px] mx-auto relative">
+      <section className=" ">
         <div className="flex justify-between mt-2  items-center">
           <h1 className="">Your Assets</h1>
           <button
@@ -50,7 +50,7 @@ export const Portfolio = () => {
             <FormModal onClose={handleCloseModal} isOpen={isOpen} />
           </Modal>
         </div>
-      </Section>
-    </Main>
+      </section>
+    </main>
   );
 };

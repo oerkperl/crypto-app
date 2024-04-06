@@ -8,7 +8,7 @@ export const CoinProfileCard: React.FC<{ coin: any }> = ({ coin }) => {
   return (
     <div className="w-2/6 rounded-lg ">
       <div className="w-full flex  rounded-xl flex  gap-2">
-        <div className="bg-gray-200  dark:bg-gray-900 p-2 rounded-md">
+        <div className="bg-gray-200  dark:bg-accent-bg p-2 rounded-md">
           <img height={50} width={50} src={coin?.image?.small} />
         </div>
         <div className=" flex items-center justify-center ">

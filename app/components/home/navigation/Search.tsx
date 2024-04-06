@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { usePathname } from "next/navigation";
-import { Input } from "../styled";
 import { SpinnerContainer } from "../../styled";
 import { useCryptoContext } from "@/app/context/context";
 
@@ -76,7 +75,8 @@ export const Search = () => {
       <div
         className={`flex px-2 rounded-md bg-gray-100 dark:bg-input-bg shadow-md`}
       >
-        <Input
+        <input
+          className="bg-transparent outline-none h-8"
           type="text"
           value={query}
           onChange={handleChange}

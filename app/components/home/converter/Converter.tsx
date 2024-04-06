@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Section } from "../../styled";
 import { useCryptoContext } from "@/app/context/context";
 import { getCoinById } from "../coinsList/coinsSlice";
 import { useSelector } from "react-redux";
@@ -69,7 +68,7 @@ export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
   }, [baseCoin, bitcoin, selectedCurrency, currentChart]);
 
   return (
-    <Section>
+    <section className="w-full">
       <div className={`flex flex-col relative h-${height || "full"}`}>
         <ConverterCard
           type="coin"
@@ -100,6 +99,6 @@ export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
           <FontAwesomeIcon icon={faRotate} />
         </div>
       </div>
-    </Section>
+    </section>
   );
 };

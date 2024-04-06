@@ -1,6 +1,5 @@
 import React from "react";
-import { Section, SpinnerContainer } from "../../styled";
-import { Wrapper, Item, CoinItem } from "../styled";
+import { SpinnerContainer } from "../../styled";
 import { LoadingCoin } from "./LoadingCoin";
 import { useSelector } from "react-redux";
 import { fetchCryptoData, getCoins, getStatus, getPage } from "./coinsSlice";
@@ -11,19 +10,19 @@ import { removeDuplicates } from "@/app/lib/utils/formatters";
 const CoinsTableHead = () => {
   return (
     <>
-      <Wrapper className="flex bg-white dark:bg-accent-bg rounded shadow-md">
-        <CoinItem $width="235px" className="pl-2">
+      <div className="flex bg-white text-sm items-center py-2 dark:bg-accent-bg rounded shadow-md">
+        <div className="pl-2 w-[290px]">
           <span># </span>
           <span>Name</span>
-        </CoinItem>
-        <CoinItem $width="150px">Price</CoinItem>
-        <CoinItem>1h</CoinItem>
-        <CoinItem>24h</CoinItem>
-        <CoinItem>7d</CoinItem>
-        <Item className="p-1">24h Vol / Market Cap</Item>
-        <Item className="p-1">Circulating spy / Total spy</Item>
-        <Item className="p-1">Last 7d</Item>
-      </Wrapper>
+        </div>
+        <div className="w-[150px]">Price</div>
+        <div className="w-[100px]">1h</div>
+        <div className="w-[100px]">24h</div>
+        <div className="w-[100px]">7d</div>
+        <div className="p-1 w-[200px]">24h Vol / Market Cap</div>
+        <div className="p-1 w-[200px]">Circulating spy / Total spy</div>
+        <div className="p-1 w-[150px]">Last 7d</div>
+      </div>
     </>
   );
 };
@@ -43,12 +42,12 @@ export const CoinsList = () => {
 
   return (
     <>
-      <Section className="mt-2 sticky top-0">
+      <section className="mt-2 sticky top-0">
         <div>
           <CoinsTableHead />
         </div>
-      </Section>
-      <Section>
+      </section>
+      <section>
         <CoinRow coins={coins} />
 
         {coinsStatus === "idle" && (
@@ -85,7 +84,7 @@ export const CoinsList = () => {
             </button>
           </div>
         )}
-      </Section>
+      </section>
     </>
   );
 };

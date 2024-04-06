@@ -14,8 +14,7 @@ const moveGradient = keyframes`
     background-position: -100% 0;
   }
 `;
-
-export const LoadingContainer = styled.div`
+const LoadingContainer = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -25,7 +24,7 @@ interface LoadingGradientProps {
   height?: string;
 }
 
-export const LoadingGradient = styled.div<LoadingGradientProps>`
+const LoadingGradient = styled.div<LoadingGradientProps>`
   width: ${(props) => props.width || "100%"};
   height: ${(props) => props.height || "5px"};
   background: linear-gradient(45deg, #555, #888, #999, #777);
@@ -40,8 +39,8 @@ export const BlinkingGradientLoader: React.FC<{
   height?: string;
 }> = ({ width, height }) => {
   return (
-    <LoadingContainer>
+    <div className="flex items-center">
       <LoadingGradient height={height} width={width} />
-    </LoadingContainer>
+    </div>
   );
 };

@@ -43,14 +43,14 @@ export const Coin = () => {
   }, [viewingCoinId]);
 
   return (
-    <Main>
+    <main className="max-w-[1300px] mx-auto">
       {isLoading && (
         <div>
           <LoadinSingleCoin reload={fetchCoin} />
         </div>
       )}
       {!isLoading && (
-        <Section>
+        <section>
           <h1 className="text-xl mt-4">{coin?.name} Summary:</h1>
           <div className="flex flex-col gap-2 mt-2">
             <div className="min-h-16 flex ">
@@ -99,8 +99,8 @@ export const Coin = () => {
           <div className="w-full bg-gray-100 dark:bg-transparent rounded-lg">
             <OtherCoins />
           </div>
-        </Section>
+        </section>
       )}
-    </Main>
+    </main>
   );
 };
