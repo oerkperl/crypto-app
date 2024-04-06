@@ -101,10 +101,7 @@ const CryptoContextProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   return (
-    <CryptoContext.Provider value={val}>
-      <GlobalStyle />
-      {children}
-    </CryptoContext.Provider>
+    <CryptoContext.Provider value={val}>{children}</CryptoContext.Provider>
   );
 };
 
