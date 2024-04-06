@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Input } from "../home/styled";
 import { SpinnerContainer } from "../styled";
 import { useCryptoContext } from "@/app/context/context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -79,7 +78,8 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
     <>
       <div className="relative">
         <div className={`flex px-2 rounded-md  `}>
-          <Input
+          <input
+            className="px-1 outline-none bg-transparent"
             type="text"
             value={query}
             onChange={handleChange}

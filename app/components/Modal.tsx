@@ -1,11 +1,9 @@
 import React, { ReactNode } from "react";
 import Link from "next/link";
-import ThemeSwitcher from "./home/navigation/ThemeSwitcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpRightAndDownLeftFromCenter } from "@fortawesome/free-solid-svg-icons";
 import { useCryptoContext } from "@/app/context/context";
 import { usePathname } from "next/navigation";
-import { NavBtn } from "./home/styled";
 import { Search } from "./home/navigation/Search";
 
 interface ModalProps {
@@ -39,10 +37,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         <div className="relative flex flex-col w-full border-0 rounded-lg shadow-lg outline-none focus:outline-none">
           {activePath === "/" && (
             <div className="top-0 flex gap-2 justify-end p-2 rounded-t items-center bg-white dark:bg-accent-bg">
-              <NavBtn>
-                <Search />
-              </NavBtn>
-              <ThemeSwitcher />
+              <Search />
               <Link
                 href={`/coin?id=${viewingCoinId}`}
                 className=" px-4 py-1 hover:bg-indigo-600 rounded-md shadow-md hover:text-white bg-gray-100 dark:bg-input-bg"

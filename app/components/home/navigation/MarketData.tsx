@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { ProgressBar } from "@/app/lib/utils/components/ProgressBar";
-import { Wrapper } from "../styled";
 import { useCryptoContext } from "@/app/context/context";
 import { getCoinById } from "../coinsList/coinsSlice";
 import { useSelector } from "react-redux";
@@ -55,7 +54,7 @@ export const MarketData = () => {
 
       {!isLoading && (
         <div className=" text-xs">
-          <Wrapper className="flex justify-between text-center">
+          <div className="flex justify-between items-center py-2 text-center">
             <div className="flex gap-10">
               <div>
                 <FontAwesomeIcon icon={faCoins} />
@@ -121,7 +120,7 @@ export const MarketData = () => {
                 />
               </div>
             </div>
-          </Wrapper>
+          </div>
         </div>
       )}
     </>

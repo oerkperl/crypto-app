@@ -22,12 +22,12 @@ export const TopSection = () => {
   return (
     <>
       <FetchCoins />
-      <Main>
-        <Section>
+      <main className="max-w-[1300px] mx-auto">
+        <section>
           <MarketData />
           <Navabr />
-        </Section>
-      </Main>
+        </section>
+      </main>
     </>
   );
 };

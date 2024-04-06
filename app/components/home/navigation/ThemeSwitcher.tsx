@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { NavBtn } from "../styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "next-themes";
@@ -26,15 +25,13 @@ const ThemeSwitcher: React.FC = () => {
   };
 
   return (
-    <NavBtn>
-      <button
-        onClick={toggleTheme}
-        className={`px-4 rounded-md hover:text-white hover:bg-indigo-600  shadow-md
+    <button
+      onClick={toggleTheme}
+      className={`px-4 rounded-md hover:text-white hover:bg-indigo-600  shadow-md
         bg-gray-100 dark:bg-input-bg`}
-      >
-        <FontAwesomeIcon icon={faCircleHalfStroke} />
-      </button>
-    </NavBtn>
+    >
+      <FontAwesomeIcon icon={faCircleHalfStroke} />
+    </button>
   );
 };
 
