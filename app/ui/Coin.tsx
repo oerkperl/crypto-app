@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Main, Section } from "../components/styled";
 import { LinksList } from "../components/coin/LinksList";
 import { LoadinSingleCoin } from "../components/coin/LoadinSingleCoin";
 import { CoinProfileCard } from "../components/coin/CoinProfileCard";

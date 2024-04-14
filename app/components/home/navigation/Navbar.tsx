@@ -12,7 +12,7 @@ export const Navabr = () => {
   const portfolio = <FontAwesomeIcon icon={faLayerGroup} />;
   return (
     <section>
-      <div className="flex justify-between rounded py-2 px-1 items-center shadow-sm bg-white dark:bg-accent-bg">
+      <div className="flex justify-between py-1 px-1 items-center shadow-sm bg-white dark:bg-accent-bg">
         <div>
           <div className="flex gap-2">
             <div className="flex gap-1 items-center bg-white dark:bg-transparent rounded-full ">
