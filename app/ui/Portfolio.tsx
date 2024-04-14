@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Main, Section } from "../components/styled";
 import { FormModal } from "../components/portfolio/FormModal";
-import { LoadingAsset } from "../components/portfolio/LoadingAsset";
 import { AssetsList } from "../components/portfolio/AssetsList";
 import { useCryptoContext } from "../context/context";
 import { Modal } from "../components/Modal";

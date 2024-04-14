@@ -26,8 +26,8 @@ export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
   };
 
   return (
-    <div className="relative pt-2">
-      <div className="w-full sticky top-1 z-10">
+    <div className="relative pt-2  mr-1">
+      <div className="w-full sticky top-1 z-5">
         <input
           className={`w-full  mb-2 p-2 rounded shadow-md text:xs bg-gray-100 dark:bg-input-bg`}
           placeholder="Search for a coin..."

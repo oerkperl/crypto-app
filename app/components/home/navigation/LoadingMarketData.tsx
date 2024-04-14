@@ -6,8 +6,8 @@ export const LoadingMarketData: React.FC<{ fetchMarketData: () => void }> = ({
   fetchMarketData,
 }) => {
   return (
-    <div>
-      <div className="flex justify-between items-center text-center">
+    <div className="py-2">
+      <Wrapper className="flex justify-between text-center">
         <Item>
           <BlinkingGradientLoader width="100px" />
         </Item>
@@ -33,7 +33,7 @@ export const LoadingMarketData: React.FC<{ fetchMarketData: () => void }> = ({
             Reload
           </button>
         </Item>
-      </div>
+      </Wrapper>
       <hr />
     </div>
   );

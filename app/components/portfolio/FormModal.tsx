@@ -159,7 +159,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                       alt="coin image"
                     />
                   </div>
-                  <div className="flex gap-1">
+                  <div className="flex gap-1 items-center">
                     <p className="text-sm">
                       {selectedCoin?.name || "No coin selected"}
                     </p>

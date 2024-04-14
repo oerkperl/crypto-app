@@ -1,6 +1,5 @@
 "use client";
 import { Dashboard } from "../components/home/charts/Dashboard";
-import { Main, Section } from "../components/styled";
 import { CoinsList } from "../components/home/coinsList/CoinsList";
 import { BackToTopButton } from "../lib/utils/components/BackToTopButton";
 import { useCryptoContext } from "../context/context";

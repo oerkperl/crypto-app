@@ -10,7 +10,7 @@ import { removeDuplicates } from "@/app/lib/utils/formatters";
 const CoinsTableHead = () => {
   return (
     <>
-      <div className="flex bg-white text-sm items-center py-2 dark:bg-accent-bg rounded shadow-md">
+      <div className="flex bg-white text-sm items-center py-2 dark:bg-accent-bg shadow-md">
         <div className="pl-2 w-[290px]">
           <span># </span>
           <span>Name</span>
@@ -19,9 +19,11 @@ const CoinsTableHead = () => {
         <div className="w-[100px]">1h</div>
         <div className="w-[100px]">24h</div>
         <div className="w-[100px]">7d</div>
-        <div className="p-1 w-[200px]">24h Vol / Market Cap</div>
-        <div className="p-1 w-[200px]">Circulating spy / Total spy</div>
-        <div className="p-1 w-[150px]">Last 7d</div>
+        <div className=" flex gap-2">
+          <div className="w-[200px]">24h Vol / Market Cap</div>
+          <div className="w-[200px]">Circulating spy / Total spy</div>
+          <div className="w-[150px]">Last 7d</div>
+        </div>
       </div>
     </>
   );
@@ -33,7 +35,7 @@ export const CoinsList = () => {
   const coinsStatus = useSelector(getStatus);
   const { selectedCurrency } = useCryptoContext();
   const page = useSelector(getPage);
-  const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency.name.toString()}&order=market_cap_desc&per_page=100&page=${page.toString()}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`;
+  const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency.name.toString()}&order=market_cap_desc&per_page=250&page=${page.toString()}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`;
   const handleLoadMore = () => {
     if (coinsStatus === "idle") {
       dispatch(fetchCryptoData(apiUrl));
@@ -42,7 +44,7 @@ export const CoinsList = () => {
 
   return (
     <>
-      <section className="mt-2 sticky top-0">
+      <section className="mt-2 sticky top-20">
         <div>
           <CoinsTableHead />
         </div>

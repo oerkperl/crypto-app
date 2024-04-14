@@ -30,7 +30,7 @@ export const BackToTopButton: React.FC = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed  bottom-4 right-4 px-5 py-1 rounded border border-gray-400 dark:border-indigo-600 hover:bg-indigo-600 hover:text-white  ${
+      className={`fixed  bottom-4 right-2 px-5 py-1 rounded border border-gray-400 dark:border-indigo-600 hover:bg-indigo-600 hover:text-white  ${
         isVisible ? "block" : "hidden"
       }`}
     >
