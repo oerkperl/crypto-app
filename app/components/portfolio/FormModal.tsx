@@ -88,33 +88,45 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
   return (
     <main>
       <section>
-        <div className="flex w-[800px] h-[40vh]">
-          <div className=" w-full flex items-center justify-center h-full">
-            <div className="w-full ">
-              <div className="flex justify-between">
-                <h1>Add Asset</h1>
-                {notification !== "" && <p>{notification}</p>}
-                <button
-                  className="w-6 h-6  rounded-full shadow-md bg-gray-100 dark:bg-input-bg hover:bg-indigo-600 hover:text-white"
-                  onClick={onClose}
-                >
-                  X
-                </button>
+        <div className="w-full max-w-[800px] min-h-[40vh] p-4 sm:p-6">
+          <div className="w-full flex items-center justify-center h-full">
+            <div className="w-full">
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-2 sm:gap-0">
+                <h1 className="text-lg sm:text-xl font-semibold">Add Asset</h1>
+                <div className="flex items-center gap-3">
+                  {notification !== "" && (
+                    <p className="text-red-600 dark:text-red-400 text-sm">
+                      {notification}
+                    </p>
+                  )}
+                  <button
+                    className="w-8 h-8 rounded-full shadow-md bg-gray-100 dark:bg-input-bg hover:bg-indigo-600 hover:text-white transition-colors flex items-center justify-center"
+                    onClick={onClose}
+                  >
+                    ×
+                  </button>
+                </div>
               </div>
-              <hr className="my-6 border-gray-300 dark:border-gray-700" />
-              <div className="flex ">
-                <div className="w-2/3  flex flex-col gap-6">
-                  <div className="flex items-center">
-                    <div className="w-1/5 ">
-                      <label>Coin</label>
+
+              <hr className="my-4 sm:my-6 border-gray-300 dark:border-gray-700" />
+
+              {/* Form Content */}
+              <div className="flex flex-col lg:flex-row gap-6">
+                {/* Form Fields */}
+                <div className="w-full lg:w-2/3 flex flex-col gap-6">
+                  {/* Coin Selection */}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <div className="w-full sm:w-1/5">
+                      <label className="text-sm font-medium">Coin</label>
                     </div>
                     <div
-                      className={`h-12 w-4/5 shadow-md bg-white dark:bg-input-bg rounded-lg flex items-center
-                  ${
-                    !hasCoin && wantsToSave
-                      ? "border border-pink-600"
-                      : "border-0"
-                  }`}
+                      className={`min-h-[44px] w-full sm:w-4/5 shadow-md bg-white dark:bg-input-bg rounded-lg flex items-center
+                      ${
+                        !hasCoin && wantsToSave
+                          ? "border-2 border-pink-600"
+                          : "border border-gray-300 dark:border-gray-600"
+                      }`}
                     >
                       <SelectCoin
                         fetchData={fetchData}
@@ -126,73 +138,81 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                       />
                     </div>
                   </div>
-                  <div className="flex items-center">
-                    <div className="w-1/5">
-                      <label>Amount</label>
+
+                  {/* Amount Input */}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <div className="w-full sm:w-1/5">
+                      <label className="text-sm font-medium">Amount</label>
                     </div>
-                    <div className="w-4/5">
+                    <div className="w-full sm:w-4/5">
                       <input
-                        className={`h-12 w-full shadow-md rounded-lg pl-2 bg-white dark:bg-input-bg outline-none
-                    ${
-                      !hasAmount && wantsToSave
-                        ? "border border-pink-600"
-                        : "border-0"
-                    }
-                    `}
+                        className={`min-h-[44px] w-full shadow-md rounded-lg px-3 bg-white dark:bg-input-bg outline-none text-base
+                        ${
+                          !hasAmount && wantsToSave
+                            ? "border-2 border-pink-600"
+                            : "border border-gray-300 dark:border-gray-600"
+                        }
+                        `}
                         type="number"
-                        placeholder={"Amount"}
+                        placeholder="Enter amount"
                         value={amount}
                         onChange={handleAmountChange}
                       />
                     </div>
                   </div>
                 </div>
-                <div className="w-1/3  rounded-lg flex flex-col gap-2 items-center justify-center">
-                  <div className=" h-20 w-20 flex items-center justify-center rounded-md bg-gray-300 dark:bg-gray-900">
+
+                {/* Coin Preview */}
+                <div className="w-full lg:w-1/3 rounded-lg flex flex-col gap-3 items-center justify-center bg-gray-50 dark:bg-gray-800 p-4 min-h-[120px]">
+                  <div className="h-16 w-16 sm:h-20 sm:w-20 flex items-center justify-center rounded-md bg-gray-300 dark:bg-gray-900">
                     <Image
                       src={
                         selectedCoin?.image ||
                         "https://i.ibb.co/WW7YRBv/Default-bitcoin-thumnail-centred-3.jpg"
                       }
-                      height={70}
-                      width={70}
+                      height={60}
+                      width={60}
+                      className="w-12 h-12 sm:w-[70px] sm:h-[70px]"
                       alt="coin image"
                     />
                   </div>
-                  <div className="flex gap-1 items-center">
-                    <p className="text-sm">
+                  <div className="flex flex-col items-center text-center">
+                    <p className="text-sm sm:text-base font-medium">
                       {selectedCoin?.name || "No coin selected"}
                     </p>
                     {hasCoin && (
-                      <div>{`(${selectedCoin?.symbol?.toUpperCase()})`}</div>
+                      <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                        {`(${selectedCoin?.symbol?.toUpperCase()})`}
+                      </div>
                     )}
                   </div>
                 </div>
               </div>
-              <hr className="my-6 border-gray-300 dark:border-gray-700" />
-              <div className="flex w-full justify-end">
-                <div className="flex w-1/2 gap-2">
-                  <button
-                    className=" w-1/2 h-10 bg-pink-700 rounded-md hover:bg-pink-600 text-gray-200 hover:text-white "
-                    onClick={onClose}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className={`w-1/2 h-10 rounded-md text-gray-200 ${
-                      canAddAsset
-                        ? "bg-green-700 text-white hover:bg-green-600"
-                        : "bg-indigo-600 hover:bg-input-bg hover:text-white"
-                    }`}
-                    onClick={() => {
-                      canAddAsset ? addNewAsset() : "";
-                    }}
-                    onMouseEnter={() => setWantsToSave(true)}
-                    onMouseLeave={() => setWantsToSave(false)}
-                  >
-                    Save
-                  </button>
-                </div>
+
+              <hr className="my-4 sm:my-6 border-gray-300 dark:border-gray-700" />
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-2">
+                <button
+                  className="w-full sm:w-32 min-h-[44px] bg-pink-700 rounded-md hover:bg-pink-600 text-gray-200 hover:text-white transition-colors"
+                  onClick={onClose}
+                >
+                  Cancel
+                </button>
+                <button
+                  className={`w-full sm:w-32 min-h-[44px] rounded-md text-gray-200 transition-colors ${
+                    canAddAsset
+                      ? "bg-green-700 text-white hover:bg-green-600"
+                      : "bg-indigo-600 hover:bg-indigo-700 hover:text-white"
+                  }`}
+                  onClick={() => {
+                    canAddAsset ? addNewAsset() : "";
+                  }}
+                  onMouseEnter={() => setWantsToSave(true)}
+                  onMouseLeave={() => setWantsToSave(false)}
+                >
+                  Save
+                </button>
               </div>
             </div>
           </div>

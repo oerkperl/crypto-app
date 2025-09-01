@@ -24,7 +24,7 @@ export const LinksList: React.FC<LinksListProps> = ({
   const scrollLeft = () => {
     if (containerRef.current) {
       containerRef.current.scrollBy({
-        left: -300,
+        left: -200,
         behavior: "smooth",
       });
     }
@@ -33,7 +33,7 @@ export const LinksList: React.FC<LinksListProps> = ({
   const scrollRight = () => {
     if (containerRef.current) {
       containerRef.current.scrollBy({
-        left: 300,
+        left: 200,
         behavior: "smooth",
       });
     }
@@ -42,13 +42,19 @@ export const LinksList: React.FC<LinksListProps> = ({
   return (
     <>
       <div
-        className=" relative overflow-hidden w-full bg-white dark:bg-transparent rounded"
+        className="relative overflow-hidden w-full bg-white dark:bg-transparent rounded"
         style={{ width, height }}
       >
         <div
           ref={containerRef}
-          className="flex gap-2 overflow-x-hidden  px-8 relative max-w-full"
-          style={{ width: "fit-content" }}
+          className="flex gap-2 overflow-x-auto scrollbar-hide px-4 sm:px-8 py-2"
+          style={{
+            width: "100%",
+            overflowX: "auto",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            WebkitOverflowScrolling: "touch",
+          }}
         >
           {links &&
             links
@@ -56,26 +62,30 @@ export const LinksList: React.FC<LinksListProps> = ({
               .map((link) => (
                 <Link key={nanoid()} href={link} target="_blank">
                   <div
-                    className=" my-2 px-2 min-h-8  bg-gray-200 dark:bg-input-bg rounded-md 
-                flex flex-wrap items-center justify-center hover:bg-indigo-600 hover:text-white  
-                "
+                    className="flex-shrink-0 my-1 px-3 py-2 min-h-[44px] sm:min-h-8 bg-gray-200 dark:bg-input-bg rounded-md 
+                flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-colors
+                text-xs sm:text-sm whitespace-nowrap"
                   >
                     {trimLink(link)}
                   </div>
                 </Link>
               ))}
         </div>
+
+        {/* Left scroll button */}
         <button
-          className="absolute top-0 left-0 h-full px-2 z-10 bg-gray-300 dark:bg-input-bg hover:bg-indigo-600"
+          className="absolute top-0 left-0 h-full px-2 sm:px-3 z-10 bg-gray-300/80 dark:bg-input-bg/80 hover:bg-indigo-600 transition-colors min-w-[44px] flex items-center justify-center backdrop-blur-sm"
           onClick={scrollLeft}
         >
-          {"<"}
+          <span className="text-lg font-bold">‹</span>
         </button>
+
+        {/* Right scroll button */}
         <button
-          className="absolute top-0 right-0 h-full px-2 z-10 bg-gray-300 dark:bg-input-bg hover:bg-indigo-600"
+          className="absolute top-0 right-0 h-full px-2 sm:px-3 z-10 bg-gray-300/80 dark:bg-input-bg/80 hover:bg-indigo-600 transition-colors min-w-[44px] flex items-center justify-center backdrop-blur-sm"
           onClick={scrollRight}
         >
-          {">"}
+          <span className="text-lg font-bold">›</span>
         </button>
       </div>
     </>

@@ -27,10 +27,13 @@ const ThemeSwitcher: React.FC = () => {
   return (
     <button
       onClick={toggleTheme}
-      className={`px-4 rounded-md hover:text-white hover:bg-indigo-600  shadow-md
+      className={`px-3 sm:px-4 py-2 sm:py-1 rounded-md hover:text-white hover:bg-indigo-600 shadow-md transition-colors min-h-[44px] sm:min-h-auto flex items-center justify-center
         bg-gray-100 dark:bg-input-bg`}
     >
-      <FontAwesomeIcon icon={faCircleHalfStroke} />
+      <FontAwesomeIcon
+        icon={faCircleHalfStroke}
+        className="text-sm sm:text-xs"
+      />
     </button>
   );
 };

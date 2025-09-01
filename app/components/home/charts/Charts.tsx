@@ -53,11 +53,11 @@ export const Charts: React.FC = () => {
         )}
 
         {chartStatus === "succeeded" && (
-          <div className=" p-1  ">
-            <div className="flex justify-between">
+          <div className="p-1 sm:p-2">
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0 mb-3">
               <div>
-                <div className="flex gap-1 ">
-                  <h2 className="">
+                <div className="flex gap-1 items-center">
+                  <h2 className="text-sm sm:text-base font-medium">
                     {(currentChart && currentChart?.name) || "Bitcoin"}
                     {`(${
                       currentChart?.symbol !== undefined
@@ -68,8 +68,9 @@ export const Charts: React.FC = () => {
                   {currentChart && (
                     <Image
                       src={currentChart?.image || bitcoin?.image}
-                      width={25}
-                      height={25}
+                      width={20}
+                      height={20}
+                      className="sm:w-[25px] sm:h-[25px]"
                       alt="coin image"
                     />
                   )}
@@ -86,13 +87,13 @@ export const Charts: React.FC = () => {
               data={priceData}
               labels={priceLabels}
               type={"line"}
-              height={210}
+              height={160}
             />
             <ChartCard
               labels={volumeLabels}
               data={volumeData}
               type={"bar"}
-              height={210}
+              height={160}
             />
           </div>
         )}

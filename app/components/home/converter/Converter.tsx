@@ -69,7 +69,7 @@ export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
 
   return (
     <section className="w-full">
-      <div className={`flex flex-col relative h-${height || "full"}`}>
+      <div className={`flex flex-col relative h-${height || "full"} py-2`}>
         <ConverterCard
           type="coin"
           image={baseCoin?.image || bitcoin?.image}
@@ -80,7 +80,7 @@ export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
           notification={notification}
           title={baseCoin?.name || "Bitcoin"}
         />
-        <hr className="border-gray-300 dark:border-gray-700" />
+        <hr className="border-gray-300 dark:border-gray-700 my-2" />
         <ConverterCard
           type="currency"
           symbol={selectedCurrency.sym}
@@ -93,10 +93,10 @@ export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
         />
         <div
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full
-        w-5 h-5 bg-gray-100 dark:bg-accent-bg  flex items-center justify-center
+        w-6 h-6 sm:w-5 sm:h-5 bg-gray-100 dark:bg-accent-bg flex items-center justify-center shadow-md
         "
         >
-          <FontAwesomeIcon icon={faRotate} />
+          <FontAwesomeIcon icon={faRotate} className="text-xs" />
         </div>
       </div>
     </section>

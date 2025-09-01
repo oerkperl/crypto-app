@@ -6,9 +6,11 @@ import { CoinProfileCard } from "../components/coin/CoinProfileCard";
 import { CoinPriceCard } from "../components/coin/CoinPriceCard";
 import { CoinStatsCard } from "../components/coin/CoinStatsCard";
 import { useCryptoContext } from "../context/context";
-import { Converter } from "../components/home/converter/Converter";
 import { PriceChart } from "../components/coin/PriceChart";
 import { OtherCoins } from "../components/portfolio/OtherCoins";
+import { TrendLabel } from "../components/TrendLable";
+import { Sparkline } from "../components/home/coinsList/Sparkline";
+import { ChartConverter } from "../components/shared/ChartConverter";
 
 export const Coin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -42,7 +44,7 @@ export const Coin = () => {
   }, [viewingCoinId]);
 
   return (
-    <main className="max-w-[1300px] mx-auto">
+    <main className="w-full max-w-full sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px] mx-auto px-2 sm:px-4 lg:px-6">
       {isLoading && (
         <div>
           <LoadinSingleCoin reload={fetchCoin} />
@@ -50,34 +52,94 @@ export const Coin = () => {
       )}
       {!isLoading && (
         <section>
-          <h1 className="text-xl mt-4">{coin?.name} Summary:</h1>
+          <h1 className="text-lg sm:text-xl mt-1 px-4 py-2 rounded bg-white dark:bg-accent-bg">
+            {coin?.name} Summary:
+          </h1>
           <div className="flex flex-col gap-2 mt-2">
-            <div className="min-h-16 flex ">
-              <CoinProfileCard coin={coin} />
+            {/* 4-Card Grid: 2x2 on mobile, 1x4 on desktop */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+              {/* Card 1: Profile Card */}
+              <div className="h-full">
+                <CoinProfileCard coin={coin} />
+              </div>
+
+              {/* Card 2: Current Price Card */}
+              <div className="h-full px-4 py-4 bg-white dark:bg-accent-bg rounded-md shadow-md">
+                <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
+                  <div className="space-y-2">
+                    <h2 className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Current Price
+                    </h2>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                      {coin?.market_data?.current_price && (
+                        <>
+                          {selectedCurrency.sym}
+                          {coin.market_data.current_price[
+                            selectedCurrency.name
+                          ]?.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 7,
+                          })}
+                        </>
+                      )}
+                    </h1>
+                    <div>
+                      {coin?.market_data
+                        ?.price_change_percentage_24h_in_currency && (
+                        <TrendLabel
+                          value={
+                            coin.market_data
+                              .price_change_percentage_24h_in_currency[
+                              selectedCurrency.name
+                            ]
+                          }
+                          percentage={true}
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <div className="w-full h-12">
+                    {coin?.market_data?.sparkline_7d?.price && (
+                      <Sparkline
+                        Chartdata={coin.market_data.sparkline_7d.price}
+                        trend={
+                          coin.market_data
+                            .price_change_percentage_7d_in_currency?.[
+                            selectedCurrency.name
+                          ] < 0
+                            ? "down"
+                            : ""
+                        }
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Cards 3 & 4: ATH and ATL Cards */}
               <CoinPriceCard marketData={coin?.market_data} />
             </div>
-            <div className=" rounded">
-              <CoinStatsCard
-                statsData={coin?.market_data}
-                coinSymbol={coin.symbol}
-              />
-            </div>
-            <div className="w-full flex gap-2 mt-2 min-h-16 ">
-              <div className="w-3/5 bg-white dark:bg-accent-bg shadow-md rounded-xl">
-                <PriceChart coinId={coin?.id} />
-              </div>
-              <div className=" w-2/5 flex bg-white dark:bg-accent-bg shadow-md px-2 rounded-xl">
-                <Converter baseCoin={baseCoin} />
-              </div>
-            </div>
           </div>
-          <div className=" w-full mt-4">
-            <h1 className="text-xl">
+
+          <div className="rounded mt-2">
+            <CoinStatsCard
+              statsData={coin?.market_data}
+              coinSymbol={coin.symbol}
+            />
+          </div>
+
+          <ChartConverter
+            coinId={coin?.id}
+            baseCoin={baseCoin}
+            showConverter={true}
+          />
+          <div className="w-full mt-2 px-4 py-2 bg-white dark:bg-accent-bg rounded-lg">
+            <h1 className="text-lg sm:text-xl mb-2">
               About {coin?.name}
               {`(${coin?.symbol?.toUpperCase()})`}
             </h1>
             <div
-              className="overflow-auto text-justify text-sm pr-2"
+              className="overflow-auto text-justify text-sm sm:text-base leading-relaxed pr-2"
               dangerouslySetInnerHTML={{
                 __html:
                   coin?.description?.en === ""
@@ -86,14 +148,14 @@ export const Coin = () => {
               }}
             />
           </div>
-          <div className="mt-4">
+          <div className="mt-2">
             <div className="bg-white dark:bg-accent-bg shadow-md rounded-xl h-94">
               <div className=" max-h-52 overflow-auto">
                 <LinksList links={coin?.links?.blockchain_site} />
               </div>
             </div>
           </div>
-          <hr className="border-gray-300 dark:border-gray-700 my-4" />
+          <hr className="border-gray-300 dark:border-gray-700 my-2" />
 
           <div className="w-full bg-gray-100 dark:bg-transparent rounded-lg">
             <OtherCoins />

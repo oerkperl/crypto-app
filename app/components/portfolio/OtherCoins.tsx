@@ -90,16 +90,18 @@ export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
         {!autoScrol && (
           <>
             <button
-              className="absolute top-1/4 left-1 h-1/2 px-2 z-10 bg-gray-400 dark:bg-gray-800 hover:bg-indigo-600 "
+              className="absolute top-1/2 left-1 transform -translate-y-1/2 min-w-[44px] min-h-[44px] z-10 bg-gray-400/90 dark:bg-gray-800/90 hover:bg-indigo-600 rounded-full flex items-center justify-center text-white shadow-lg backdrop-blur-sm transition-colors"
               onClick={scrollLeft}
+              aria-label="Scroll left"
             >
               {"<"}
             </button>
             <button
-              className="absolute top-1/4 right-1 h-1/2 px-2 z-10 bg-gray-400 dark:bg-gray-800 hover:bg-indigo-600"
+              className="absolute top-1/2 right-1 transform -translate-y-1/2 min-w-[44px] min-h-[44px] z-10 bg-gray-400/90 dark:bg-gray-800/90 hover:bg-indigo-600 rounded-full flex items-center justify-center text-white shadow-lg backdrop-blur-sm transition-colors"
               onClick={() => {
                 scrollRight(350);
               }}
+              aria-label="Scroll right"
             >
               {">"}
             </button>

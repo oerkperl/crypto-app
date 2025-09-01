@@ -21,8 +21,8 @@ export const TopSection = () => {
   return (
     <>
       <FetchCoins />
-      <main className="max-w-[1300px] mx-auto sticky top-0 bg-gray-100 dark:bg-gray-950 z-10">
-        <section>
+      <main className="w-full max-w-full sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px] mx-auto sticky top-0 bg-gray-100 dark:bg-gray-950 z-10 px-1 sm:px-4 lg:px-6">
+        <section className="pb-1">
           <MarketData />
           <Navabr />
         </section>

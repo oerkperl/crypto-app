@@ -40,7 +40,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
     if (coinId) {
       fetchChart();
     }
-  }, [selectedCurrency, selectedPeriod]);
+  }, [coinId, selectedCurrency, selectedPeriod]);
 
   const randomHeight = () => {
     return Math.floor(Math.random() * (200 - 40 + 1)) + 40;
@@ -58,11 +58,11 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
   };
   return (
     <>
-      <div className=" h-full flex flex-col p-2">
-        <div className="flex justify-between">
+      <div className="h-full flex flex-col p-2 sm:p-3">
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-2 mb-3">
           <div className="flex">
             <button
-              className={`hover:text-gray-600 dark:hover:text-white px-2 rounded ${
+              className={`hover:text-gray-600 dark:hover:text-white px-3 py-2 sm:px-2 sm:py-1 rounded transition-colors min-h-[44px] sm:min-h-auto flex items-center justify-center ${
                 isViewingPriceChart ? "text-white bg-indigo-700" : ""
               }`}
               onClick={showPriceChart}
@@ -70,7 +70,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
               Price
             </button>
             <button
-              className={`hover:text-gray-700 dark:hover:text-white px-2 rounded ${
+              className={`hover:text-gray-700 dark:hover:text-white px-3 py-2 sm:px-2 sm:py-1 rounded transition-colors min-h-[44px] sm:min-h-auto flex items-center justify-center ${
                 !isViewingPriceChart ? "text-white bg-indigo-700" : ""
               }`}
               onClick={showVolumeChart}
@@ -78,7 +78,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
               Volume
             </button>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-center sm:justify-end">
             {!hasError && (
               <TimePeriodButtons
                 thePeriod={selectedPeriod}
@@ -86,12 +86,12 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
               />
             )}
             {hasError && (
-              <div className="flex gap-2 px-2">
-                <h1 className="text-center">
+              <div className="flex flex-col sm:flex-row gap-2 px-2 text-center sm:text-left">
+                <h1 className="text-sm">
                   Error fetching chart, try again later...
                 </h1>
                 <button
-                  className="hover:underline dark:hover:text-white"
+                  className="hover:underline dark:hover:text-white text-indigo-600 dark:text-indigo-400 min-h-[44px] sm:min-h-auto"
                   onClick={fetchChart}
                 >
                   Reload
@@ -103,13 +103,13 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
 
         <div className="">
           {hasError && (
-            <div className="mt-2 flex w-full pt-2 overflow-hidden">
-              {Array.from({ length: 100 }).map((_, index) => (
+            <div className="mt-2 flex w-full pt-2 overflow-hidden h-32 sm:h-48">
+              {Array.from({ length: 50 }).map((_, index) => (
                 <div
                   key={index}
-                  className="mr-2 relative max-h-48  flex flex-col justify-end"
+                  className="mr-2 relative max-h-48 flex flex-col justify-end"
                 >
-                  <div className=" bottom-item   w-2">
+                  <div className="bottom-item w-2">
                     <BlinkingGradientLoader
                       height={randomHeight() + "px"}
                       width="10px"
@@ -119,7 +119,13 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
               ))}
             </div>
           )}
-          {!hasError && <ChartCard data={ChartData} type={type} height={185} />}
+          {!hasError && (
+            <ChartCard
+              data={ChartData}
+              type={type}
+              height={window.innerWidth < 640 ? 150 : 185}
+            />
+          )}
         </div>
       </div>
     </>

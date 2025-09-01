@@ -76,10 +76,10 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
 
   return (
     <>
-      <div className="relative">
-        <div className={`flex px-2 rounded-md  `}>
+      <div className="relative w-full">
+        <div className="flex px-3 py-2 rounded-md">
           <input
-            className="px-1 outline-none bg-transparent"
+            className="px-1 py-1 outline-none bg-transparent flex-1 text-base min-h-[40px] text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
             type="text"
             value={query}
             onChange={handleChange}
@@ -87,43 +87,58 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
           />
           {canSelect && query !== "" && (
             <button
-              className="hover:text-green-500"
+              className="ml-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-600 hover:text-green-500 dark:text-gray-400 dark:hover:text-green-400 transition-colors"
               onClick={() => {
                 fetchData();
                 setResults([]);
               }}
             >
               {hasError ? (
-                <FontAwesomeIcon icon={faRotateRight} />
+                <FontAwesomeIcon icon={faRotateRight} className="text-lg" />
               ) : (
-                <FontAwesomeIcon icon={faCheck} />
+                <FontAwesomeIcon icon={faCheck} className="text-lg" />
               )}
             </button>
           )}
         </div>
-        <div>
+        
+        {/* Results Dropdown */}
+        <div className="relative">
           {query.trim() && (
-            <ul className="absolute z-10 w-full max-h-64 overflow-y-scroll mt-1 bg-white dark:bg-accent-bg dark:text-gray-400 shadow-md rounded">
+            <ul className="absolute z-50 w-full max-h-64 overflow-y-auto mt-1 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-600">
               {results.length > 0 && (
-                <div className="flex justify-end px-2">
-                  <button onClick={clear}>x</button>
+                <div className="flex justify-end px-3 py-2 border-b border-gray-200 dark:border-gray-600">
+                  <button 
+                    onClick={clear}
+                    className="min-w-[32px] min-h-[32px] flex items-center justify-center text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                  >
+                    ×
+                  </button>
                 </div>
               )}
               {results.map((result) => (
                 <li
                   key={result.id}
                   onClick={() => handleSuggestionClick(result)}
-                  className=" w-full p-1 hover:bg-input-bg hover:text-white  "
+                  className="w-full px-3 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-700 last:border-b-0 transition-colors min-h-[44px] flex items-center"
                 >
-                  {result.name}
+                  <span className="text-sm sm:text-base">{result.name}</span>
                 </li>
               ))}
             </ul>
           )}
-          {isLoading && <SpinnerContainer $size="20px" />}
+          {isLoading && (
+            <div className="absolute top-2 right-2 z-40">
+              <SpinnerContainer $size="20px" />
+            </div>
+          )}
         </div>
       </div>
-      {notification !== "" && <div>{notification}</div>}
+      {notification !== "" && (
+        <div className="mt-2 p-2 bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded text-sm">
+          {notification}
+        </div>
+      )}
     </>
   );
 };

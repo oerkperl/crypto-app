@@ -30,36 +30,10 @@ export const CoinPriceCard: React.FC<{ marketData: any }> = ({
   return (
     <>
       {hasData && (
-        <div className="flex w-full items-center gap-2">
-          <div className=" w-1/3 h-14 px-2 py-1 bg-white dark:bg-accent-bg rounded-md shadow-md flex">
-            <div>
-              <h1 className="text-xl">
-                {symbol}
-                {marketData?.current_price[currency].toFixed(7)}
-              </h1>
-              <TrendLabel
-                value={
-                  marketData?.price_change_percentage_24h_in_currency[currency]
-                }
-                percentage={true}
-              />
-            </div>
-            <div className="w-1/3 h-10 my-auto ml-auto">
-              <Sparkline
-                Chartdata={marketData?.sparkline_7d.price}
-                trend={
-                  marketData?.price_change_percentage_7d_in_currency[
-                    selectedCurrency.name
-                  ] < 0
-                    ? "down"
-                    : ""
-                }
-              />
-            </div>
-          </div>
+        <>
           <DetailsCard details={athData} />
           <DetailsCard details={atlData} />
-        </div>
+        </>
       )}
     </>
   );

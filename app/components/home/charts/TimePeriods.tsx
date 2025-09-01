@@ -5,7 +5,7 @@ export const TimePeriodButtons: React.FC<{
   periodHandler: any;
 }> = ({ thePeriod, periodHandler }) => {
   return (
-    <div className={`inline-flex  rounded-lg `}>
+    <div className="inline-flex rounded-lg overflow-x-auto scrollbar-hide">
       {timePeriods.map((period) => (
         <button
           key={period}
@@ -14,7 +14,7 @@ export const TimePeriodButtons: React.FC<{
             period === thePeriod
               ? "bg-indigo-600 text-white hover:text-white"
               : ""
-          }  px-3 rounded hover:text-gray-500 dark:hover:text-white`}
+          } px-2 sm:px-3 py-1 sm:py-0 rounded hover:text-gray-500 dark:hover:text-white text-xs sm:text-sm whitespace-nowrap transition-colors min-h-[32px] flex items-center justify-center`}
         >
           {period}
         </button>

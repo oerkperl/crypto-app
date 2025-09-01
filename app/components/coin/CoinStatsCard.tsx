@@ -30,8 +30,9 @@ export const CoinStatsCard: React.FC<{
 
   return (
     hasData && (
-      <div className="bg-white dark:bg-accent-bg rounded-lg py-2 shadow-md">
-        <div className="flex justify-between w-full">
+      <div className="bg-white dark:bg-accent-bg rounded-lg py-3 px-2 shadow-md">
+        {/* Mobile: Grid Layout */}
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:hidden gap-4 lg:gap-2">
           <StatRow stat={symbol + formatMoney(marketCap)} title="Market Cap" />
           <StatRow
             stat={symbol + formatMoney(fullyDilutedVal)}
@@ -39,7 +40,21 @@ export const CoinStatsCard: React.FC<{
           />
           <StatRow stat={symbol + formatMoney(volume24hr)} title="Volume 24h" />
           <StatRow stat={volumeToMarket} title="Volume / Market" />
-          <div className="h-full border-l border-gray-300 dark:border-gray-700"></div>
+          <StatRow stat={totalVolume} title="Total Volume" />
+          <StatRow stat={circulatingSupply} title="Circulating Supply" />
+          <StatRow stat={maxSupply} title="Maximum supply" />
+        </div> */}
+
+        {/* Desktop: Original Flex Layout */}
+        <div className="flex justify-between w-full overflow-x-auto space-x-4 lg:space-x-0 lg:justify-evenly scrollbar-hide">
+          <StatRow stat={symbol + formatMoney(marketCap)} title="Market Cap" />
+          <StatRow
+            stat={symbol + formatMoney(fullyDilutedVal)}
+            title="Fully Diluted Valuation"
+          />
+          <StatRow stat={symbol + formatMoney(volume24hr)} title="Volume 24h" />
+          <StatRow stat={volumeToMarket} title="Volume / Market" />
+
           <StatRow stat={totalVolume} title="Total Volume" />
           <StatRow stat={circulatingSupply} title="Circulating Supply" />
           <StatRow stat={maxSupply} title="Maximum supply" />

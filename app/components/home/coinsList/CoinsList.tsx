@@ -10,7 +10,8 @@ import { removeDuplicates } from "@/app/lib/utils/formatters";
 const CoinsTableHead = () => {
   return (
     <>
-      <div className="flex bg-white text-sm items-center py-2 dark:bg-accent-bg shadow-md">
+      {/* Desktop Table Header - Hidden on mobile */}
+      <div className="hidden lg:flex bg-white text-sm items-center py-2 dark:bg-accent-bg shadow-md">
         <div className="pl-2 w-[290px]">
           <span># </span>
           <span>Name</span>
@@ -19,11 +20,16 @@ const CoinsTableHead = () => {
         <div className="w-[100px]">1h</div>
         <div className="w-[100px]">24h</div>
         <div className="w-[100px]">7d</div>
-        <div className=" flex gap-2">
+        <div className="flex gap-2">
           <div className="w-[200px]">24h Vol / Market Cap</div>
           <div className="w-[200px]">Circulating spy / Total spy</div>
           <div className="w-[150px]">Last 7d</div>
         </div>
+      </div>
+
+      {/* Mobile Header - Simple title */}
+      <div className="lg:hidden bg-white dark:bg-accent-bg shadow-md py-3 px-4">
+        <h2 className="text-lg font-semibold">Cryptocurrencies</h2>
       </div>
     </>
   );
@@ -44,7 +50,7 @@ export const CoinsList = () => {
 
   return (
     <>
-      <section className="mt-2 sticky top-20">
+      <section className="mt-2 sticky top-16 sm:top-20 z-5">
         <div>
           <CoinsTableHead />
         </div>
@@ -53,9 +59,9 @@ export const CoinsList = () => {
         <CoinRow coins={coins} />
 
         {coinsStatus === "idle" && (
-          <div>
+          <div className="flex justify-center py-4">
             <button
-              className=" border border-solid border-gray-500 p-2 mt-2 mb-2 hover:bg-indigo-600 hover:text-white"
+              className="border border-solid border-gray-500 px-6 py-3 sm:px-4 sm:py-2 mt-2 mb-2 rounded-md hover:bg-indigo-600 hover:text-white transition-colors min-h-[44px] sm:min-h-auto"
               onClick={handleLoadMore}
             >
               {coins.length === 0 ? "Reload" : "Load more..."}
@@ -75,11 +81,13 @@ export const CoinsList = () => {
         )}
 
         {coinsStatus === "failed" && (
-          <div className="mt-4">
-            <h3>Error: Unable to fetch data</h3>
-            <p>Wait a moment please and refresh</p>
+          <div className="mt-4 text-center px-4">
+            <h3 className="text-lg mb-2">Error: Unable to fetch data</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              Wait a moment please and refresh
+            </p>
             <button
-              className="border border-solid border-gray-500 p-2 mt-2 mb-2 hover:bg-indigo-600 hover:text-white"
+              className="border border-solid border-gray-500 px-6 py-3 sm:px-4 sm:py-2 mt-2 mb-2 rounded-md hover:bg-indigo-600 hover:text-white transition-colors min-h-[44px] sm:min-h-auto"
               onClick={() => dispatch(fetchCryptoData(apiUrl))}
             >
               Try again

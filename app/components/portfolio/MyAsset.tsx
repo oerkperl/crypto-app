@@ -26,12 +26,12 @@ export const MyAsset: React.FC<{
 
   return (
     <>
-      <div className="flex justify-between">
-        <h1>Market price</h1>
+      <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-2 sm:gap-0">
+        <h1 className="font-medium">Market price</h1>
         <div className="flex gap-2">
           {hasError && (
             <button
-              className="px-1 rounded-md hover:bg-indigo-600 hover:text-white"
+              className="px-2 py-1 rounded-md hover:bg-indigo-600 hover:text-white transition-colors min-h-[44px] sm:min-h-auto flex items-center justify-center"
               onClick={fetchAsset}
             >
               {refeshIcon}
@@ -39,7 +39,7 @@ export const MyAsset: React.FC<{
           )}
           {!hasError && (
             <button
-              className="px-2 rounded-md hover:bg-pink-600 hover:text-white"
+              className="px-2 py-1 rounded-md hover:bg-pink-600 hover:text-white transition-colors min-h-[44px] sm:min-h-auto flex items-center justify-center"
               onClick={() => removeAsset(asset?.id)}
             >
               <FontAwesomeIcon icon={faTrashCan} />
@@ -47,10 +47,13 @@ export const MyAsset: React.FC<{
           )}
         </div>
       </div>
-      <div className="flex justify-between mt-2 pb-2 mb-2 border-b border-gray-300 dark:border-gray-700">
-        <div className="flex flex-col gap-2 w-1/4 ">
-          <p className="text-xs">Current price</p>
-          <span className="text-[#00B1A7] text-sm">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-3 pb-3 mb-3 border-b border-gray-300 dark:border-gray-700">
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
+            Current price
+          </p>
+          <span className="text-[#00B1A7] text-sm font-semibold">
             {hasError ? (
               <BlinkingGradientLoader width="100px" />
             ) : (
@@ -58,8 +61,11 @@ export const MyAsset: React.FC<{
             )}
           </span>
         </div>
-        <div className="flex flex-col gap-2 w-1/4 ">
-          <h2 className="text-xs">Price change 24h</h2>
+
+        <div className="flex flex-col gap-2">
+          <h2 className="text-xs font-medium text-gray-600 dark:text-gray-400">
+            Price change 24h
+          </h2>
           <span className="text-[#00B1A7] text-sm">
             {hasError ? (
               <BlinkingGradientLoader width="100px" />
@@ -68,16 +74,22 @@ export const MyAsset: React.FC<{
             )}
           </span>
         </div>
-        <div className="flex flex-col gap-2 w-1/4 ">
-          <h2 className="text-xs">Market Cap vs Volume</h2>
-          <div className="text-[#00B1A7] text-sm flex items-center  gap-2">
+
+        <div className="flex flex-col gap-2">
+          <h2 className="text-xs font-medium text-gray-600 dark:text-gray-400">
+            Market Cap vs Volume
+          </h2>
+          <div className="text-[#00B1A7] text-sm flex items-center gap-2">
             {hasError ? "" : marketCapVvolume + "%"}
             <ProgressBar progress={marketCapVvolume.toString()} width="50px" />
           </div>
         </div>
-        <div className="flex flex-col gap-2 w-1/4 ">
-          <h2 className="text-xs">Circulating supply vs Total supply</h2>
-          <div className="text-[#00B1A7] text-sm flex items-center  gap-2">
+
+        <div className="flex flex-col gap-2">
+          <h2 className="text-xs font-medium text-gray-600 dark:text-gray-400">
+            Circulating vs Total supply
+          </h2>
+          <div className="text-[#00B1A7] text-sm flex items-center gap-2">
             {hasError ? "" : circulatingVtotalSupply + "%"}
             <ProgressBar
               progress={circulatingVtotalSupply.toString()}

@@ -53,51 +53,55 @@ export const MarketData = () => {
       )}
 
       {!isLoading && (
-        <div className=" text-xs">
-          <div className="flex justify-between items-center py-2 text-center">
-            <div className="flex gap-10">
-              <div>
+        <div className="text-xs">
+          <div className="flex flex-col sm:flex-row sm:justify-between items-center py-2 text-center gap-2 sm:gap-0">
+            {/* Mobile: Show only essential info */}
+            <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-10 text-xs">
+              <div className="hidden sm:flex items-center gap-1">
                 <FontAwesomeIcon icon={faCoins} />
-                <span> Coins: </span>
+                <span>Coins: </span>
                 <span className="dark:text-white">
                   {data?.active_cryptocurrencies}
                 </span>
               </div>
-              <div>
+              <div className="hidden sm:flex items-center gap-1">
                 <FontAwesomeIcon icon={faClone} />
-                <span> Exchange:</span>
+                <span>Exchange:</span>
                 <span className="dark:text-white"> {data?.markets}</span>
               </div>
-              <div>
+              <div className="flex items-center gap-1">
                 <span>Market Cap: </span>
-                <span className="dark:text-white">
+                <span className="dark:text-white font-medium">
                   {selectedCurrency.sym +
                     formatMoney(data?.total_market_cap[currencyName])}
                 </span>
               </div>
 
-              <div>
-                <span>24h Volume: </span>
-                <span className="dark:text-white">
+              <div className="flex items-center gap-1">
+                <span>24h Vol: </span>
+                <span className="dark:text-white font-medium">
                   {selectedCurrency.sym +
                     formatMoney(data?.total_volume[currencyName])}
                 </span>
               </div>
             </div>
-            <div className="flex">
+
+            {/* Dominance indicators - responsive layout */}
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
               <div className="flex items-center gap-1">
                 {bitcoin?.image && (
                   <Image
                     src={bitcoin?.image}
-                    width={25}
-                    height={25}
+                    width={20}
+                    height={20}
+                    className="sm:w-[25px] sm:h-[25px]"
                     alt="bitcoin image"
                   />
                 )}
-                {btc_mc_percentage + "%"}
+                <span className="text-xs">{btc_mc_percentage}%</span>
                 <ProgressBar
                   progress={btc_mc_percentage.toString()}
-                  width="100px"
+                  width="60px"
                   fg="#FE921A"
                   customBg="#666"
                 />
@@ -106,15 +110,16 @@ export const MarketData = () => {
                 {ethereum?.image && (
                   <Image
                     src={ethereum?.image}
-                    width={25}
-                    height={25}
-                    alt="etherium image"
+                    width={20}
+                    height={20}
+                    className="sm:w-[25px] sm:h-[25px]"
+                    alt="ethereum image"
                   />
                 )}
-                {eth_mc_percentage + "%"}
+                <span className="text-xs">{eth_mc_percentage}%</span>
                 <ProgressBar
                   progress={eth_mc_percentage.toString()}
-                  width="100px"
+                  width="60px"
                   fg="#537FEF"
                   customBg="#666"
                 />

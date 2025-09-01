@@ -6,15 +6,25 @@ export const DetailsCard: React.FC<{ details: any }> = ({ details }) => {
   const { selectedCurrency } = useCryptoContext();
   const symbol = selectedCurrency.sym;
   return (
-    <div className="w-1/3 bg-white dark:bg-accent-bg rounded-md p-2 flex shadow-md">
-      <div className="flex flex-col text-sm w-full">
-        <div className="flex justify-between">
-          <p>{details.title}</p>
-          <p>{symbol + details.amount.toFixed(8)}</p>
+    <div className="w-full bg-white dark:bg-accent-bg rounded-md p-4 flex shadow-md h-full">
+      <div className="flex flex-col items-center justify-center h-full text-center w-full space-y-4">
+        <div className="space-y-2">
+          <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            {details.title}
+          </h3>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            {symbol}
+            {details.amount.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </p>
         </div>
-        <div className="flex justify-between">
+        <div className="space-y-2">
           <TrendLabel value={details.percentage} percentage={true} />
-          <p>{details.date}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            {details.date}
+          </p>
         </div>
       </div>
     </div>
