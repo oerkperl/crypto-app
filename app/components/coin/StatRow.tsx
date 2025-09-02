@@ -6,10 +6,10 @@ export const StatRow: React.FC<{ stat: string; title: string }> = ({
 }) => {
   return (
     <div className="flex flex-col gap-1 px-2 py-1 text-center sm:text-left">
-      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">
+      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium text-ellipsis overflow-hidden whitespace-nowrap">
         {title}
       </span>
-      <span className="text-sm sm:text-xs dark:text-white font-semibold break-words">
+      <span className="text-sm sm:text-xs dark:text-white font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
         {stat}
       </span>
     </div>
