@@ -4,11 +4,12 @@ import { useSelector } from "react-redux";
 import { getCoinById, getCoins } from "../home/coinsList/coinsSlice";
 import { RootState } from "@/store/store";
 //import { removeDuplicates, formatMoney } from "@/app/lib/utils/formatters";
-import { HorizontalCoinSelector } from "./HorizontalCoinSelector";
+//import { HorizontalCoinSelector } from "./HorizontalCoinSelector";
 import { ChartConverter } from "../shared/ChartConverter";
 import { TrendLabel } from "../TrendLable";
 import { StatRow } from "../coin/StatRow";
 import { removeDuplicates, formatMoney } from "@/lib/utils/formatters";
+import { HorizontalCoinSelector } from "../home/charts/HorizontalCoinSelector";
 
 export const Dashboard: React.FC = () => {
   // ✅ Zustand: Selective subscriptions to specific stores

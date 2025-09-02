@@ -1,7 +1,8 @@
-import { formatDate, formatMoney } from "@/app/lib/utils/formatters";
+//import { formatDate, formatMoney } from "@/app/lib/utils/formatters";
 import { useCurrencyStore } from "@/store/currencyStore";
 import { TrendLabel } from "../../TrendLable";
 import { SpinnerContainer } from "../../styled";
+import { formatDate, formatMoney } from "@/lib/utils/formatters";
 export const ChartSummary: React.FC<{ coin: any }> = ({ coin }) => {
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
 

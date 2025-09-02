@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { ChartCard } from "./ChartCard";
-import { TChartLables } from "@/app/lib/types";
+//import { TChartLables } from "@/app/lib/types";
 import { useChartStore } from "@/store/chartStore";
 import { useCurrencyStore } from "@/store/currencyStore";
-import { getCurrentDate } from "@/app/lib/utils/formatters";
+//import { getCurrentDate } from "@/app/lib/utils/formatters";
 import { TimePeriodButtons } from "./TimePeriods";
 import { useSelector } from "react-redux";
 import { getCoinById } from "../coinsList/coinsSlice";
 import { RootState } from "@/store/store";
-import { formatMoney } from "@/app/lib/utils/formatters";
+//import { formatMoney } from "@/app/lib/utils/formatters";
 import { LoadingChart } from "./LoadingChart";
+import { TChartLables } from "@/lib/types";
+import { getCurrentDate, formatMoney } from "@/lib/utils/formatters";
 
 export const Charts: React.FC = () => {
   const currentChart = useChartStore((state) => state.currentChart);

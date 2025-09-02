@@ -1,5 +1,6 @@
+import { BlinkingGradientLoader } from "@/lib/utils/components/BlinkingLoader";
 import React from "react";
-import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
+//import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 export const LoadingChart: React.FC<{
   fetchData: () => void;
   status: "idle" | "loading" | "succeeded" | "failed";

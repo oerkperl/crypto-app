@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useChartStore } from "@/store/chartStore";
 import { SpinnerContainer } from "../../styled";
-import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
+//import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { SingleCoin } from "../../SingleCoin";
+import { BlinkingGradientLoader } from "@/lib/utils/components/BlinkingLoader";
 
 const Ul = styled.ul`
   display: flex;

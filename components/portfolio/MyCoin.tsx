@@ -33,7 +33,10 @@ export const MyCoin: React.FC<{
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log('Edit submitted:', { coinId: myCoin?.id, newAmount: coinAmount });
+    console.log("Edit submitted:", {
+      coinId: myCoin?.id,
+      newAmount: coinAmount,
+    });
     if (coinAmount >= 0) {
       updateAmount(myCoin?.id, coinAmount);
       setIsEditing((prev) => !prev);

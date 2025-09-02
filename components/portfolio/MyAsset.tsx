@@ -46,7 +46,7 @@ export const MyAsset: React.FC<{
           <button
             className="px-3 py-1.5 rounded bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors flex items-center gap-2 text-sm"
             onClick={() => {
-              console.log('Delete clicked for coin:', myCoin?.id);
+              console.log("Delete clicked for coin:", myCoin?.id);
               removeAsset(myCoin?.id);
             }}
           >
