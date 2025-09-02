@@ -2,11 +2,15 @@
 import { Dashboard } from "../components/home/charts/Dashboard";
 import { CoinsList } from "../components/home/coinsList/CoinsList";
 import { BackToTopButton } from "../lib/utils/components/BackToTopButton";
-import { useCryptoContext } from "../context/context";
+import { useUIStore } from "../store";
 import { Modal } from "../components/Modal";
 import { Coin } from "./Coin";
+
 export const HomePage = () => {
-  const { isOpen, setIsOpen } = useCryptoContext();
+  // ✅ Zustand: Only subscribes to modal state
+  const isOpen = useUIStore((state) => state.isOpen);
+  const setIsOpen = useUIStore((state) => state.setIsOpen);
+
   const handleClose = () => {
     setIsOpen(false);
   };

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { ChartCard } from "./ChartCard";
 import { TChartLables } from "@/app/lib/types";
-import { useCryptoContext } from "@/app/context/context";
+import { useChartStore } from "@/app/store/chartStore";
+import { useCurrencyStore } from "@/app/store/currencyStore";
 import { getCurrentDate } from "@/app/lib/utils/formatters";
 import { TimePeriodButtons } from "./TimePeriods";
 import { useSelector } from "react-redux";
@@ -10,22 +11,37 @@ import { getCoinById } from "../coinsList/coinsSlice";
 import { RootState } from "@/app/store/store";
 import { formatMoney } from "@/app/lib/utils/formatters";
 import { LoadingChart } from "./LoadingChart";
-import { useAppDispatch } from "@/app/lib/hooks";
-import { fetchChartData, getChart, getChartStatus } from "./chartsSlice";
 
 export const Charts: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { currentChart, chartUrl, selectedPeriod, setSelectedPeriod } =
-    useCryptoContext();
+  const currentChart = useChartStore((state) => state.currentChart);
+  const selectedPeriod = useChartStore((state) => state.selectedPeriod);
+  const setSelectedPeriod = useChartStore((state) => state.setSelectedPeriod);
+  const getChartUrl = useChartStore((state) => state.getChartUrl);
+  const fetchChartData = useChartStore((state) => state.fetchChartData);
+  const getCurrentChartData = useChartStore(
+    (state) => state.getCurrentChartData
+  );
+  const getCurrentStatus = useChartStore((state) => state.getCurrentStatus);
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
+
+  const chartUrl = getChartUrl(selectedCurrency.name);
+  const chartData = getCurrentChartData(chartUrl);
+  const chartStatus = getCurrentStatus(chartUrl);
 
   const bitcoin = useSelector((state: RootState) =>
     getCoinById(state, "bitcoin")
   );
-  const data = useSelector((state: RootState) => getChart(state));
-  const chartStatus = useSelector((state: RootState) => getChartStatus(state));
-  const priceData = data.prices;
-  const volumeData = data.total_volumes;
+
+  const priceData = chartData?.prices || [];
+  const volumeData = chartData?.total_volumes || [];
   const todayDateString: string = getCurrentDate();
+
+  // Auto-fetch data when URL changes
+  useEffect(() => {
+    if (chartStatus === "idle") {
+      fetchChartData(chartUrl);
+    }
+  }, [chartUrl, chartStatus, fetchChartData]);
 
   const priceLabels: TChartLables = {
     title: "Price",
@@ -40,7 +56,7 @@ export const Charts: React.FC = () => {
   };
 
   const fetchData = () => {
-    dispatch(fetchChartData(chartUrl));
+    fetchChartData(chartUrl);
   };
 
   return (

@@ -1,10 +1,11 @@
-import { useCryptoContext } from "@/app/context/context";
+import { useUIStore } from "@/app/store/uiStore";
 export const CoinSwitcher = () => {
   const options = ["Charts", "Converter"];
-  const { selectedOption, setSelectedOption } = useCryptoContext();
+  const selectedOption = useUIStore((state) => state.selectedOption);
+  const setSelectedOption = useUIStore((state) => state.setSelectedOption);
 
   return (
-    <div className={` inline-flex p-1 rounded-lg `}>
+    <div className={` inline-flex p-1 rounded `}>
       {options.map((option, index) => (
         <button
           key={index}

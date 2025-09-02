@@ -1,7 +1,7 @@
 import React from "react";
 import { formatMoney } from "@/app/lib/utils/formatters";
 import { ProgressBar } from "@/app/lib/utils/components/ProgressBar";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore } from "@/app/store/currencyStore";
 
 export const Trends: React.FC<{
   firstVal: number;
@@ -9,7 +9,7 @@ export const Trends: React.FC<{
   trend?: boolean;
 }> = ({ firstVal, secondVal, trend }) => {
   const percenatge = (firstVal / secondVal) * 100;
-  const { selectedCurrency } = useCryptoContext();
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   return (
     <div>
       <div className="flex justify-between">

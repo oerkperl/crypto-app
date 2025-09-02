@@ -5,7 +5,7 @@ import { LoadinSingleCoin } from "../components/coin/LoadinSingleCoin";
 import { CoinProfileCard } from "../components/coin/CoinProfileCard";
 import { CoinPriceCard } from "../components/coin/CoinPriceCard";
 import { CoinStatsCard } from "../components/coin/CoinStatsCard";
-import { useCryptoContext } from "../context/context";
+import { useCurrencyStore, useUIStore } from "../store";
 import { PriceChart } from "../components/coin/PriceChart";
 import { OtherCoins } from "../components/portfolio/OtherCoins";
 import { TrendLabel } from "../components/TrendLable";
@@ -15,8 +15,13 @@ import { ChartConverter } from "../components/shared/ChartConverter";
 export const Coin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coin, setCoin] = useState<any>({});
-  const { viewingCoinId, selectedCurrency, setCanVisit, setQuery } =
-    useCryptoContext();
+  
+  // ✅ Zustand: Selective subscriptions to only needed state
+  const viewingCoinId = useUIStore((state) => state.viewingCoinId);
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
+  const setCanVisit = useUIStore((state) => state.setCanVisit);
+  const setQuery = useUIStore((state) => state.setQuery);
+  
   const hasId = !!viewingCoinId;
   const url = `https://api.coingecko.com/api/v3/coins/${viewingCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
   const baseCoin = {
@@ -133,7 +138,7 @@ export const Coin = () => {
             baseCoin={baseCoin}
             showConverter={true}
           />
-          <div className="w-full mt-2 px-4 py-2 bg-white dark:bg-accent-bg rounded-lg">
+          <div className="w-full mt-2 px-4 py-2 bg-white dark:bg-accent-bg rounded">
             <h1 className="text-lg sm:text-xl mb-2">
               About {coin?.name}
               {`(${coin?.symbol?.toUpperCase()})`}
@@ -149,7 +154,7 @@ export const Coin = () => {
             />
           </div>
           <div className="mt-2">
-            <div className="bg-white dark:bg-accent-bg shadow-md rounded-xl h-94">
+            <div className="bg-white dark:bg-accent-bg shadow-md rounded h-94">
               <div className=" max-h-52 overflow-auto">
                 <LinksList links={coin?.links?.blockchain_site} />
               </div>
@@ -157,7 +162,7 @@ export const Coin = () => {
           </div>
           <hr className="border-gray-300 dark:border-gray-700 my-2" />
 
-          <div className="w-full bg-gray-100 dark:bg-transparent rounded-lg">
+          <div className="w-full bg-gray-100 dark:bg-transparent rounded">
             <OtherCoins />
           </div>
         </section>

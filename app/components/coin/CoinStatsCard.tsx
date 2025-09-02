@@ -1,5 +1,5 @@
 import React from "react";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore } from "@/app/store";
 import { formatMoney } from "@/app/lib/utils/formatters";
 import { StatRow } from "./StatRow";
 
@@ -7,7 +7,8 @@ export const CoinStatsCard: React.FC<{
   statsData: any;
   coinSymbol: string;
 }> = ({ statsData, coinSymbol }) => {
-  const { selectedCurrency } = useCryptoContext();
+  // ✅ Zustand: Only subscribes to selectedCurrency
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const currency = selectedCurrency.name;
   const symbol = selectedCurrency.sym;
   const hasData = statsData !== undefined;
@@ -30,7 +31,7 @@ export const CoinStatsCard: React.FC<{
 
   return (
     hasData && (
-      <div className="bg-white dark:bg-accent-bg rounded-lg py-3 px-2 shadow-md">
+      <div className="bg-white dark:bg-accent-bg rounded py-3 px-2 shadow-md">
         {/* Mobile: Grid Layout */}
         {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:hidden gap-4 lg:gap-2">
           <StatRow stat={symbol + formatMoney(marketCap)} title="Market Cap" />

@@ -3,14 +3,16 @@ import { removeDuplicates } from "@/app/lib/utils/formatters";
 import { useSelector } from "react-redux";
 import { getCoins } from "../home/coinsList/coinsSlice";
 import { SingleCoin } from "../SingleCoin";
-import { useCryptoContext } from "@/app/context/context";
+import { useUIStore } from "@/app/store/uiStore";
+import { useChartStore } from "@/app/store/chartStore";
 
 export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
   switchCart,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const allCoins = removeDuplicates(useSelector(getCoins), "id");
-  const { setViewingCoinId, setCurrentChart } = useCryptoContext();
+  const setViewingCoinId = useUIStore((state) => state.setViewingCoinId);
+  const setCurrentChart = useChartStore((state) => state.setCurrentChart);
   const [autoScrol, setAutoScrol] = useState<boolean>(true);
   const scrollLeft = () => {
     if (containerRef.current) {

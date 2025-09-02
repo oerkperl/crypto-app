@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { useCryptoContext } from "@/app/context/context";
+import { useUIStore, usePortfolioStore, useUtilsStore } from "@/app/store";
 import { getCurrentDate } from "@/app/lib/utils/formatters";
-import { TAsset } from "@/app/lib/types";
+import { TAsset } from "@/app/store";
 import { SelectCoin } from "./SelectCoin";
 
 interface ModalProps {
@@ -20,7 +20,12 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
   const [selectedCoin, setSelectedCoin] = useState<any>({});
   const [canSelect, setCanSelect] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
-  const { selectedCoinId, addAsset, setErrorMessage } = useCryptoContext();
+
+  // ✅ Zustand: Selective subscriptions to portfolio and UI stores
+  const selectedCoinId = useUIStore((state) => state.selectedCoinId);
+  const addAsset = usePortfolioStore((state) => state.addAsset);
+  const setErrorMessage = useUtilsStore((state) => state.setErrorMessage);
+
   const hasCoin: boolean = Object.entries(selectedCoin).length !== 0;
   const hasAmount: boolean = amount !== undefined && amount >= 0;
   const canAddAsset: boolean = hasAmount && hasCoin;
@@ -38,7 +43,8 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
         setCanSelect(false);
       }
     } catch (error) {
-      setErrorMessage(setNotification, "Network error:try again later", 3000);
+      setErrorMessage("Network error:try again later", 3000);
+      setNotification("Network error:try again later");
       setHasError(true);
     }
   };
@@ -64,7 +70,8 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = parseFloat(event.target.value);
     if (inputValue < 0) {
-      setErrorMessage(setNotification, "Negative input attempt", 3000);
+      setErrorMessage("Negative input attempt", 3000);
+      setNotification("Negative input attempt");
     } else {
       setAmount(inputValue);
     }
@@ -121,7 +128,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                       <label className="text-sm font-medium">Coin</label>
                     </div>
                     <div
-                      className={`min-h-[44px] w-full sm:w-4/5 shadow-md bg-white dark:bg-input-bg rounded-lg flex items-center
+                      className={`min-h-[44px] w-full sm:w-4/5 shadow-md bg-white dark:bg-input-bg rounded flex items-center
                       ${
                         !hasCoin && wantsToSave
                           ? "border-2 border-pink-600"
@@ -146,7 +153,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                     </div>
                     <div className="w-full sm:w-4/5">
                       <input
-                        className={`min-h-[44px] w-full shadow-md rounded-lg px-3 bg-white dark:bg-input-bg outline-none text-base
+                        className={`min-h-[44px] w-full shadow-md rounded px-3 bg-white dark:bg-input-bg outline-none text-base
                         ${
                           !hasAmount && wantsToSave
                             ? "border-2 border-pink-600"
@@ -163,7 +170,7 @@ export const FormModal: React.FC<ModalProps> = ({ onClose }) => {
                 </div>
 
                 {/* Coin Preview */}
-                <div className="w-full lg:w-1/3 rounded-lg flex flex-col gap-3 items-center justify-center bg-gray-50 dark:bg-gray-800 p-4 min-h-[120px]">
+                <div className="w-full lg:w-1/3 rounded flex flex-col gap-3 items-center justify-center bg-gray-50 dark:bg-gray-800 p-4 min-h-[120px]">
                   <div className="h-16 w-16 sm:h-20 sm:w-20 flex items-center justify-center rounded-md bg-gray-300 dark:bg-gray-900">
                     <Image
                       src={

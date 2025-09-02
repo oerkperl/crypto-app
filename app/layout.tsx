@@ -2,7 +2,6 @@ import "./globals.css";
 import StoreProvider from "./store/provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { CryptoContextProvider } from "./context/context";
 import { TopSection } from "./ui/TopSections";
 import { TheThemeProvider } from "./ui/TheThemProvider";
 
@@ -39,12 +38,10 @@ export default function RootLayout({
         className={`bg-gray-100 dark:bg-gray-950 relative dark:text-gray-400 ${inter.className}`}
       >
         <TheThemeProvider>
-          <CryptoContextProvider>
-            <StoreProvider>
-              <TopSection />
-              {children}
-            </StoreProvider>
-          </CryptoContextProvider>
+          <StoreProvider>
+            <TopSection />
+            {children}
+          </StoreProvider>
         </TheThemeProvider>
       </body>
     </html>

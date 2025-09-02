@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { ProgressBar } from "@/app/lib/utils/components/ProgressBar";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore } from "@/app/store/currencyStore";
 import { getCoinById } from "../coinsList/coinsSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
@@ -15,7 +15,7 @@ import { faClone } from "@fortawesome/free-solid-svg-icons";
 export const MarketData = () => {
   const [marketData, setMarketData] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { selectedCurrency } = useCryptoContext();
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const currencyName = selectedCurrency?.name;
   const { data } = marketData;
   const bitcoin = useSelector((state: RootState) =>

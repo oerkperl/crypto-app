@@ -1,10 +1,13 @@
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore } from "@/app/store";
 import { useAppDispatch } from "@/app/lib/hooks";
 import { reset } from "../coinsList/coinsSlice";
 
 export const CurrencyDropdown = () => {
-  const { selectedCurrency, setSelectedCurrency, currencies } =
-    useCryptoContext();
+  // ✅ Zustand: Only subscribes to currency-related state
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
+  const currencies = useCurrencyStore((state) => state.currencies);
+  const setSelectedCurrency = useCurrencyStore((state) => state.setSelectedCurrency);
+  
   const dispatch = useAppDispatch();
 
   const handleCurrencyChange = (

@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore, useChartStore, useUtilsStore } from "@/app/store";
 import { getCoinById } from "../coinsList/coinsSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { ConverterCard } from "./ConverterCard";
+
 export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
   baseCoin,
   height,
 }) => {
-  const { selectedCurrency, currentChart, setErrorMessage } =
-    useCryptoContext();
+  // ✅ Zustand: Selective subscriptions from multiple stores
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
+  const currentChart = useChartStore((state) => state.currentChart);
+  const setErrorMessage = useUtilsStore((state) => state.setErrorMessage);
+
   const bitcoin = useSelector((state: RootState) =>
     getCoinById(state, "bitcoin")
   );
@@ -27,7 +31,8 @@ export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
     const value = parseFloat(e.target.value);
     setAmount1(value);
     if (value < 0) {
-      setErrorMessage(setNotification, "Negative input", 3000);
+      setErrorMessage("Negative input", 3000);
+      setNotification("Negative input");
     } else {
       setAmount2(value * conversionRate);
     }
@@ -37,7 +42,8 @@ export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
     const value = parseFloat(e.target.value);
     setAmount2(value);
     if (value < 0) {
-      setErrorMessage(setNotification, "Negative input", 3000);
+      setErrorMessage("Negative input", 3000);
+      setNotification("Negative input");
     } else {
       setAmount1(value / conversionRate);
     }

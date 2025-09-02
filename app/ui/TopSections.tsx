@@ -3,16 +3,20 @@ import { useEffect } from "react";
 import { Navabr } from "../components/home/navigation/Navbar";
 import { MarketData } from "../components/home/navigation/MarketData";
 import { FetchCoins } from "../components/home/coinsList/FeatchCoins";
-import { useAppDispatch } from "@/app/lib/hooks";
-import { fetchChartData } from "../components/home/charts/chartsSlice";
-import { useCryptoContext } from "../context/context";
+import { useChartStore, useCurrencyStore } from "@/app/store";
 
 export const TopSection = () => {
-  const { chartUrl, selectedPeriod, selectedCurrency, currentChart } =
-    useCryptoContext();
-  const dispatch = useAppDispatch();
+  // ✅ Zustand: Selective subscriptions to only needed state
+  const selectedPeriod = useChartStore((state) => state.selectedPeriod);
+  const currentChart = useChartStore((state) => state.currentChart);
+  const getChartUrl = useChartStore((state) => state.getChartUrl);
+  const fetchChartData = useChartStore((state) => state.fetchChartData);
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
+
   const fetchData = () => {
-    dispatch(fetchChartData(chartUrl));
+    // Use computed chartUrl from store and Zustand fetch function
+    const chartUrl = getChartUrl(selectedCurrency.name);
+    fetchChartData(chartUrl);
   };
 
   useEffect(() => {

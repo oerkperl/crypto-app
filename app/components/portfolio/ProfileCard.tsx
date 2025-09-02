@@ -1,16 +1,16 @@
 import React from "react";
 import Image from "next/image";
-import { useCryptoContext } from "@/app/context/context";
+import { useUIStore } from "@/app/store/uiStore";
 import Link from "next/link";
 
 export const ProfileCard: React.FC<{ myCoin: any }> = ({ myCoin }) => {
-  const { setViewingCoinId } = useCryptoContext();
+  const setViewingCoinId = useUIStore((state) => state.setViewingCoinId);
 
   return (
     <Link
       onClick={() => setViewingCoinId(myCoin?.id)}
       href={`/coin?id=${myCoin?.id}`}
-      className="w-full sm:w-1/4 flex flex-row sm:flex-col rounded-xl gap-2 sm:gap-4 justify-center items-center bg-gray-200 dark:bg-input-bg p-3 sm:p-4 min-h-[80px] sm:min-h-auto hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+      className="w-full sm:w-1/4 flex flex-row sm:flex-col rounded gap-2 sm:gap-4 justify-center items-center bg-gray-200 dark:bg-input-bg p-3 sm:p-4 min-h-[80px] sm:min-h-auto hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
     >
       <div className="h-12 w-12 sm:h-16 sm:w-16 bg-gray-100 dark:bg-accent-bg rounded-md flex items-center justify-center flex-shrink-0">
         <Image

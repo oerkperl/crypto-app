@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore } from "@/app/store";
 import { getNumberOfDays } from "@/app/lib/utils/formatters";
 import { TimePeriodButtons } from "../home/charts/TimePeriods";
 import { ChartCard } from "../home/charts/ChartCard";
@@ -13,7 +13,10 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
   const [type, setType] = useState<string>("line");
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1M");
   const [hasError, setHasError] = useState<boolean>(false);
-  const { selectedCurrency } = useCryptoContext();
+  
+  // ✅ Zustand: Only subscribes to selectedCurrency
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
+  
   const days = getNumberOfDays(selectedPeriod).toString();
   const baseUrl = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?`;
   const params = new URLSearchParams({
@@ -22,6 +25,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
     interval: "daily",
   });
   const chartUrl = `${baseUrl}${params}`;
+  
   const fetchChart = async () => {
     try {
       const { data } = await axios(chartUrl);

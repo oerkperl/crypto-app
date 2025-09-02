@@ -1,9 +1,9 @@
 import React from "react";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore } from "@/app/store/currencyStore";
 import { TrendLabel } from "../TrendLable";
 
 export const DetailsCard: React.FC<{ details: any }> = ({ details }) => {
-  const { selectedCurrency } = useCryptoContext();
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const symbol = selectedCurrency.sym;
   return (
     <div className="w-full bg-white dark:bg-accent-bg rounded-md p-4 flex shadow-md h-full">

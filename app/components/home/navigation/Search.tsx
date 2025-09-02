@@ -3,7 +3,7 @@ import Link from "next/link";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import { SpinnerContainer } from "../../styled";
-import { useCryptoContext } from "@/app/context/context";
+import { useUIStore, useUtilsStore } from "@/app/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,14 +13,15 @@ export const Search = () => {
   const [notification, setNotification] = useState<string>("");
   const [canVisit, setCanVisit] = useState<boolean>(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState<boolean>(false);
-  const {
-    viewingCoinId,
-    setViewingCoinId,
-    setErrorMessage,
-    isOpen,
-    query,
-    setQuery,
-  } = useCryptoContext();
+  
+  // ✅ Zustand: Selective subscriptions to only needed state
+  const viewingCoinId = useUIStore((state) => state.viewingCoinId);
+  const setViewingCoinId = useUIStore((state) => state.setViewingCoinId);
+  const isOpen = useUIStore((state) => state.isOpen);
+  const query = useUIStore((state) => state.query);
+  const setQuery = useUIStore((state) => state.setQuery);
+  const setErrorMessage = useUtilsStore((state) => state.setErrorMessage);
+  
   const activePath = usePathname();
   let timeout: any | null = null;
 
@@ -55,7 +56,8 @@ export const Search = () => {
       }
     } catch (error) {
       setIsLoading(false);
-      setErrorMessage(setNotification, "Possible server timeout", 3000);
+      setErrorMessage("Possible server timeout", 3000);
+      setNotification("Possible server timeout");
     }
   };
 
@@ -173,7 +175,7 @@ export const Search = () => {
               </button>
               <div className="flex-1">
                 <input
-                  className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 rounded-lg outline-none text-base"
+                  className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 rounded outline-none text-base"
                   type="text"
                   value={query}
                   onChange={handleChange}
@@ -209,7 +211,7 @@ export const Search = () => {
                   <Link
                     href={`/coin?id=${viewingCoinId}`}
                     onClick={closeMobileSearch}
-                    className="w-full bg-green-600 text-white py-3 px-4 rounded-lg text-center font-medium hover:bg-green-700 transition-colors block"
+                    className="w-full bg-green-600 text-white py-3 px-4 rounded text-center font-medium hover:bg-green-700 transition-colors block"
                   >
                     View {query}
                   </Link>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { SpinnerContainer } from "../styled";
-import { useCryptoContext } from "@/app/context/context";
+import { useUIStore } from "@/app/store/uiStore";
+import { useUtilsStore } from "@/app/store/utilsStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons/faRotateRight";
@@ -25,7 +26,8 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [notification, setNotification] = useState<string>("");
-  const { setSelectedCoinId, setErrorMessage } = useCryptoContext();
+  const setSelectedCoinId = useUIStore((state) => state.setSelectedCoinId);
+  const setErrorMessage = useUtilsStore((state) => state.setErrorMessage);
 
   let timeout: any | null = null;
 
@@ -59,7 +61,8 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
       }
     } catch (error) {
       setIsLoading(false);
-      setErrorMessage(setNotification, "Possible server timeout", 3000);
+      setErrorMessage("Possible server timeout", 3000);
+      setNotification("Possible server timeout");
     }
   };
 
@@ -101,14 +104,14 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
             </button>
           )}
         </div>
-        
+
         {/* Results Dropdown */}
         <div className="relative">
           {query.trim() && (
-            <ul className="absolute z-50 w-full max-h-64 overflow-y-auto mt-1 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-600">
+            <ul className="absolute z-50 w-full max-h-64 overflow-y-auto mt-1 bg-white dark:bg-gray-800 shadow-lg rounded border border-gray-200 dark:border-gray-600">
               {results.length > 0 && (
                 <div className="flex justify-end px-3 py-2 border-b border-gray-200 dark:border-gray-600">
-                  <button 
+                  <button
                     onClick={clear}
                     className="min-w-[32px] min-h-[32px] flex items-center justify-center text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
                   >

@@ -1,9 +1,9 @@
 import { formatDate, formatMoney } from "@/app/lib/utils/formatters";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore } from "@/app/store/currencyStore";
 import { TrendLabel } from "../../TrendLable";
 import { SpinnerContainer } from "../../styled";
 export const ChartSummary: React.FC<{ coin: any }> = ({ coin }) => {
-  const { selectedCurrency } = useCryptoContext();
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
 
   return (
     <div className="relative bg-white dark:bg-accent-bg rounded shadow-md flex flex-col px-2 sm:px-3 py-2 sm:py-1">

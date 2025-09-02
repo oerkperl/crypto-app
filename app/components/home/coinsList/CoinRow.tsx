@@ -1,12 +1,14 @@
 import React from "react";
 import Image from "next/image";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore, useUIStore } from "@/app/store";
 import { Sparkline } from "./Sparkline";
 import { Trends } from "./Trends";
 import { TrendLabel } from "../../TrendLable";
 
 export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
-  const { selectedCurrency, viewCoin } = useCryptoContext();
+  // ✅ Zustand: Only subscribes to currency and viewCoin function
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
+  const viewCoin = useUIStore((state) => state.viewCoin);
 
   const setTrend = (coin: any): boolean => {
     const trend = coin.price_change_percentage_1h_in_currency < 0;
@@ -19,7 +21,7 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
         <div key={coin?.id}>
           {/* Desktop Table Row - Hidden on mobile */}
           <div
-            className={`hidden lg:flex bg-white dark:bg-transparent border-b border-gray-300 dark:border-gray-700 
+            className={`hidden lg:flex bg-white dark:bg-accent-bg mb-1 rounded 
             items-center cursor-pointer hover:bg-indigo-600 hover:text-white text-xs transition-colors`}
             onClick={() => {
               viewCoin(coin?.id);
@@ -87,7 +89,7 @@ export const CoinRow: React.FC<{ coins: any[] }> = ({ coins }) => {
 
           {/* Mobile Card Layout - Hidden on desktop */}
           <div
-            className={`lg:hidden bg-white dark:bg-transparent border-b border-gray-300 dark:border-gray-700 
+            className={`lg:hidden bg-white dark:bg-accent-bg mb-1 rounded 
             cursor-pointer hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors p-4`}
             onClick={() => {
               viewCoin(coin?.id);

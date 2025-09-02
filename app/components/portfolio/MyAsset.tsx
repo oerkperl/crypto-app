@@ -5,7 +5,7 @@ import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { TrendLabel } from "../TrendLable";
-import { useCryptoContext } from "@/app/context/context";
+import { usePortfolioStore } from "@/app/store/portfolioStore";
 
 export const MyAsset: React.FC<{
   asset: any;
@@ -13,7 +13,7 @@ export const MyAsset: React.FC<{
   hasError: boolean;
 }> = ({ asset, fetchAsset, hasError }) => {
   const refeshIcon = <FontAwesomeIcon icon={faRotateRight} />;
-  const { removeAsset } = useCryptoContext();
+  const removeAsset = usePortfolioStore((state) => state.removeAsset);
   const marketCapVvolume = Math.round(
     (asset?.total_volume / asset?.market_cap) * 100
   );

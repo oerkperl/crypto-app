@@ -1,5 +1,5 @@
 import React from "react";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore } from "@/app/store";
 import { formatDate } from "@/app/lib/utils/formatters";
 import { DetailsCard } from "./DetailsCard";
 import { TrendLabel } from "../TrendLable";
@@ -8,7 +8,8 @@ import { Sparkline } from "../home/coinsList/Sparkline";
 export const CoinPriceCard: React.FC<{ marketData: any }> = ({
   marketData,
 }) => {
-  const { selectedCurrency } = useCryptoContext();
+  // ✅ Zustand: Only subscribes to selectedCurrency
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const currency = selectedCurrency.name;
   const symbol = selectedCurrency.sym;
   const hasData = marketData !== undefined;

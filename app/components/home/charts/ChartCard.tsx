@@ -1,5 +1,5 @@
 import { Graph } from "./Graph";
-import { useCryptoContext } from "@/app/context/context";
+import { useCurrencyStore } from "@/app/store/currencyStore";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 
 export const ChartCard: React.FC<{
@@ -9,9 +9,9 @@ export const ChartCard: React.FC<{
   width?: number;
   height?: number;
 }> = ({ labels, data, type, width, height }) => {
-  const { selectedCurrency } = useCryptoContext();
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   return (
-    <div className={`rounded-xl`}>
+    <div className={`rounded`}>
       {labels && (
         <div>
           <span className="text-md">{labels.title}: </span>

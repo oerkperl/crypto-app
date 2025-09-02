@@ -6,10 +6,10 @@ import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 export const CoinProfileCard: React.FC<{ coin: any }> = ({ coin }) => {
   const haslink = coin?.links?.homepage[0] !== undefined;
   return (
-    <div className="w-full rounded-lg h-full">
-      <div className="w-full h-full bg-white dark:bg-accent-bg shadow-md rounded-xl p-4">
+    <div className="w-full rounded h-full">
+      <div className="w-full h-full bg-white dark:bg-accent-bg shadow-md rounded p-4">
         <div className="flex flex-col items-center justify-center h-full text-center space-y-3">
-          <div className="bg-gray-200 dark:bg-gray-700 p-3 rounded-lg">
+          <div className="bg-gray-200 dark:bg-gray-700 p-3 rounded">
             <img
               height={60}
               width={60}
@@ -29,7 +29,7 @@ export const CoinProfileCard: React.FC<{ coin: any }> = ({ coin }) => {
               <Link
                 href={coin.links?.homepage[0]}
                 target="_blank"
-                className="inline-flex items-center gap-2 px-3 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-900/50 transition-colors text-sm font-medium"
+                className="inline-flex items-center gap-2 px-3 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded hover:bg-indigo-200 dark:hover:bg-indigo-900/50 transition-colors text-sm font-medium"
               >
                 <FontAwesomeIcon icon={faGlobe} className="text-xs" />
                 Visit Website

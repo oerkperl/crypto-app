@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "app/**/*.{js,ts,tsx}": {
+      "runtime": "@vercel/node@20.x"
+    }
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs"
+}

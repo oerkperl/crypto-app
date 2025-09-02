@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { useCryptoContext } from "@/app/context/context";
+import { usePortfolioStore } from "@/app/store/portfolioStore";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { calculatPriceChange } from "@/app/lib/utils/formatters";
 import { TrendLabel } from "../TrendLable";
@@ -15,7 +15,8 @@ export const MyCoin: React.FC<{
 }> = ({ myCoin, asset, hasError }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [coinAmount, setCoinAmount] = useState<number>(myCoin?.amount);
-  const { UpdateAmount, removeAsset } = useCryptoContext();
+  const updateAmount = usePortfolioStore((state) => state.updateAmount);
+  const removeAsset = usePortfolioStore((state) => state.removeAsset);
   const editIcon = <FontAwesomeIcon icon={faPenToSquare} />;
   const checkIcon = <FontAwesomeIcon icon={faCheck} />;
   const value = myCoin?.amount * asset?.current_price;
@@ -28,7 +29,7 @@ export const MyCoin: React.FC<{
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (coinAmount >= 0) {
-      UpdateAmount(myCoin?.id, coinAmount);
+      updateAmount(myCoin?.id, coinAmount);
       setIsEditing((prev) => !prev);
     }
   };
@@ -66,6 +67,7 @@ export const MyCoin: React.FC<{
                 onChange={(e: any) => setCoinAmount(e.target.value)}
               />
               <button
+                type="button"
                 onClick={handleSubmit}
                 className="px-2 py-1 rounded-md hover:bg-green-600 hover:text-white transition-colors min-h-[44px] sm:min-h-auto flex items-center justify-center"
               >

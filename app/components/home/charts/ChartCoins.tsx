@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useCryptoContext } from "@/app/context/context";
+import { useChartStore } from "@/app/store/chartStore";
 import { SpinnerContainer } from "../../styled";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { SingleCoin } from "../../SingleCoin";
@@ -17,7 +17,8 @@ const Li = styled.li`
 `;
 
 export const ChartCoins: React.FC<{ coins: any[] }> = ({ coins }) => {
-  const { setCurrentChart, currentChart } = useCryptoContext();
+  const setCurrentChart = useChartStore((state) => state.setCurrentChart);
+  const currentChart = useChartStore((state) => state.currentChart);
   const [searchValue, setSearchValue] = useState("");
 
   const handleChartChange = (obj: any) => {

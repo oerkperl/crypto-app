@@ -1,8 +1,8 @@
 import React from "react";
-import { useCryptoContext } from "@/app/context/context";
+import { usePortfolioStore } from "@/app/store/portfolioStore";
 import { AssetRow } from "./AssetRow";
 export const AssetsList = () => {
-  const { getAssets } = useCryptoContext();
+  const getAssets = usePortfolioStore((state) => state.getAssets);
   const assets = getAssets();
   return (
     <ul>

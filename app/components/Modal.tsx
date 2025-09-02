@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpRightAndDownLeftFromCenter } from "@fortawesome/free-solid-svg-icons";
-import { useCryptoContext } from "@/app/context/context";
+import { useUIStore } from "@/app/store";
 import { usePathname } from "next/navigation";
 import { Search } from "./home/navigation/Search";
 
@@ -14,7 +14,11 @@ interface ModalProps {
 
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   const expandIcon = <FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />;
-  const { viewingCoinId, setIsOpen } = useCryptoContext();
+
+  // ✅ Zustand: Only subscribes to UI state
+  const viewingCoinId = useUIStore((state) => state.viewingCoinId);
+  const setIsOpen = useUIStore((state) => state.setIsOpen);
+
   const activePath = usePathname();
 
   if (!isOpen) {
@@ -42,7 +46,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
       {/* Mobile-first responsive modal container */}
       <div className="fixed inset-4 sm:inset-6 md:relative md:inset-auto md:min-w-[800px] md:mx-auto md:my-6 rounded-md">
-        <div className="relative flex flex-col w-full h-full md:h-auto border-0 rounded-lg shadow-lg outline-none focus:outline-none">
+        <div className="relative flex flex-col w-full h-full md:h-auto border-0 rounded shadow-lg outline-none focus:outline-none">
           {/* Modal Header - Home page only */}
           {activePath === "/" && (
             <div className="top-0 flex flex-row gap-2 justify-between p-3 sm:p-2 rounded-t items-center bg-white dark:bg-accent-bg">

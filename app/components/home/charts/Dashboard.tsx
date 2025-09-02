@@ -1,5 +1,5 @@
 import React from "react";
-import { useCryptoContext } from "@/app/context/context";
+import { useChartStore, useCurrencyStore, useUIStore } from "@/app/store";
 import { useSelector } from "react-redux";
 import { getCoinById, getCoins } from "../coinsList/coinsSlice";
 import { RootState } from "@/app/store/store";
@@ -10,7 +10,11 @@ import { TrendLabel } from "../../TrendLable";
 import { StatRow } from "../../coin/StatRow";
 
 export const Dashboard: React.FC = () => {
-  const { currentChart, viewCoin, selectedCurrency } = useCryptoContext();
+  // ✅ Zustand: Selective subscriptions to specific stores
+  const currentChart = useChartStore((state) => state.currentChart);
+  const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
+  const viewCoin = useUIStore((state) => state.viewCoin);
+
   let baseCoin = useSelector((state: RootState) =>
     getCoinById(state, currentChart.id)
   );

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { FormModal } from "../components/portfolio/FormModal";
 import { AssetsList } from "../components/portfolio/AssetsList";
-import { useCryptoContext } from "../context/context";
+import { usePortfolioStore } from "../store";
 import { Modal } from "../components/Modal";
 
 export const Portfolio = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { getAssets } = useCryptoContext();
+
+  // ✅ Zustand: Only subscribes to portfolio assets
+  const getAssets = usePortfolioStore((state) => state.getAssets);
   const hasAssets = getAssets().length > 0;
 
   const handleCloseModal = () => {
