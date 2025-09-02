@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
@@ -10,7 +11,7 @@ export const CoinProfileCard: React.FC<{ coin: any }> = ({ coin }) => {
       <div className="w-full h-full bg-white dark:bg-accent-bg shadow-md rounded p-4">
         <div className="flex flex-col items-center justify-center h-full text-center space-y-3">
           <div className="bg-gray-200 dark:bg-gray-700 p-3 rounded">
-            <img
+            <Image
               height={60}
               width={60}
               src={coin?.image?.small}

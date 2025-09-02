@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { devtools, persist, createJSONStorage } from 'zustand/middleware';
 
 export type TAsset = {
   id: string;
@@ -59,6 +59,18 @@ export const usePortfolioStore = create<PortfolioState>()(
       {
         name: 'portfolio-storage', // localStorage key
         version: 1,
+        // SSR-safe storage
+        storage: createJSONStorage(() => {
+          if (typeof window !== 'undefined') {
+            return localStorage;
+          }
+          // Return a no-op storage for SSR
+          return {
+            getItem: () => null,
+            setItem: () => {},
+            removeItem: () => {},
+          };
+        }),
       }
     ),
     {

@@ -13,6 +13,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
   const [type, setType] = useState<string>("line");
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1M");
   const [hasError, setHasError] = useState<boolean>(false);
+  const [chartHeight, setChartHeight] = useState<number>(185); // Default height
   
   // ✅ Zustand: Only subscribes to selectedCurrency
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
@@ -45,6 +46,20 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
       fetchChart();
     }
   }, [coinId, selectedCurrency, selectedPeriod]);
+
+  // Set chart height based on window size (client-side only)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const updateHeight = () => {
+        setChartHeight(window.innerWidth < 640 ? 150 : 185);
+      };
+      
+      updateHeight(); // Initial setting
+      window.addEventListener('resize', updateHeight);
+      
+      return () => window.removeEventListener('resize', updateHeight);
+    }
+  }, []);
 
   const randomHeight = () => {
     return Math.floor(Math.random() * (200 - 40 + 1)) + 40;
@@ -127,7 +142,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
             <ChartCard
               data={ChartData}
               type={type}
-              height={window.innerWidth < 640 ? 150 : 185}
+              height={chartHeight}
             />
           )}
         </div>

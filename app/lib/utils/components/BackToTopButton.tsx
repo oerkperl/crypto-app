@@ -6,25 +6,31 @@ export const BackToTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleScroll = () => {
-    const scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop;
+    if (typeof window !== 'undefined') {
+      const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
 
-    setIsVisible(scrollTop > 100);
+      setIsVisible(scrollTop > 100);
+    }
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    if (typeof window !== 'undefined') {
+      window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
   }, []);
 
   return (
