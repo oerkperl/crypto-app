@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { ProfileCard } from "./ProfileCard";
+//import { ProfileCard } from "./ProfileCard";
 import { MyAsset } from "./MyAsset";
 import { MyCoin } from "@/app/components/portfolio/MyCoin";
+import { ProfileCard } from "@/app/components/portfolio/ProfileCard";
 
 export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -35,7 +36,12 @@ export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
       <div className="flex flex-col sm:flex-row gap-0 sm:gap-4">
         <ProfileCard myCoin={myCoin} />
         <div className="w-full flex flex-col p-4 sm:py-4 sm:pr-4 sm:pl-0">
-          <MyAsset myCoin={myCoin} asset={asset} fetchAsset={fetchAsset} hasError={hasError} />
+          <MyAsset
+            myCoin={myCoin}
+            asset={asset}
+            fetchAsset={fetchAsset}
+            hasError={hasError}
+          />
           <MyCoin myCoin={myCoin} asset={asset} hasError={hasError} />
         </div>
       </div>
