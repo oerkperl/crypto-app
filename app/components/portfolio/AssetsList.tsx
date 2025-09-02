@@ -1,5 +1,5 @@
 import React from "react";
-import { usePortfolioStore } from "@/app/store/portfolioStore";
+import { usePortfolioStore } from "@/store/portfolioStore";
 import { AssetRow } from "./AssetRow";
 export const AssetsList = () => {
   const getAssets = usePortfolioStore((state) => state.getAssets);

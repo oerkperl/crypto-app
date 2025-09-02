@@ -9,23 +9,19 @@ const ThemeSwitcher: React.FC = () => {
 
   useEffect(() => {
     setMounted(true);
-    if (typeof window !== 'undefined') {
-      const storedTheme = localStorage.getItem("theme");
-      if (storedTheme) {
-        setTheme(storedTheme);
-      }
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      setTheme(storedTheme);
     }
-  }, [setTheme]);
+  }, []);
 
   if (!mounted) return null;
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem("theme", newTheme);
-      document.documentElement.setAttribute("data-theme", newTheme);
-    }
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
   };
 
   return (

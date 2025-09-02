@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useCurrencyStore, useChartStore, useUtilsStore } from "@/app/store";
+import { useCurrencyStore, useChartStore, useUtilsStore } from "@/store";
 import { getCoinById } from "../coinsList/coinsSlice";
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/store/store";
+import { RootState } from "@/store/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { ConverterCard } from "./ConverterCard";

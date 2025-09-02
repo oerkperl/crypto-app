@@ -1,4 +1,4 @@
-import { useUIStore } from "@/app/store/uiStore";
+import { useUIStore } from "@/store/uiStore";
 export const CoinSwitcher = () => {
   const options = ["Charts", "Converter"];
   const selectedOption = useUIStore((state) => state.selectedOption);

@@ -1,5 +1,5 @@
 import { formatDate, formatMoney } from "@/app/lib/utils/formatters";
-import { useCurrencyStore } from "@/app/store/currencyStore";
+import { useCurrencyStore } from "@/store/currencyStore";
 import { TrendLabel } from "../../TrendLable";
 import { SpinnerContainer } from "../../styled";
 export const ChartSummary: React.FC<{ coin: any }> = ({ coin }) => {

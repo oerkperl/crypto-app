@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { useUIStore } from "@/app/store/uiStore";
+import { useUIStore } from "@/store/uiStore";
 import Link from "next/link";
 
 export const ProfileCard: React.FC<{ myCoin: any }> = ({ myCoin }) => {

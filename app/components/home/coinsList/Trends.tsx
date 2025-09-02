@@ -1,7 +1,7 @@
 import React from "react";
 import { formatMoney } from "@/app/lib/utils/formatters";
 import { ProgressBar } from "@/app/lib/utils/components/ProgressBar";
-import { useCurrencyStore } from "@/app/store/currencyStore";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 export const Trends: React.FC<{
   firstVal: number;

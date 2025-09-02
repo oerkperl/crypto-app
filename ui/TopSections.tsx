@@ -1,9 +1,9 @@
 "use client";
 import { useEffect } from "react";
-import { Navabr } from "../components/home/navigation/Navbar";
-import { MarketData } from "../components/home/navigation/MarketData";
-import { FetchCoins } from "../components/home/coinsList/FeatchCoins";
-import { useChartStore, useCurrencyStore } from "@/app/store";
+import { Navabr } from "../app/components/home/navigation/Navbar";
+import { MarketData } from "../app/components/home/navigation/MarketData";
+import { FetchCoins } from "../app/components/home/coinsList/FeatchCoins";
+import { useChartStore, useCurrencyStore } from "@/store";
 
 export const TopSection = () => {
   // ✅ Zustand: Selective subscriptions to only needed state

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { useCurrencyStore, useUIStore } from "@/app/store";
+import { useCurrencyStore, useUIStore } from "@/store";
 import { Sparkline } from "./Sparkline";
 import { Trends } from "./Trends";
 import { TrendLabel } from "../../TrendLable";

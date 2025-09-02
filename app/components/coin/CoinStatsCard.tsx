@@ -1,5 +1,5 @@
 import React from "react";
-import { useCurrencyStore } from "@/app/store";
+import { useCurrencyStore } from "@/store";
 import { formatMoney } from "@/app/lib/utils/formatters";
 import { StatRow } from "./StatRow";
 

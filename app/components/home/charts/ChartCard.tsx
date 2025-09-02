@@ -1,5 +1,5 @@
 import { Graph } from "./Graph";
-import { useCurrencyStore } from "@/app/store/currencyStore";
+import { useCurrencyStore } from "@/store/currencyStore";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 
 export const ChartCard: React.FC<{

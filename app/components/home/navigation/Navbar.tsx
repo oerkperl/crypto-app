@@ -19,13 +19,9 @@ export const Navabr = () => {
           <PageSwitcher name="Portfolio" icon={portfolio} path={"/portfolio"} />
         </div>
 
-        {/* Center: Search - flexible width */}
-        <div className="flex-1 min-w-0 mx-1 sm:mx-2">
-          <Search />
-        </div>
-
         {/* Right: Controls */}
-        <div className="flex gap-1 sm:gap-2 flex-shrink-0">
+        <div className="flex gap-2 flex-shrink-0">
+          <Search />
           <CurrencyDropdown />
           <ThemeSwitcher />
         </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useCurrencyStore } from "@/app/store/currencyStore";
+import { useCurrencyStore } from "@/store/currencyStore";
 import { TrendLabel } from "../TrendLable";
 
 export const DetailsCard: React.FC<{ details: any }> = ({ details }) => {

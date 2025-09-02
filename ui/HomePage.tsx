@@ -1,9 +1,9 @@
 "use client";
-import { Dashboard } from "../components/home/charts/Dashboard";
-import { CoinsList } from "../components/home/coinsList/CoinsList";
-import { BackToTopButton } from "../lib/utils/components/BackToTopButton";
+import { Dashboard } from "../app/components/home/charts/Dashboard";
+import { CoinsList } from "../app/components/home/coinsList/CoinsList";
+import { BackToTopButton } from "../app/lib/utils/components/BackToTopButton";
 import { useUIStore } from "../store";
-import { Modal } from "../components/Modal";
+import { Modal } from "../app/components/Modal";
 import { Coin } from "./Coin";
 
 export const HomePage = () => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useChartStore } from "@/app/store/chartStore";
+import { useChartStore } from "@/store/chartStore";
 import { SpinnerContainer } from "../../styled";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { SingleCoin } from "../../SingleCoin";

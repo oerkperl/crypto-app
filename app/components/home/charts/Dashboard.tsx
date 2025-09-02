@@ -1,8 +1,8 @@
 import React from "react";
-import { useChartStore, useCurrencyStore, useUIStore } from "@/app/store";
+import { useChartStore, useCurrencyStore, useUIStore } from "@/store";
 import { useSelector } from "react-redux";
 import { getCoinById, getCoins } from "../coinsList/coinsSlice";
-import { RootState } from "@/app/store/store";
+import { RootState } from "@/store/store";
 import { removeDuplicates, formatMoney } from "@/app/lib/utils/formatters";
 import { HorizontalCoinSelector } from "./HorizontalCoinSelector";
 import { ChartConverter } from "../../shared/ChartConverter";

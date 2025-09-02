@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { TrendLabel } from "./TrendLable";
-import { useCurrencyStore } from "@/app/store";
+import { useCurrencyStore } from "@/store";
 import { Sparkline } from "./home/coinsList/Sparkline";
 
 export const SingleCoin: React.FC<{ coin: any }> = ({ coin }) => {
   // ✅ Zustand: Only subscribes to selectedCurrency
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
-  
+
   return (
     <>
       <div className=" w-1/6 flex items-center justify-center ml-1 rounded-md bg-gray-300 dark:bg-input-bg">

@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpRightAndDownLeftFromCenter } from "@fortawesome/free-solid-svg-icons";
-import { useUIStore } from "@/app/store";
+import { useUIStore } from "@/store";
 import { usePathname } from "next/navigation";
 import { Search } from "./home/navigation/Search";
 

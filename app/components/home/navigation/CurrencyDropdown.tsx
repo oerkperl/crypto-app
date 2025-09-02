@@ -1,4 +1,4 @@
-import { useCurrencyStore } from "@/app/store";
+import { useCurrencyStore } from "@/store";
 import { useAppDispatch } from "@/app/lib/hooks";
 import { reset } from "../coinsList/coinsSlice";
 
@@ -6,8 +6,10 @@ export const CurrencyDropdown = () => {
   // ✅ Zustand: Only subscribes to currency-related state
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const currencies = useCurrencyStore((state) => state.currencies);
-  const setSelectedCurrency = useCurrencyStore((state) => state.setSelectedCurrency);
-  
+  const setSelectedCurrency = useCurrencyStore(
+    (state) => state.setSelectedCurrency
+  );
+
   const dispatch = useAppDispatch();
 
   const handleCurrencyChange = (

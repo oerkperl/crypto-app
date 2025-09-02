@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { useUIStore, usePortfolioStore, useUtilsStore } from "@/app/store";
+import { useUIStore, usePortfolioStore, useUtilsStore } from "@/store";
 import { getCurrentDate } from "@/app/lib/utils/formatters";
-import { TAsset } from "@/app/store";
+import { TAsset } from "@/store";
 import { SelectCoin } from "./SelectCoin";
 
 interface ModalProps {

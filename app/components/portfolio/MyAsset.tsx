@@ -5,7 +5,7 @@ import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { TrendLabel } from "../TrendLable";
-import { usePortfolioStore } from "@/app/store/portfolioStore";
+import { usePortfolioStore } from "@/store/portfolioStore";
 
 export const MyAsset: React.FC<{
   asset: any;

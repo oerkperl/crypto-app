@@ -1,9 +1,9 @@
 import "./globals.css";
-import StoreProvider from "./store/provider";
+import StoreProvider from "../store/provider";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { TopSection } from "./ui/TopSections";
-import { TheThemeProvider } from "./ui/TheThemProvider";
+import { TopSection } from "../ui/TopSections";
+import { TheThemeProvider } from "../ui/TheThemProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 

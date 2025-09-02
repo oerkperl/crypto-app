@@ -3,7 +3,7 @@ import Link from "next/link";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import { SpinnerContainer } from "../../styled";
-import { useUIStore, useUtilsStore } from "@/app/store";
+import { useUIStore, useUtilsStore } from "@/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,7 +13,7 @@ export const Search = () => {
   const [notification, setNotification] = useState<string>("");
   const [canVisit, setCanVisit] = useState<boolean>(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState<boolean>(false);
-  
+
   // ✅ Zustand: Selective subscriptions to only needed state
   const viewingCoinId = useUIStore((state) => state.viewingCoinId);
   const setViewingCoinId = useUIStore((state) => state.setViewingCoinId);
@@ -21,7 +21,7 @@ export const Search = () => {
   const query = useUIStore((state) => state.query);
   const setQuery = useUIStore((state) => state.setQuery);
   const setErrorMessage = useUtilsStore((state) => state.setErrorMessage);
-  
+
   const activePath = usePathname();
   let timeout: any | null = null;
 

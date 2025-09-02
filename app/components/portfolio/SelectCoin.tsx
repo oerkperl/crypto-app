@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { SpinnerContainer } from "../styled";
-import { useUIStore } from "@/app/store/uiStore";
-import { useUtilsStore } from "@/app/store/utilsStore";
+import { useUIStore } from "@/store/uiStore";
+import { useUtilsStore } from "@/store/utilsStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons/faRotateRight";

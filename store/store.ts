@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import coinsReducer from "@/app/components/home/coinsList/coinsSlice";
-import chartsReducer from "../components/home/charts/chartsSlice";
+import chartsReducer from "../app/components/home/charts/chartsSlice";
 export const store = configureStore({
   reducer: {
     coins: coinsReducer,

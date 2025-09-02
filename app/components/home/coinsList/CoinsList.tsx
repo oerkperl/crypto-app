@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { fetchCryptoData, getCoins, getStatus, getPage } from "./coinsSlice";
 import { useAppDispatch } from "@/app/lib/hooks";
 import { CoinRow } from "./CoinRow";
-import { useCurrencyStore } from "@/app/store";
+import { useCurrencyStore } from "@/store";
 import { removeDuplicates } from "@/app/lib/utils/formatters";
 const CoinsTableHead = () => {
   return (

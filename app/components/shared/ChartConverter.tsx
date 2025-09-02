@@ -18,7 +18,7 @@ export const ChartConverter: React.FC<ChartConverterProps> = ({
   showConverter = true,
 }) => {
   return (
-    <div className="w-full flex flex-col lg:flex-row gap-2 mt-2 min-h-16">
+    <div className="w-full flex flex-col lg:flex-row gap-2 mt- min-h-16">
       <div className="w-full lg:w-3/5 bg-white dark:bg-accent-bg shadow-md rounded">
         {coinId && <PriceChart coinId={coinId} />}
       </div>

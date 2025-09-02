@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { ChartCard } from "./ChartCard";
 import { TChartLables } from "@/app/lib/types";
-import { useChartStore } from "@/app/store/chartStore";
-import { useCurrencyStore } from "@/app/store/currencyStore";
+import { useChartStore } from "@/store/chartStore";
+import { useCurrencyStore } from "@/store/currencyStore";
 import { getCurrentDate } from "@/app/lib/utils/formatters";
 import { TimePeriodButtons } from "./TimePeriods";
 import { useSelector } from "react-redux";
 import { getCoinById } from "../coinsList/coinsSlice";
-import { RootState } from "@/app/store/store";
+import { RootState } from "@/store/store";
 import { formatMoney } from "@/app/lib/utils/formatters";
 import { LoadingChart } from "./LoadingChart";
 

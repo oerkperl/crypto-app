@@ -4,7 +4,7 @@ import {
   PayloadAction,
   createAction,
 } from "@reduxjs/toolkit";
-import { RootState } from "@/app/store/store";
+import { RootState } from "@/store/store";
 
 interface CryptoData {
   id: string;

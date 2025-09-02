@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { LinksList } from "../components/coin/LinksList";
-import { LoadinSingleCoin } from "../components/coin/LoadinSingleCoin";
-import { CoinProfileCard } from "../components/coin/CoinProfileCard";
-import { CoinPriceCard } from "../components/coin/CoinPriceCard";
-import { CoinStatsCard } from "../components/coin/CoinStatsCard";
+import { LinksList } from "../app/components/coin/LinksList";
+import { LoadinSingleCoin } from "../app/components/coin/LoadinSingleCoin";
+import { CoinProfileCard } from "../app/components/coin/CoinProfileCard";
+import { CoinPriceCard } from "../app/components/coin/CoinPriceCard";
+import { CoinStatsCard } from "../app/components/coin/CoinStatsCard";
 import { useCurrencyStore, useUIStore } from "../store";
-import { PriceChart } from "../components/coin/PriceChart";
-import { OtherCoins } from "../components/portfolio/OtherCoins";
-import { TrendLabel } from "../components/TrendLable";
-import { Sparkline } from "../components/home/coinsList/Sparkline";
-import { ChartConverter } from "../components/shared/ChartConverter";
+import { PriceChart } from "../app/components/coin/PriceChart";
+import { OtherCoins } from "../app/components/portfolio/OtherCoins";
+import { TrendLabel } from "../app/components/TrendLable";
+import { Sparkline } from "../app/components/home/coinsList/Sparkline";
+import { ChartConverter } from "../app/components/shared/ChartConverter";
 
 export const Coin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coin, setCoin] = useState<any>({});
-  
+
   // ✅ Zustand: Selective subscriptions to only needed state
   const viewingCoinId = useUIStore((state) => state.viewingCoinId);
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const setCanVisit = useUIStore((state) => state.setCanVisit);
   const setQuery = useUIStore((state) => state.setQuery);
-  
+
   const hasId = !!viewingCoinId;
   const url = `https://api.coingecko.com/api/v3/coins/${viewingCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
   const baseCoin = {

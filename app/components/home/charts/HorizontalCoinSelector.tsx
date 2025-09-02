@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { useChartStore } from "@/app/store";
+import { useChartStore } from "@/store";
 import { SingleCoin } from "../../SingleCoin";
 import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

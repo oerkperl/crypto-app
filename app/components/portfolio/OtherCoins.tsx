@@ -3,8 +3,8 @@ import { removeDuplicates } from "@/app/lib/utils/formatters";
 import { useSelector } from "react-redux";
 import { getCoins } from "../home/coinsList/coinsSlice";
 import { SingleCoin } from "../SingleCoin";
-import { useUIStore } from "@/app/store/uiStore";
-import { useChartStore } from "@/app/store/chartStore";
+import { useUIStore } from "@/store/uiStore";
+import { useChartStore } from "@/store/chartStore";
 
 export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
   switchCart,

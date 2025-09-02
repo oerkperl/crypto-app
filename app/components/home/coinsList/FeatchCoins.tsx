@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { fetchCryptoData, getPage } from "./coinsSlice";
 import { useAppDispatch } from "@/app/lib/hooks";
-import { useCurrencyStore } from "@/app/store/currencyStore";
+import { useCurrencyStore } from "@/store/currencyStore";
 
 export const FetchCoins = () => {
   const dispatch = useAppDispatch();

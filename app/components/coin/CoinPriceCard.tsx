@@ -1,5 +1,5 @@
 import React from "react";
-import { useCurrencyStore } from "@/app/store";
+import { useCurrencyStore } from "@/store";
 import { formatDate } from "@/app/lib/utils/formatters";
 import { DetailsCard } from "./DetailsCard";
 import { TrendLabel } from "../TrendLable";

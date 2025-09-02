@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@/app/store/store";
+import { RootState } from "@/store/store";
 
 interface ChartState {
   data: {};
