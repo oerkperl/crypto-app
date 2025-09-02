@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-//import { ProfileCard } from "./ProfileCard";
+import { ProfileCard } from "./ProfileCard";
 import { MyAsset } from "./MyAsset";
-import { MyCoin } from "@/app/components/portfolio/MyCoin";
-import { ProfileCard } from "@/app/components/portfolio/ProfileCard";
+import { MyCoin } from "./MyCoin";
 
 export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -32,16 +31,20 @@ export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-4 hover:shadow-md transition-all duration-200">
-      <div className="flex flex-col sm:flex-row gap-0 sm:gap-4">
+    <div className="bg-white dark:bg-accent-bg rounded shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden">
+      <div className="p-4 border-">
         <ProfileCard myCoin={myCoin} />
-        <div className="w-full flex flex-col p-4 sm:py-4 sm:pr-4 sm:pl-0">
+      </div>
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex-1   lg:border-b-0 border-b">
           <MyAsset
             myCoin={myCoin}
             asset={asset}
             fetchAsset={fetchAsset}
             hasError={hasError}
           />
+        </div>
+        <div className="flex-1">
           <MyCoin myCoin={myCoin} asset={asset} hasError={hasError} />
         </div>
       </div>

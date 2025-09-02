@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { getNumberOfDays } from '@/app/lib/utils/formatters';
+import { getNumberOfDays } from '@/lib/utils/formatters';
 
 interface ChartData {
   prices: any[];

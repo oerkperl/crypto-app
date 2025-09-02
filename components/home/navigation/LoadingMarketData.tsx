@@ -1,0 +1,40 @@
+import React from "react";
+import { Wrapper, Item } from "../styled";
+import { BlinkingGradientLoader } from "@/lib/utils/components/BlinkingLoader";
+
+export const LoadingMarketData: React.FC<{ fetchMarketData: () => void }> = ({
+  fetchMarketData,
+}) => {
+  return (
+    <div className="py-2">
+      <Wrapper className="flex justify-between text-center">
+        <Item>
+          <BlinkingGradientLoader width="100px" />
+        </Item>
+        <Item>
+          <BlinkingGradientLoader width="70px" />
+        </Item>
+        <Item className="flex items-center">
+          <BlinkingGradientLoader width="100px" />
+        </Item>
+        <Item className="flex items-center">
+          <BlinkingGradientLoader width="130px" />
+        </Item>
+        <Item className="flex items-center">
+          <BlinkingGradientLoader width="120px" />
+        </Item>
+        <Item>
+          <button
+            className="hover:text-indigo-500"
+            onClick={() => {
+              fetchMarketData();
+            }}
+          >
+            Reload
+          </button>
+        </Item>
+      </Wrapper>
+      <hr />
+    </div>
+  );
+};
