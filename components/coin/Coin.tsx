@@ -16,6 +16,8 @@ import { LoadingSpinner } from "@/lib/utils/components/Spinner";
 
 export const Coin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [hasError, setHasError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [coin, setCoin] = useState<any>({});
   const searchParams = useSearchParams();
 
@@ -39,10 +41,11 @@ export const Coin = () => {
   };
   const fetchCoin = async () => {
     try {
+      setHasError(false);
+      setErrorMessage("");
       const { data } = await axios(url);
       if (data) {
         setCoin(data);
-        setIsLoading(false);
         setQuery("");
         // Update store state to keep it in sync
         if (urlCoinId) {
@@ -50,8 +53,28 @@ export const Coin = () => {
         }
       }
       setCanVisit(false);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to fetch coin data:", err);
+      setHasError(true);
+
+      // Set appropriate error message based on error type
+      if (err.response?.status === 429) {
+        setErrorMessage(
+          "Rate limit exceeded. Please wait a moment and try again."
+        );
+      } else if (err.response?.status === 404) {
+        setErrorMessage(
+          "Coin not found. Please check the coin ID and try again."
+        );
+      } else if (err.code === "NETWORK_ERROR" || !navigator.onLine) {
+        setErrorMessage(
+          "Network error. Please check your connection and try again."
+        );
+      } else {
+        setErrorMessage("Failed to load coin data. Please try again later.");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,7 +92,41 @@ export const Coin = () => {
           <LoadingSpinner message="Loading coin data..." size="lg" />
         </div>
       )}
-      {!isLoading && (
+
+      {hasError && !isLoading && (
+        <div className="min-h-[50vh] flex items-center justify-center">
+          <div className="text-center px-4 py-8 bg-white dark:bg-accent-bg rounded-lg shadow-md max-w-md">
+            <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">⚠️</span>
+            </div>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              Failed to Load Coin Data
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
+              {errorMessage}
+            </p>
+            <div className="space-y-3">
+              <button
+                className="w-full bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition-colors font-medium"
+                onClick={() => {
+                  setIsLoading(true);
+                  fetchCoin();
+                }}
+              >
+                Try Again
+              </button>
+              <button
+                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                onClick={() => window.history.back()}
+              >
+                Go Back
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!isLoading && !hasError && (
         <section>
           <h1 className="text-lg sm:text-xl mt-1 px-4 py-2 rounded bg-white dark:bg-accent-bg">
             {coin?.name} Summary:

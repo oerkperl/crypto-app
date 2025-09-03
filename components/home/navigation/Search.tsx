@@ -18,8 +18,6 @@ export const Search = () => {
   // ✅ Zustand: Selective subscriptions to only needed state
   const viewingCoinId = useUIStore((state) => state.viewingCoinId);
   const setViewingCoinId = useUIStore((state) => state.setViewingCoinId);
-  const viewCoin = useUIStore((state) => state.viewCoin);
-  const isOpen = useUIStore((state) => state.isOpen);
   const query = useUIStore((state) => state.query);
   const setQuery = useUIStore((state) => state.setQuery);
   const setErrorMessage = useUtilsStore((state) => state.setErrorMessage);

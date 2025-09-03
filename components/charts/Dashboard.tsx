@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import { useChartStore, useCurrencyStore, useUIStore, useCoinsStore } from "@/store";
 import { ChartConverter } from "../shared/ChartConverter";
 import { TrendLabel } from "../TrendLable";
@@ -7,10 +8,11 @@ import { removeDuplicates, formatMoney } from "@/lib/utils/formatters";
 import { HorizontalCoinSelector } from "../home/charts/HorizontalCoinSelector";
 
 export const Dashboard: React.FC = () => {
+  const router = useRouter();
+  
   // ✅ Zustand: Selective subscriptions to specific stores
   const currentChart = useChartStore((state) => state.currentChart);
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
-  const viewCoin = useUIStore((state) => state.viewCoin);
   
   // Use Zustand stores instead of Redux
   const allCoins = useCoinsStore((state) => state.coins);
@@ -28,6 +30,10 @@ export const Dashboard: React.FC = () => {
     currentChart && Object.keys(currentChart).length > 0
       ? currentChart
       : baseCoin || bitcoin;
+
+  const handleViewDetails = (coinId: string) => {
+    router.push(`/coin?id=${coinId}`);
+  };
 
   return (
     <section className="">
@@ -90,7 +96,7 @@ export const Dashboard: React.FC = () => {
               <button
                 className="border border-gray-300 shadow-md dark:border-indigo-500 px-6 py-2 rounded hover:bg-indigo-600 
                   bg-white dark:bg-transparent hover:text-white transition-colors min-h-[44px] text-sm font-medium"
-                onClick={() => viewCoin(activeCoin?.id)}
+                onClick={() => handleViewDetails(activeCoin?.id)}
               >
                 View {activeCoin?.name} Details
               </button>
