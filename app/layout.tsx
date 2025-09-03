@@ -1,5 +1,4 @@
 import "./globals.css";
-import StoreProvider from "../store/provider";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { TopSection } from "../components/nav/TopSections";
@@ -8,7 +7,7 @@ import { TheThemeProvider } from "../providers/TheThemProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Crypto App - Real-time Cryptocurrency Tracker",
+  title: "Coinage - Real-time Cryptocurrency Tracker",
   description:
     "Track cryptocurrency prices, manage your portfolio, and stay updated with market trends in real-time.",
 };
@@ -39,10 +38,8 @@ export default function RootLayout({
         className={`bg-gray-100 dark:bg-gray-950 relative dark:text-gray-400 ${inter.className}`}
       >
         <TheThemeProvider>
-          <StoreProvider>
-            <TopSection />
-            {children}
-          </StoreProvider>
+          <TopSection />
+          {children}
         </TheThemeProvider>
       </body>
     </html>

@@ -1,13 +1,8 @@
 import React from "react";
 import { SpinnerContainer } from "../../styled";
 import { LoadingCoin } from "./LoadingCoin";
-import { useSelector } from "react-redux";
-import { fetchCryptoData, getCoins, getStatus, getPage } from "./coinsSlice";
-
 import { CoinRow } from "./CoinRow";
-import { useCurrencyStore } from "@/store";
-import { useAppDispatch } from "@/lib/hooks";
-import { removeDuplicates } from "@/lib/utils/formatters";
+import { useCurrencyStore, useCoinsStore } from "@/store";
 
 const CoinsTableHead = () => {
   return (
@@ -38,16 +33,25 @@ const CoinsTableHead = () => {
 };
 
 export const CoinsList = () => {
-  const dispatch = useAppDispatch();
-  let coins = removeDuplicates(useSelector(getCoins), "id");
-  const coinsStatus = useSelector(getStatus);
+  // ✅ Zustand: Use coins store instead of Redux
+  const coins = useCoinsStore((state) => state.coins);
+  const coinsStatus = useCoinsStore((state) => state.status);
+  const page = useCoinsStore((state) => state.page);
+  const fetchCoins = useCoinsStore((state) => state.fetchCoins);
+  const incrementPage = useCoinsStore((state) => state.incrementPage);
+
   // ✅ Zustand: Only subscribes to selectedCurrency
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
-  const page = useSelector(getPage);
+
   const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency.name.toString()}&order=market_cap_desc&per_page=250&page=${page.toString()}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`;
-  const handleLoadMore = () => {
+
+  const handleLoadMore = async () => {
     if (coinsStatus === "idle") {
-      dispatch(fetchCryptoData(apiUrl));
+      incrementPage();
+      const nextPageUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency.name.toString()}&order=market_cap_desc&per_page=250&page=${
+        page + 1
+      }&sparkline=true&price_change_percentage=1h%2C24h%2C7d`;
+      await fetchCoins(nextPageUrl);
     }
   };
 
@@ -91,7 +95,7 @@ export const CoinsList = () => {
             </p>
             <button
               className="border border-solid border-gray-500 px-6 py-3 sm:px-4 sm:py-2 mt-2 mb-2 rounded-md hover:bg-indigo-600 hover:text-white transition-colors min-h-[44px] sm:min-h-auto"
-              onClick={() => dispatch(fetchCryptoData(apiUrl))}
+              onClick={() => fetchCoins(apiUrl)}
             >
               Try again
             </button>

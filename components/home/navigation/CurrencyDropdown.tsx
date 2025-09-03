@@ -1,7 +1,4 @@
-import { useCurrencyStore } from "@/store";
-//import { useAppDispatch } from "@/app/lib/hooks";
-import { reset } from "../coinsList/coinsSlice";
-import { useAppDispatch } from "@/lib/hooks";
+import { useCurrencyStore, useCoinsStore } from "@/store";
 
 export const CurrencyDropdown = () => {
   // ✅ Zustand: Only subscribes to currency-related state
@@ -11,7 +8,10 @@ export const CurrencyDropdown = () => {
     (state) => state.setSelectedCurrency
   );
 
-  const dispatch = useAppDispatch();
+  // Use Zustand store reset instead of Redux
+  const setCoins = useCoinsStore((state) => state.setCoins);
+  const setPage = useCoinsStore((state) => state.setPage);
+  const setStatus = useCoinsStore((state) => state.setStatus);
 
   const handleCurrencyChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -22,7 +22,10 @@ export const CurrencyDropdown = () => {
     if (selectedCurrencyObject) {
       setSelectedCurrency(selectedCurrencyObject);
     }
-    dispatch(reset());
+    // Reset coins when currency changes
+    setCoins([]);
+    setPage(1);
+    setStatus("idle");
   };
 
   return (

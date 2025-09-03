@@ -3,9 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 
 import { useCurrencyStore } from "@/store/currencyStore";
-import { getCoinById } from "../coinsList/coinsSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useCoinsStore } from "@/store";
 
 import { LoadingMarketData } from "./LoadingMarketData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,12 +18,11 @@ export const MarketData = () => {
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const currencyName = selectedCurrency?.name;
   const { data } = marketData;
-  const bitcoin = useSelector((state: RootState) =>
-    getCoinById(state, "bitcoin")
-  );
-  const ethereum = useSelector((state: RootState) =>
-    getCoinById(state, "ethereum")
-  );
+
+  // Use Zustand store instead of Redux
+  const getCoinById = useCoinsStore((state) => state.getCoinById);
+  const bitcoin = getCoinById("bitcoin");
+  const ethereum = getCoinById("ethereum");
   const eth_mc_percentage = Math.round(data?.market_cap_percentage["eth"]);
   const btc_mc_percentage = Math.round(data?.market_cap_percentage["btc"]);
 

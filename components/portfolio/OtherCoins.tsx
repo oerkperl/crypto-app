@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { getCoins } from "../home/coinsList/coinsSlice";
+import { useCoinsStore } from "@/store";
 import { SingleCoin } from "../SingleCoin";
 import { useUIStore } from "@/store/uiStore";
 import { useChartStore } from "@/store/chartStore";
@@ -17,7 +16,10 @@ export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const allCoins = removeDuplicates(useSelector(getCoins), "id");
+
+  // Use Zustand store instead of Redux
+  const allCoins = useCoinsStore((state) => state.coins);
+
   const setViewingCoinId = useUIStore((state) => state.setViewingCoinId);
   const setCurrentChart = useChartStore((state) => state.setCurrentChart);
   const [autoScrol, setAutoScrol] = useState<boolean>(true);

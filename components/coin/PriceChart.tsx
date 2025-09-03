@@ -5,6 +5,7 @@ import { getNumberOfDays } from "@/lib/utils/formatters";
 import { TimePeriodButtons } from "../home/charts/TimePeriods";
 import { ChartCard } from "../home/charts/ChartCard";
 import { BlinkingGradientLoader } from "@/lib/utils/components/BlinkingLoader";
+import { LoadingSpinner } from "@/lib/utils/components/Spinner";
 
 export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
   const [data, setData] = useState<any>(null);
@@ -13,6 +14,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
   const [type, setType] = useState<string>("line");
   const [selectedPeriod, setSelectedPeriod] = useState<string>("1M");
   const [hasError, setHasError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chartHeight, setChartHeight] = useState<number>(185); // Default height
 
   // ✅ Zustand: Only subscribes to selectedCurrency
@@ -28,6 +30,8 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
   const chartUrl = `${baseUrl}${params}`;
 
   const fetchChart = async () => {
+    setIsLoading(true);
+    setHasError(false);
     try {
       const { data } = await axios(chartUrl);
       if (data) {
@@ -39,6 +43,8 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
       }
     } catch (error) {
       setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -121,7 +127,12 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
         </div>
 
         <div className="">
-          {hasError && (
+          {isLoading && (
+            <div className="h-32 sm:h-48 flex items-center justify-center">
+              <LoadingSpinner message="Loading chart data..." size="md" />
+            </div>
+          )}
+          {hasError && !isLoading && (
             <div className="mt-2 flex w-full pt-2 overflow-hidden h-32 sm:h-48">
               {Array.from({ length: 50 }).map((_, index) => (
                 <div
@@ -138,7 +149,7 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
               ))}
             </div>
           )}
-          {!hasError && (
+          {!hasError && !isLoading && ChartData && (
             <ChartCard data={ChartData} type={type} height={chartHeight} />
           )}
         </div>

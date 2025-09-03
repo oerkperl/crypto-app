@@ -2,13 +2,10 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { TChartLables } from "@/lib/types";
 import { getCurrentDate, formatMoney } from "@/lib/utils/formatters";
-import { useChartStore, useCurrencyStore } from "@/store";
-import { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
+import { useChartStore, useCurrencyStore, useCoinsStore } from "@/store";
 import { ChartCard } from "../home/charts/ChartCard";
 import { LoadingChart } from "../home/charts/LoadingChart";
 import { TimePeriodButtons } from "../home/charts/TimePeriods";
-import { getCoinById } from "../home/coinsList/coinsSlice";
 
 export const Charts: React.FC = () => {
   const currentChart = useChartStore((state) => state.currentChart);
@@ -22,13 +19,13 @@ export const Charts: React.FC = () => {
   const getCurrentStatus = useChartStore((state) => state.getCurrentStatus);
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
 
+  // Use Zustand store instead of Redux
+  const getCoinById = useCoinsStore((state) => state.getCoinById);
+  const bitcoin = getCoinById("bitcoin");
+
   const chartUrl = getChartUrl(selectedCurrency.name);
   const chartData = getCurrentChartData(chartUrl);
   const chartStatus = getCurrentStatus(chartUrl);
-
-  const bitcoin = useSelector((state: RootState) =>
-    getCoinById(state, "bitcoin")
-  );
 
   const priceData = chartData?.prices || [];
   const volumeData = chartData?.total_volumes || [];
@@ -39,7 +36,7 @@ export const Charts: React.FC = () => {
     if (chartStatus === "idle") {
       fetchChartData(chartUrl);
     }
-  }, [chartUrl, chartStatus, fetchChartData]);
+  }, [chartUrl, chartStatus]);
 
   const priceLabels: TChartLables = {
     title: "Price",

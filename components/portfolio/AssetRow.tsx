@@ -3,6 +3,7 @@ import { ProfileCard } from "./ProfileCard";
 import { MyAsset } from "./MyAsset";
 import { MyCoin } from "./MyCoin";
 import { apiHelpers } from "@/lib/api/coingecko";
+import { LoadingSpinner } from "@/lib/utils/components/Spinner";
 
 export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -34,22 +35,30 @@ export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
 
   return (
     <div className="bg-white dark:bg-accent-bg rounded shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden">
-      <div className="p-4 border-">
-        <ProfileCard myCoin={myCoin} />
-      </div>
-      <div className="flex flex-col lg:flex-row">
-        <div className="flex-1   lg:border-b-0 border-b">
-          <MyAsset
-            myCoin={myCoin}
-            asset={asset}
-            fetchAsset={fetchAsset}
-            hasError={hasError}
-          />
+      {isLoading ? (
+        <div className="p-8">
+          <LoadingSpinner message="Loading asset data..." size="md" />
         </div>
-        <div className="flex-1">
-          <MyCoin myCoin={myCoin} asset={asset} hasError={hasError} />
-        </div>
-      </div>
+      ) : (
+        <>
+          <div className="p-4 border-">
+            <ProfileCard myCoin={myCoin} />
+          </div>
+          <div className="flex flex-col lg:flex-row">
+            <div className="flex-1   lg:border-b-0 border-b">
+              <MyAsset
+                myCoin={myCoin}
+                asset={asset}
+                fetchAsset={fetchAsset}
+                hasError={hasError}
+              />
+            </div>
+            <div className="flex-1">
+              <MyCoin myCoin={myCoin} asset={asset} hasError={hasError} />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

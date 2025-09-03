@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useCurrencyStore, useChartStore, useUtilsStore } from "@/store";
-import { getCoinById } from "../coinsList/coinsSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useCurrencyStore, useChartStore, useUtilsStore, useCoinsStore } from "@/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { ConverterCard } from "./ConverterCard";
@@ -15,10 +12,10 @@ export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const currentChart = useChartStore((state) => state.currentChart);
   const setErrorMessage = useUtilsStore((state) => state.setErrorMessage);
-
-  const bitcoin = useSelector((state: RootState) =>
-    getCoinById(state, "bitcoin")
-  );
+  
+  // Use Zustand store instead of Redux
+  const getCoinById = useCoinsStore((state) => state.getCoinById);
+  const bitcoin = getCoinById("bitcoin");
   const hasData = bitcoin || baseCoin;
   const [amount1, setAmount1] = useState<number>(0);
   const [amount2, setAmount2] = useState<number>(0);
@@ -53,7 +50,7 @@ export const Converter: React.FC<{ baseCoin: any; height?: string }> = ({
   ${currency2?.toLocaleUpperCase()}`;
 
   const currencyToCoin = `1 ${selectedCurrency.name.toLocaleUpperCase()}
-  = ${(1 / baseCoin?.current_price || 1 / bitcoin?.current_price).toFixed(7)}
+  = ${(1 / (baseCoin?.current_price || bitcoin?.current_price || 1)).toFixed(7)}
    ${baseCoin?.name || bitcoin?.name}`;
 
   const initialze = (coin: any) => {

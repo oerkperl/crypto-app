@@ -1,10 +1,5 @@
 import React from "react";
-import { useChartStore, useCurrencyStore, useUIStore } from "@/store";
-import { useSelector } from "react-redux";
-import { getCoinById, getCoins } from "../home/coinsList/coinsSlice";
-import { RootState } from "@/store/store";
-//import { removeDuplicates, formatMoney } from "@/app/lib/utils/formatters";
-//import { HorizontalCoinSelector } from "./HorizontalCoinSelector";
+import { useChartStore, useCurrencyStore, useUIStore, useCoinsStore } from "@/store";
 import { ChartConverter } from "../shared/ChartConverter";
 import { TrendLabel } from "../TrendLable";
 import { StatRow } from "../coin/StatRow";
@@ -16,14 +11,13 @@ export const Dashboard: React.FC = () => {
   const currentChart = useChartStore((state) => state.currentChart);
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const viewCoin = useUIStore((state) => state.viewCoin);
-
-  let baseCoin = useSelector((state: RootState) =>
-    getCoinById(state, currentChart.id)
-  );
-  const bitcoin = useSelector((state: RootState) =>
-    getCoinById(state, "bitcoin")
-  );
-  const allCoins = removeDuplicates(useSelector(getCoins), "id");
+  
+  // Use Zustand stores instead of Redux
+  const allCoins = useCoinsStore((state) => state.coins);
+  const getCoinById = useCoinsStore((state) => state.getCoinById);
+  
+  const baseCoin = getCoinById(currentChart.id);
+  const bitcoin = getCoinById("bitcoin");
   const coinExist = Object.keys(currentChart).length > 0;
   const activeCoin = coinExist ? currentChart : bitcoin;
 

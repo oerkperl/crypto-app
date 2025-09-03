@@ -12,6 +12,7 @@ import { OtherCoins } from "../portfolio/OtherCoins";
 import { TrendLabel } from "../TrendLable";
 import { Sparkline } from "../home/coinsList/Sparkline";
 import { ChartConverter } from "../shared/ChartConverter";
+import { LoadingSpinner } from "@/lib/utils/components/Spinner";
 
 export const Coin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -64,8 +65,8 @@ export const Coin = () => {
   return (
     <main className="w-full max-w-full sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px] mx-auto px-2 sm:px-4 lg:px-6">
       {isLoading && (
-        <div>
-          <LoadinSingleCoin reload={fetchCoin} />
+        <div className="min-h-[50vh] flex items-center justify-center">
+          <LoadingSpinner message="Loading coin data..." size="lg" />
         </div>
       )}
       {!isLoading && (
@@ -117,7 +118,11 @@ export const Coin = () => {
                     </div>
                   </div>
                   <div className="w-full h-12">
-                    {coin?.market_data?.sparkline_7d?.price && (
+                    {isLoading ? (
+                      <div className="flex items-center justify-center h-12">
+                        <div className="w-4 h-4 border-2 border-gray-200 border-t-indigo-600 rounded-full animate-spin dark:border-gray-700 dark:border-t-indigo-400" />
+                      </div>
+                    ) : coin?.market_data?.sparkline_7d?.price ? (
                       <Sparkline
                         Chartdata={coin.market_data.sparkline_7d.price}
                         trend={
@@ -129,7 +134,7 @@ export const Coin = () => {
                             : ""
                         }
                       />
-                    )}
+                    ) : null}
                   </div>
                 </div>
               </div>
