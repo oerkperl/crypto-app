@@ -36,7 +36,7 @@ export const Dashboard: React.FC = () => {
 
   return (
     <section className="">
-      <div className="mt-2 flex flex-col gap-2">
+      <div className="mt-1 flex flex-col gap-2">
         {/* Top Row: Coins List - Horizontal scroll on mobile */}
         <div className="w-full">
           <div className="bg-white dark:bg-accent-bg rounded shadow-md p-3">

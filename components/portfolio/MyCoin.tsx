@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { usePortfolioStore } from "@/store";
-//import { BlinkingGradientLoader } from "@/app/lib/utils/components/BlinkingLoader";
-//import { calculatPriceChange } from "@/app/lib/utils/formatters";
 import { TrendLabel } from "@/components/TrendLable";
 import { BlinkingGradientLoader } from "@/lib/utils/components/BlinkingLoader";
 import { calculatPriceChange } from "@/lib/utils/formatters";

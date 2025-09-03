@@ -1,20 +1,35 @@
 import React, { useRef, useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { getCoins } from "../home/coinsList/coinsSlice";
 import { SingleCoin } from "../SingleCoin";
 import { useUIStore } from "@/store/uiStore";
 import { useChartStore } from "@/store/chartStore";
 import { removeDuplicates } from "@/lib/utils/formatters";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
   switchCart,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const allCoins = removeDuplicates(useSelector(getCoins), "id");
   const setViewingCoinId = useUIStore((state) => state.setViewingCoinId);
   const setCurrentChart = useChartStore((state) => state.setCurrentChart);
   const [autoScrol, setAutoScrol] = useState<boolean>(true);
+  const handleCoinClick = (coin: any) => {
+    if (switchCart) {
+      handleChartChange(coin);
+    } else {
+      // Navigate to the coin page with the correct ID
+      router.push(`/coin?id=${coin.id}`);
+    }
+  };
+
   const scrollLeft = () => {
     if (containerRef.current) {
       containerRef.current.scrollBy({
@@ -69,16 +84,9 @@ export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
           ref={containerRef}
           className={`flex gap-2 overflow-x-hidden relative w-full px-8`}
         >
-          <ul className=" flex w-full gap-2">
+          <ul className=" flex gap-2">
             {allCoins.map((coin) => (
-              <button
-                key={coin.id}
-                onClick={() => {
-                  switchCart
-                    ? handleChartChange(coin)
-                    : setViewingCoinId(coin?.id);
-                }}
-              >
+              <button key={coin.id} onClick={() => handleCoinClick(coin)}>
                 <li
                   className={`w-80 hover:bg-indigo-600 hover:text-white text-sm rounded-md  shadow-md border border-gray-300 dark:border-0
                     text-xs py-1 flex gap-1 bg-white dark:bg-accent-bg
@@ -97,7 +105,7 @@ export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
               onClick={scrollLeft}
               aria-label="Scroll left"
             >
-              {"<"}
+              <FontAwesomeIcon icon={faChevronLeft} className="w-4 h-4" />
             </button>
             <button
               className="absolute top-1/2 right-1 transform -translate-y-1/2 min-w-[44px] min-h-[44px] z-10 bg-gray-400/90 dark:bg-gray-800/90 hover:bg-indigo-600 rounded-full flex items-center justify-center text-white shadow-lg backdrop-blur-sm transition-colors"
@@ -106,7 +114,7 @@ export const OtherCoins: React.FC<{ switchCart?: boolean }> = ({
               }}
               aria-label="Scroll right"
             >
-              {">"}
+              <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4" />
             </button>
           </>
         )}

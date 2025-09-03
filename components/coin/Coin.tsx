@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 import { LinksList } from "./LinksList";
 import { LoadinSingleCoin } from "./LoadinSingleCoin";
 import { CoinProfileCard } from "./CoinProfileCard";
@@ -15,15 +16,21 @@ import { ChartConverter } from "../shared/ChartConverter";
 export const Coin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coin, setCoin] = useState<any>({});
+  const searchParams = useSearchParams();
+
+  // Get coin ID from URL parameter first, fallback to store state
+  const urlCoinId = searchParams.get("id");
+  const storeCoinId = useUIStore((state) => state.viewingCoinId);
+  const currentCoinId = urlCoinId || storeCoinId;
 
   // ✅ Zustand: Selective subscriptions to only needed state
-  const viewingCoinId = useUIStore((state) => state.viewingCoinId);
   const selectedCurrency = useCurrencyStore((state) => state.selectedCurrency);
   const setCanVisit = useUIStore((state) => state.setCanVisit);
   const setQuery = useUIStore((state) => state.setQuery);
+  const setViewingCoinId = useUIStore((state) => state.setViewingCoinId);
 
-  const hasId = !!viewingCoinId;
-  const url = `https://api.coingecko.com/api/v3/coins/${viewingCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
+  const hasId = !!currentCoinId;
+  const url = `https://api.coingecko.com/api/v3/coins/${currentCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
   const baseCoin = {
     image: coin?.image?.small,
     name: coin?.name,
@@ -36,9 +43,15 @@ export const Coin = () => {
         setCoin(data);
         setIsLoading(false);
         setQuery("");
+        // Update store state to keep it in sync
+        if (urlCoinId) {
+          setViewingCoinId(urlCoinId);
+        }
       }
       setCanVisit(false);
-    } catch (err) {}
+    } catch (err) {
+      console.error("Failed to fetch coin data:", err);
+    }
   };
 
   useEffect(() => {
@@ -46,7 +59,7 @@ export const Coin = () => {
     if (hasId) {
       fetchCoin();
     }
-  }, [viewingCoinId]);
+  }, [currentCoinId]); // Changed dependency to currentCoinId
 
   return (
     <main className="w-full max-w-full sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px] mx-auto px-2 sm:px-4 lg:px-6">
@@ -134,7 +147,7 @@ export const Coin = () => {
           </div>
 
           <ChartConverter
-            coinId={coin?.id}
+            coinId={currentCoinId}
             baseCoin={baseCoin}
             showConverter={true}
           />
@@ -153,9 +166,9 @@ export const Coin = () => {
               }}
             />
           </div>
-          <div className="mt-2">
-            <LinksList links={coin?.links?.blockchain_site} />
-          </div>
+
+          <LinksList links={coin?.links?.blockchain_site} />
+
           <hr className="border-gray-300 dark:border-gray-700 my-2" />
 
           <div className="w-full bg-gray-100 dark:bg-transparent rounded">

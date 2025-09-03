@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { FormModal } from "./FormModal";
+import { AssetForm } from "./AssetForm";
 import { AssetsList } from "./AssetsList";
 import { usePortfolioStore } from "@/store";
-import { Modal } from "../Modal";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 export const Portfolio = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // ✅ Zustand: Only subscribes to portfolio assets
-  const getAssets = usePortfolioStore((state) => state.getAssets);
-  const hasAssets = getAssets().length > 0;
+  // ✅ Zustand: Subscribe directly to assets array for reactivity
+  const assets = usePortfolioStore((state) => state.assets);
+  const hasAssets = assets.length > 0;
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -57,9 +63,18 @@ export const Portfolio = () => {
           )}
         </div>
 
-        <Modal isOpen={isOpen} onClose={handleCloseModal}>
-          <FormModal onClose={handleCloseModal} isOpen={isOpen} />
-        </Modal>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Add New Asset</DialogTitle>
+              <DialogDescription>
+                Add a cryptocurrency to your portfolio to start tracking its
+                performance.
+              </DialogDescription>
+            </DialogHeader>
+            <AssetForm onClose={handleCloseModal} />
+          </DialogContent>
+        </Dialog>
       </section>
     </main>
   );

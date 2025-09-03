@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { ProfileCard } from "./ProfileCard";
 import { MyAsset } from "./MyAsset";
 import { MyCoin } from "./MyCoin";
+import { apiHelpers } from "@/lib/api/coingecko";
 
 export const AssetRow: React.FC<{ myCoin: any }> = ({ myCoin }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
   const [asset, setAsset] = useState<any>({});
 
-  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${myCoin?.id}&order=market_cap_desc&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d`;
-
   const fetchAsset = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios(url);
+      const data = await apiHelpers.getCoinMarkets({
+        ids: myCoin?.id,
+        perPage: 1,
+      });
       if (data && data[0]) {
         setAsset(data[0]);
         setHasError(false);
       }
     } catch (error) {
+      console.error("Failed to fetch asset data:", error);
       setHasError(true);
     } finally {
       setIsLoading(false);

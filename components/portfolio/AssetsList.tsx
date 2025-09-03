@@ -3,8 +3,7 @@ import { usePortfolioStore } from "@/store";
 import { AssetRow } from "./AssetRow";
 
 export const AssetsList = () => {
-  const getAssets = usePortfolioStore((state) => state.getAssets);
-  const assets = getAssets();
+  const assets = usePortfolioStore((state) => state.assets);
 
   return (
     <div className="space-y-4">

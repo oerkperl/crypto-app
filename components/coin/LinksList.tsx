@@ -40,27 +40,27 @@ export const LinksList: React.FC<LinksListProps> = ({
   };
 
   return (
-    <>
-      <div
-        ref={containerRef}
-        className="flex items-center py-2 gap-2 w-full overflow-x-auto scrollbar-hide bg-white dark:bg-accent-bg px-2 rounded"
-      >
-        {links &&
-          links
-            .filter((link) => link !== "")
-            .map((link) => (
-              <Link
-                key={nanoid()}
-                href={link}
-                target="_blank"
-                className="flex w-full items-center overflow-hidden px-2 text-truncate"
-              >
-                <div className="w-full flex items-center">{trimLink(link)}</div>
-              </Link>
-            ))}
-      </div>
-
-      {/* Left scroll button */}
-    </>
+    <div
+      ref={containerRef}
+      className="flex items-center py-2  mt-2  overflow-x-auto scrollbar-hide bg-white dark:bg-accent-bg px-2 rounded"
+    >
+      {links &&
+        links
+          .filter((link) => link !== "")
+          .map((link) => (
+            <div key={nanoid()} className="flex  items-center px-2 ">
+              <div className="flex items-center">
+                <Link href={link} target="_blank" className="flex items-center">
+                  <div
+                    className="flex items-center bg-gray-300 dark:bg-gray-800 px-2 py-1 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800
+                  dark:hover:text-white"
+                  >
+                    {trimLink(link)}
+                  </div>
+                </Link>
+              </div>
+            </div>
+          ))}
+    </div>
   );
 };

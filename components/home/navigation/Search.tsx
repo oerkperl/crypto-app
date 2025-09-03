@@ -6,6 +6,7 @@ import { SpinnerContainer } from "../../styled";
 import { useUIStore, useUtilsStore } from "@/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { apiHelpers } from "@/lib/api/coingecko";
 
 export const Search = () => {
   const [results, setResults] = useState<any[]>([]);
@@ -17,6 +18,7 @@ export const Search = () => {
   // ✅ Zustand: Selective subscriptions to only needed state
   const viewingCoinId = useUIStore((state) => state.viewingCoinId);
   const setViewingCoinId = useUIStore((state) => state.setViewingCoinId);
+  const viewCoin = useUIStore((state) => state.viewCoin);
   const isOpen = useUIStore((state) => state.isOpen);
   const query = useUIStore((state) => state.query);
   const setQuery = useUIStore((state) => state.setQuery);
@@ -46,9 +48,7 @@ export const Search = () => {
   const fetchResults = async (query: string) => {
     setIsLoading(true);
     try {
-      const { data } = await axios(
-        `https://api.coingecko.com/api/v3/search?query=${query}`
-      );
+      const data = await apiHelpers.searchCoins(query);
 
       if (data) {
         setResults(data.coins);
@@ -56,7 +56,7 @@ export const Search = () => {
       }
     } catch (error) {
       setIsLoading(false);
-      setErrorMessage("Possible server timeout", 3000);
+      setErrorMessage("Search failed - possible timeout", 3000);
       setNotification("Possible server timeout");
     }
   };
@@ -66,9 +66,7 @@ export const Search = () => {
     setViewingCoinId(suggestion.id);
     setResults([]);
     setCanVisit(true);
-    if (activePath === "/coin" && isOpen) {
-      setQuery("");
-    }
+    // Simple: always show confirmation, regardless of route
   };
 
   const clear = () => {
@@ -77,9 +75,31 @@ export const Search = () => {
 
   const closeMobileSearch = () => {
     setIsMobileSearchOpen(false);
-    setQuery("");
-    setResults([]);
+    // Small delay to allow navigation to complete before clearing state
+    setTimeout(() => {
+      setQuery("");
+      setResults([]);
+      setCanVisit(false);
+      setNotification("");
+    }, 100);
+  };
+
+  const resetSearch = () => {
     setCanVisit(false);
+    setQuery("");
+    setViewingCoinId("");
+    setResults([]);
+    setNotification("");
+
+    // Focus back on the input after state reset
+    setTimeout(() => {
+      const input = document.querySelector(
+        'input[placeholder="Search for a coin..."]'
+      ) as HTMLInputElement;
+      if (input) {
+        input.focus();
+      }
+    }, 100);
   };
 
   return (
@@ -96,7 +116,7 @@ export const Search = () => {
             onChange={handleChange}
             placeholder="Search for a coin..."
           />
-          {canVisit && activePath !== "/coin" && query !== "" && (
+          {canVisit && query !== "" && (
             <button
               className="text-green-500 ml-2 px-2 py-1 text-xs sm:text-sm whitespace-nowrap hover:bg-green-50 dark:hover:bg-green-900 rounded"
               onClick={() => {
@@ -109,18 +129,16 @@ export const Search = () => {
           )}
         </div>
         <div>
-          {query.trim() !== "" && (
+          {query.trim() !== "" && results.length > 0 && (
             <ul className="absolute z-10 w-full max-h-48 sm:max-h-64 overflow-y-scroll mt-1 bg-white dark:bg-accent-bg dark:text-gray-400 shadow-lg rounded border border-gray-200 dark:border-gray-700">
-              {results.length > 0 && (
-                <div className="flex justify-end px-3 py-1 border-b border-gray-200 dark:border-gray-700">
-                  <button
-                    onClick={clear}
-                    className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
-                    ×
-                  </button>
-                </div>
-              )}
+              <div className="flex justify-end px-3 py-1 border-b border-gray-200 dark:border-gray-700">
+                <button
+                  onClick={clear}
+                  className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  ×
+                </button>
+              </div>
               {results.map((result) => (
                 <li
                   key={result.id}
@@ -187,15 +205,12 @@ export const Search = () => {
 
             {/* Search Results */}
             <div className="flex-1 overflow-y-auto">
-              {query.trim() !== "" && results.length > 0 && (
+              {query.trim() !== "" && results.length > 0 && !canVisit && (
                 <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                   {results.map((result) => (
                     <li
                       key={result.id}
-                      onClick={() => {
-                        handleSuggestionClick(result);
-                        closeMobileSearch();
-                      }}
+                      onClick={() => handleSuggestionClick(result)}
                       className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
                     >
                       <span className="text-base text-gray-900 dark:text-gray-100">
@@ -206,15 +221,26 @@ export const Search = () => {
                 </ul>
               )}
 
-              {canVisit && activePath !== "/coin" && query !== "" && (
-                <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-                  <Link
-                    href={`/coin?id=${viewingCoinId}`}
-                    onClick={closeMobileSearch}
-                    className="w-full bg-green-600 text-white py-3 px-4 rounded text-center font-medium hover:bg-green-700 transition-colors block"
-                  >
-                    View {query}
-                  </Link>
+              {/* Selection Feedback - Always show regardless of route */}
+              {canVisit && query !== "" && (
+                <div className="p-6 text-center">
+                  <div className="mb-6">
+                    <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-2xl">✓</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                      {query} Selected
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                      Ready to view detailed information about {query}
+                    </p>
+                    <button
+                      onClick={resetSearch}
+                      className="text-blue-600 dark:text-blue-400 text-sm hover:underline transition-colors px-2 py-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900"
+                    >
+                      Search for a different coin
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -232,6 +258,19 @@ export const Search = () => {
                 </div>
               )}
             </div>
+
+            {/* Navigation Button - Always show regardless of route */}
+            {canVisit && query !== "" && (
+              <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+                <Link
+                  href={`/coin?id=${viewingCoinId}`}
+                  onClick={closeMobileSearch}
+                  className="w-full bg-green-600 text-white py-4 px-4 rounded-lg text-center font-semibold hover:bg-green-700 transition-colors block text-lg"
+                >
+                  See {query} Details →
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}
