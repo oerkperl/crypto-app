@@ -14,8 +14,7 @@ interface AssetFormProps {
 export const AssetForm: React.FC<AssetFormProps> = ({ onClose }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [wantsToSave, setWantsToSave] = useState<boolean>(false);
-  const [notification, setNotification] = useState<string>("");
+  const [errors, setErrors] = useState<{coin: string; amount: string}>({coin: "", amount: ""});
   const [hasError, setHasError] = useState<boolean>(false);
   const [selectedCoin, setSelectedCoin] = useState<any>({});
   const [canSelect, setCanSelect] = useState<boolean>(false);
@@ -27,7 +26,7 @@ export const AssetForm: React.FC<AssetFormProps> = ({ onClose }) => {
   const setErrorMessage = useUtilsStore((state) => state.setErrorMessage);
 
   const hasCoin: boolean = Object.entries(selectedCoin).length !== 0;
-  const hasAmount: boolean = amount !== undefined && amount >= 0;
+  const hasAmount: boolean = amount !== undefined && amount > 0;
   const canAddAsset: boolean = hasAmount && hasCoin;
 
   const date: string = getCurrentDate();
@@ -43,15 +42,36 @@ export const AssetForm: React.FC<AssetFormProps> = ({ onClose }) => {
         setSelectedCoin(data[0]);
         setHasError(false);
         setCanSelect(false);
+        // Clear coin error when successfully selected
+        setErrors(prev => ({...prev, coin: ""}));
       }
     } catch (error) {
       setErrorMessage("Network error:try again later", 3000);
-      setNotification("Network error:try again later");
+      setErrors(prev => ({...prev, coin: "Network error: try again later"}));
       setHasError(true);
     }
   };
 
+  const validateForm = () => {
+    const newErrors = {coin: "", amount: ""};
+    
+    if (!hasCoin) {
+      newErrors.coin = "Please select a coin";
+    }
+    
+    if (!hasAmount) {
+      newErrors.amount = "Please enter a valid amount greater than 0";
+    }
+    
+    setErrors(newErrors);
+    return newErrors.coin === "" && newErrors.amount === "";
+  };
+
   const addNewAsset = () => {
+    if (!validateForm()) {
+      return;
+    }
+    
     const asset: TAsset = {
       id: selectedCoin?.id,
       name: selectedCoin?.name,
@@ -61,51 +81,30 @@ export const AssetForm: React.FC<AssetFormProps> = ({ onClose }) => {
       symbol: selectedCoin?.symbol,
       priceDuringPurchase: selectedCoin?.current_price,
     };
-    if (canAddAsset) {
-      addAsset(asset);
-      setSelectedCoin({});
-      setAmount(0);
-      setQuery("");
-      onClose();
-    }
+    
+    addAsset(asset);
+    setSelectedCoin({});
+    setAmount(undefined);
+    setQuery("");
+    onClose();
   };
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = parseFloat(event.target.value);
     if (inputValue < 0) {
       setErrorMessage("Negative input attempt", 3000);
-      setNotification("Negative input attempt");
+      setErrors(prev => ({...prev, amount: "Amount cannot be negative"}));
+    } else if (inputValue === 0) {
+      setErrors(prev => ({...prev, amount: "Amount must be greater than 0"}));
+      setAmount(inputValue);
     } else {
+      setErrors(prev => ({...prev, amount: ""}));
       setAmount(inputValue);
     }
   };
 
-  useEffect(() => {
-    if (!hasCoin && hasAmount) {
-      setNotification("Select a coin");
-    }
-    if (!hasAmount && hasCoin) {
-      setNotification("Choose amount");
-    }
-    if (!hasAmount && !hasCoin) {
-      setNotification("Complete the form please");
-    }
-    if (wantsToSave === false) {
-      setNotification("");
-    }
-  }, [wantsToSave]);
-
   return (
     <div className="w-full">
-      {/* Error/Notification Display */}
-      {notification !== "" && (
-        <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
-          <p className="text-red-600 dark:text-red-400 text-sm">
-            {notification}
-          </p>
-        </div>
-      )}
-
       {/* Form Content */}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Form Fields */}
@@ -115,22 +114,29 @@ export const AssetForm: React.FC<AssetFormProps> = ({ onClose }) => {
             <div className="w-full sm:w-1/5">
               <label className="text-sm font-medium">Coin</label>
             </div>
-            <div
-              className={`min-h-[44px] w-full sm:w-4/5 shadow-md bg-white dark:bg-input-bg rounded flex items-center
-              ${
-                !hasCoin && wantsToSave
-                  ? "border-2 border-pink-600"
-                  : "border border-gray-300 dark:border-gray-600"
-              }`}
-            >
-              <SelectCoin
-                fetchData={fetchData}
-                query={query}
-                setQuery={setQuery}
-                canSelect={canSelect}
-                setCanSelect={setCanSelect}
-                hasError={hasError}
-              />
+            <div className="w-full sm:w-4/5">
+              <div
+                className={`min-h-[44px] w-full shadow-md bg-white dark:bg-input-bg rounded flex items-center
+                ${
+                  errors.coin
+                    ? "border-2 border-red-500"
+                    : "border border-gray-300 dark:border-gray-600"
+                }`}
+              >
+                <SelectCoin
+                  fetchData={fetchData}
+                  query={query}
+                  setQuery={setQuery}
+                  canSelect={canSelect}
+                  setCanSelect={setCanSelect}
+                  hasError={hasError}
+                />
+              </div>
+              {errors.coin && (
+                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  {errors.coin}
+                </p>
+              )}
             </div>
           </div>
 
@@ -143,16 +149,21 @@ export const AssetForm: React.FC<AssetFormProps> = ({ onClose }) => {
               <input
                 className={`min-h-[44px] w-full shadow-md rounded px-3 bg-white dark:bg-input-bg outline-none text-base
                 ${
-                  !hasAmount && wantsToSave
-                    ? "border-2 border-pink-600"
+                  errors.amount
+                    ? "border-2 border-red-500"
                     : "border border-gray-300 dark:border-gray-600"
                 }
                 `}
                 type="number"
                 placeholder="Enter amount"
-                value={amount}
+                value={amount || ""}
                 onChange={handleAmountChange}
               />
+              {errors.amount && (
+                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                  {errors.amount}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -198,11 +209,7 @@ export const AssetForm: React.FC<AssetFormProps> = ({ onClose }) => {
               ? "bg-green-600 hover:bg-green-700"
               : "bg-indigo-600 hover:bg-indigo-700"
           }`}
-          onClick={() => {
-            canAddAsset ? addNewAsset() : "";
-          }}
-          onMouseEnter={() => setWantsToSave(true)}
-          onMouseLeave={() => setWantsToSave(false)}
+          onClick={addNewAsset}
         >
           Save Asset
         </button>

@@ -52,7 +52,7 @@ export const LinksList: React.FC<LinksListProps> = ({
               <div className="flex items-center">
                 <Link href={link} target="_blank" className="flex items-center">
                   <div
-                    className="flex items-center bg-gray-300 dark:bg-gray-800 px-2 py-1 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800
+                    className="flex items-center bg-gray-100 dark:bg-input-bg px-2 py-1 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800
                   dark:hover:text-white"
                   >
                     {trimLink(link)}

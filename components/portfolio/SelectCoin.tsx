@@ -106,7 +106,7 @@ export const SelectCoin: React.FC<ISelectCoin> = ({
 
         {/* Results Dropdown */}
         <div className="relative">
-          {query.trim() && (
+          {query.trim() && results.length > 0 && (
             <ul className="absolute z-50 w-full max-h-64 overflow-y-auto mt-1 bg-white dark:bg-gray-800 shadow-lg rounded border border-gray-200 dark:border-gray-600">
               {results.length > 0 && (
                 <div className="flex justify-end px-3 py-2 border-b border-gray-200 dark:border-gray-600">
