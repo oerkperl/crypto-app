@@ -52,33 +52,33 @@ export const MarketData = () => {
       )}
 
       {!isLoading && (
-        <div className="text-xs">
-          <div className="flex flex-col sm:flex-row sm:justify-between items-center py-2 text-center gap-2 sm:gap-0">
+        <div className="text-xs overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:justify-between items-center py-2 text-center gap-2 sm:gap-0 min-w-0">
             {/* Mobile: Show only essential info */}
-            <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-10 text-xs">
-              <div className="hidden sm:flex items-center gap-1">
+            <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-10 text-xs min-w-0">
+              <div className="hidden sm:flex items-center gap-1 min-w-0">
                 <FontAwesomeIcon icon={faCoins} />
                 <span>Coins: </span>
                 <span className="dark:text-white">
                   {data?.active_cryptocurrencies}
                 </span>
               </div>
-              <div className="hidden sm:flex items-center gap-1">
+              <div className="hidden sm:flex items-center gap-1 min-w-0">
                 <FontAwesomeIcon icon={faClone} />
                 <span>Exchange:</span>
                 <span className="dark:text-white"> {data?.markets}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <span>Market Cap: </span>
-                <span className="dark:text-white font-medium">
+              <div className="flex items-center gap-1 min-w-0">
+                <span className="whitespace-nowrap">Market Cap: </span>
+                <span className="dark:text-white font-medium truncate">
                   {selectedCurrency.sym +
                     formatMoney(data?.total_market_cap[currencyName])}
                 </span>
               </div>
 
-              <div className="flex items-center gap-1">
-                <span>24h Vol: </span>
-                <span className="dark:text-white font-medium">
+              <div className="flex items-center gap-1 min-w-0">
+                <span className="whitespace-nowrap">24h Vol: </span>
+                <span className="dark:text-white font-medium truncate">
                   {selectedCurrency.sym +
                     formatMoney(data?.total_volume[currencyName])}
                 </span>
@@ -86,42 +86,46 @@ export const MarketData = () => {
             </div>
 
             {/* Dominance indicators - responsive layout */}
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-              <div className="flex items-center gap-1">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-4 min-w-0">
+              <div className="flex items-center gap-1 min-w-0">
                 {bitcoin?.image && (
                   <Image
                     src={bitcoin?.image}
                     width={20}
                     height={20}
-                    className="sm:w-[25px] sm:h-[25px]"
+                    className="sm:w-[25px] sm:h-[25px] flex-shrink-0"
                     alt="bitcoin image"
                   />
                 )}
-                <span className="text-xs">{btc_mc_percentage}%</span>
-                <ProgressBar
-                  progress={btc_mc_percentage.toString()}
-                  width="60px"
-                  fg="#FE921A"
-                  customBg="#666"
-                />
+                <span className="text-xs whitespace-nowrap">{btc_mc_percentage}%</span>
+                <div className="min-w-0">
+                  <ProgressBar
+                    progress={btc_mc_percentage.toString()}
+                    width="60px"
+                    fg="#FE921A"
+                    customBg="#666"
+                  />
+                </div>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 min-w-0">
                 {ethereum?.image && (
                   <Image
                     src={ethereum?.image}
                     width={20}
                     height={20}
-                    className="sm:w-[25px] sm:h-[25px]"
+                    className="sm:w-[25px] sm:h-[25px] flex-shrink-0"
                     alt="ethereum image"
                   />
                 )}
-                <span className="text-xs">{eth_mc_percentage}%</span>
-                <ProgressBar
-                  progress={eth_mc_percentage.toString()}
-                  width="60px"
-                  fg="#537FEF"
-                  customBg="#666"
-                />
+                <span className="text-xs whitespace-nowrap">{eth_mc_percentage}%</span>
+                <div className="min-w-0">
+                  <ProgressBar
+                    progress={eth_mc_percentage.toString()}
+                    width="60px"
+                    fg="#537FEF"
+                    customBg="#666"
+                  />
+                </div>
               </div>
             </div>
           </div>

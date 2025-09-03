@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
   useChartStore,
   useCurrencyStore,
@@ -52,6 +53,31 @@ export const Dashboard: React.FC = () => {
             <HorizontalCoinSelector coins={allCoins} />
           </div>
         </div>
+
+        {/* Current Chart Coin Header */}
+        {activeCoin && (
+          <div className="bg-white dark:bg-accent-bg rounded shadow-md p-3 whitespace-nowrap overflow-hidden">
+            <div className="flex items-center gap-3">
+              {activeCoin.image && (
+                <Image
+                  src={activeCoin.image}
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                  alt={`${activeCoin.name} logo`}
+                />
+              )}
+              <div className="flex items-center gap-2  ">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white whitespace-nowrap text-ellipsis overflow-hidden">
+                  {activeCoin.name}
+                </h2>
+                <p className="text-sm text-gray-600 dark:text-gray-400 uppercase font-medium whitespace-nowrap text-ellipsis overflow-hidden">
+                  {activeCoin.symbol + " chart"}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Main Chart and Converter */}
         <ChartConverter

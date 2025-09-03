@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useChartStore } from "@/store";
 import { SingleCoin } from "../../SingleCoin";
 
@@ -23,6 +23,24 @@ export const HorizontalCoinSelector: React.FC<HorizontalCoinSelectorProps> = ({
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showScrollButtons, setShowScrollButtons] = useState(false);
+
+  // Auto-scroll to selected coin when component mounts or currentChart changes
+  useEffect(() => {
+    if (scrollContainerRef.current && currentChart) {
+      // Find the selected coin element by its data attribute
+      const selectedElement = scrollContainerRef.current.querySelector(
+        `[data-coin-id="${currentChart.id}"]`
+      );
+
+      if (selectedElement) {
+        selectedElement.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "nearest",
+        });
+      }
+    }
+  }, [currentChart?.id]); // Only depend on the chart ID to avoid unnecessary re-renders
 
   const handleChartChange = (obj: any) => {
     setCurrentChart(obj);
@@ -78,6 +96,7 @@ export const HorizontalCoinSelector: React.FC<HorizontalCoinSelectorProps> = ({
           coins.map((coin) => (
             <button
               key={coin.id}
+              data-coin-id={coin.id}
               onClick={() => handleChartChange(coin)}
               className="flex-shrink-0"
             >
