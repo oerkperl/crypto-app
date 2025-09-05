@@ -112,9 +112,6 @@ export const PriceChart: React.FC<{ coinId: string }> = ({ coinId }) => {
             )}
             {hasError && (
               <div className="flex flex-col sm:flex-row gap-2 px-2 text-center sm:text-left">
-                <h1 className="text-sm">
-                  Error fetching chart, try again later...
-                </h1>
                 <button
                   className="hover:underline dark:hover:text-white text-indigo-600 dark:text-indigo-400 min-h-[44px] sm:min-h-auto"
                   onClick={fetchChart}
